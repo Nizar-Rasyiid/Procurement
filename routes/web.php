@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\SuplierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,3 +30,8 @@ Route::post('/admin-table/storeAdmin','App\Http\Controllers\AdminController@stor
 Route::get('/admin-table/customer-table',[CustomerController::class, 'index'])->name('tableCustomer');
 Route::get('/admin-table/storeCustomer',[CustomerController::class, 'halamanStoreCustomer'])->name('storeCustomer');
 Route::post('/admin-table/storeCustomer','App\Http\Controllers\CustomerController@storeCustomer');
+
+//Suplier
+Route::get('/admin-table/suplier-table',[SuplierController::class, 'index'])->name('tableSuplier');
+Route::get('/admin-table/storeSuplier',[SuplierController::class, 'halamanStore'])->name('storeSuplier');
+Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@store');
