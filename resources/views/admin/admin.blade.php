@@ -175,13 +175,13 @@
           </li>
           <li class="nav-item nav-category">Suplier</li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/storeSuplier')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Input Suplier</span>
             </a>
           </li>
             <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/suplier-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">View List Suplier</span>
             </a>
