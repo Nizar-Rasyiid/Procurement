@@ -67,7 +67,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/admin-table-customer')}}" class="nav-link">
+            <a href="{{url('/admin-table/SO-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">View List SO</span>
             </a>
@@ -80,13 +80,13 @@
             </li>
           <li class="nav-item nav-category">DO</li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/store-do')}}" class="nav-link">
               <i class="link-icon" data-feather="inbox"></i>
               <span class="link-title">Input DO</span>
             </a>
           </li>
             <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/DO-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">View List DO</span>
             </a>
@@ -105,7 +105,7 @@
             </a>
         <li class="nav-item nav-category">Transaction</li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/transaksi-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">List Transaction</span>
             </a>
