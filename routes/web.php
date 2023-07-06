@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuplierController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\DeliveryOrderController;
+use App\Http\Controllers\SalesOrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +38,14 @@ Route::post('/admin-table/storeCustomer','App\Http\Controllers\CustomerControlle
 Route::get('/admin-table/suplier-table',[SuplierController::class, 'index'])->name('tableSuplier');
 Route::get('/admin-table/storeSuplier',[SuplierController::class, 'halamanStore'])->name('storeSuplier');
 Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@store');
+
+
+//Transaksi
+Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])->name('tableTransaksi');
+
+
+//DO
+Route::get('/admin-table/DO-table',[DeliveryOrderController::class, 'index'])->name('tableDeliveryOrder');
+Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'halamanInput'])->name('inputDeliveryOrder');
+//SO
+Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
