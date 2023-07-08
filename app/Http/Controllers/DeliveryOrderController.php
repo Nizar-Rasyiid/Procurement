@@ -11,15 +11,17 @@ class DeliveryOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index() {
         return view('admin.ViewList.tableDeliveryOrder');
     }
 
-    public function halamanInput()
-    {
+    public function halamanInput() {
         return view('admin.Input.inputDo');
     }
+    public function paymentDO() {
+        return view('admin.Payment.DoPayment');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
