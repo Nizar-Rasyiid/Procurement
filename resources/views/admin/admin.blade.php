@@ -61,7 +61,7 @@
           </li>
           <li class="nav-item nav-category">SO</li>
           <li class="nav-item">
-            <a href="{{url('/admin-table-admin')}}" class="nav-link">
+            <a href="{{url('/admin-table/store-so')}}" class="nav-link">
               <i class="link-icon" data-feather="inbox"></i>
               <span class="link-title">Input SO</span>
             </a>
@@ -73,7 +73,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/payment-so')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment SO</span>
             </a>
@@ -99,7 +99,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/payment-do')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment DO</span>
             </a>

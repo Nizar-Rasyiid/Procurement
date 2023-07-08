@@ -10,11 +10,15 @@ class SalesOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
+    public function index(){
         return view('admin.ViewList.tableSalesOrder');
     }
-
+    public function halamanInput()  {
+        return view('admin.Input.InputSO');
+    }
+    public function paymentSO()  {
+        return view('admin.Payment.SoPayment');
+    }
     /**
      * Show the form for creating a new resource.
      */
