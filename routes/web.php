@@ -42,6 +42,8 @@ Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@
 
 //Transaksi
 Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])->name('tableTransaksi');
+//transaksi/SO
+Route::get('/admin-table/transaksi-Sales_Order', [CustomerController::class, 'ambil'])->name('paymentSalesOrder');
 
 
 //DO

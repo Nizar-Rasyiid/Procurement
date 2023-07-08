@@ -73,7 +73,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/admin-table/transaksi-Sales_Order')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment SO</span>
             </a>

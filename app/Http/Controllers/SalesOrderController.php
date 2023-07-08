@@ -15,6 +15,11 @@ class SalesOrderController extends Controller
         return view('admin.ViewList.tableSalesOrder');
     }
 
+    public function tampil()
+    {
+        return view('admin.payment.paymentSalesOrder');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

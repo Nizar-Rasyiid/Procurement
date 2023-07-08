@@ -21,6 +21,7 @@ class SuplierController extends Controller
         return view('admin.Input.suplierStore');
     }
 
+
     /**
      * Show the form for creating a new resource.
      */
