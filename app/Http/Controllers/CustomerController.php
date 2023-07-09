@@ -13,6 +13,10 @@ class CustomerController extends Controller
       $customer = Customer::all();
       return view('admin.ViewList.tableCustomer',compact('customer'));
     }
+    public function ambil(){
+        $customer = Customer::all();
+        return view('admin.payment.paymentSalesOrder', ["customer"=>$customer]);
+    }
     public function halamanStoreCustomer()  {
       return view('admin.Input.customerStore');
     }

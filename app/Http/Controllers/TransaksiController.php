@@ -3,24 +3,18 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Suplier;
+use App\Models\Transaksi;
 use Illuminate\Support\Facades\DB;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-class SuplierController extends Controller
+
+class TransaksiController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $supliers = Suplier::all();
-        return view('admin.ViewList.tableSuplier',compact('supliers'));
+        return view('admin.ViewList.tableTransaksi');
     }
-    public function halamanStore()
-    {
-        return view('admin.Input.suplierStore');
-    }
-
 
     /**
      * Show the form for creating a new resource.

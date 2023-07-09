@@ -3,25 +3,31 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Suplier;
+use App\Models\DeliveryOrder;
 use Illuminate\Support\Facades\DB;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-class SuplierController extends Controller
+class SalesOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $supliers = Suplier::all();
-        return view('admin.ViewList.tableSuplier',compact('supliers'));
+    public function index(){
+        return view('admin.ViewList.tableSalesOrder');
     }
-    public function halamanStore()
+<<<<<<< HEAD
+
+    public function tampil()
     {
-        return view('admin.Input.suplierStore');
+        return view('admin.payment.paymentSalesOrder');
     }
 
-
+=======
+    public function halamanInput()  {
+        return view('admin.Input.InputSO');
+    }
+    public function paymentSO()  {
+        return view('admin.Payment.SoPayment');
+    }
+>>>>>>> 0d55d095acbdf81a583d6710292ff18d5c449ac8
     /**
      * Show the form for creating a new resource.
      */

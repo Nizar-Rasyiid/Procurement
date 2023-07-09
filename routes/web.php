@@ -4,10 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuplierController;
-use App\Http\Controllers\ARController;
-use App\Http\Controllers\APController;
-use App\Http\Controllers\APSuplierController;
-use App\Http\Controllers\ARSuplierController;
+use App\Http\Controllers\TransaksiController;
+use App\Http\Controllers\DeliveryOrderController;
+use App\Http\Controllers\SalesOrderController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,14 +39,18 @@ Route::get('/admin-table/suplier-table',[SuplierController::class, 'index'])->na
 Route::get('/admin-table/storeSuplier',[SuplierController::class, 'halamanStore'])->name('storeSuplier');
 Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@store');
 
-//AR
-Route::get('/admin-table/ar-table',[ARController::class, 'index'])->name('tableAR');
 
-//AP
-Route::get('/admin-table/ap-table',[APController::class, 'index'])->name('tableAP');
+//Transaksi
+Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])->name('tableTransaksi');
+//transaksi/SO
+Route::get('/admin-table/transaksi-Sales_Order', [CustomerController::class, 'ambil'])->name('paymentSalesOrder');
 
-//ARSuplier
-Route::get('/admin-table/arsuplier-table',[ARSuplierController::class, 'index'])->name('tableARSuplier');
 
-//APSuplier
-Route::get('/admin-table/apsuplier-table',[APSuplierController::class, 'index'])->name('tableAPSuplier');
+//DO
+Route::get('/admin-table/DO-table',[DeliveryOrderController::class, 'index'])->name('tableDeliveryOrder');
+Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'halamanInput'])->name('paymentDo');
+Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('inputDeliveryOrder');
+//SO
+Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
+Route::get('/admin-table/store-so',[SalesOrderController::class, 'halamanInput'])->name('inputSalesOrder');
+Route::get('/admin-table/payment-so',[SalesOrderController::class, 'paymentSO'])->name('paymentSo');
