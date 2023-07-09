@@ -5,7 +5,7 @@
     <table id="example" class="table table-striped" style="width:100%">
         <thead>
             <tr>
-                <th>ID Customer</th>
+                <th>ID Supplier</th>
                 <th>Tanggal</th>
                 <th>Status</th>
             </tr>
@@ -15,7 +15,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>ID Customer</th>
+                <th>ID Supplier</th>
                 <th>Tanggal</th>
                 <th>Status</th>
             </tr>

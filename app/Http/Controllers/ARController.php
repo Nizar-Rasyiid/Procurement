@@ -13,8 +13,12 @@ class ARController extends Controller
      */
     public function index()
     {
-        $ar=AR::all();
-        return view("admin.ViewList.tableAR",compact("ar"));
+        $ar = AR::all();
+        return view("admin.ViewList.tableAR", compact('ar'));
+    }
+
+    public function PaymentARCustomer(){
+        return view('admin.payment.paymentARCustomer');
     }
 
     /**

@@ -16,6 +16,10 @@ class ARSuplierController extends Controller
         return view("admin.ViewList.tableARSuplier");
     }
 
+    public function PaymentARSupplier(){
+        return view('admin.payment.paymentARSuplier');
+    }
+
     /**
      * Show the form for creating a new resource.
      */

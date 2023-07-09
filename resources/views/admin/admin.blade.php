@@ -112,13 +112,13 @@
           </li>
           <li class="nav-item nav-category">AR</li>
           <li class="nav-item">
-            <a href="{{url('/admin-table/ar-table')}}" class="nav-link">
+            <a href="{{url('/admin-table/ar-table-customer')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AR Customer</span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('admin-table/arsuplier-table')}}" class="nav-link">
+            <a href="{{url('/admin-table/ar-table-supplier')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AR Suplier</span>
             </a> 
@@ -137,13 +137,13 @@
           </li>
           <li class="nav-item nav-category">AP</li>
           <li class="nav-item">
-            <a href="{{url('/admin-table/ap-table')}}" class="nav-link">
+            <a href="{{url('/admin-table/ap-table-customer')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AP Customer</span>
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/admin-table/apsuplier-table')}}" class="nav-link">
+            <a href="{{url('/admin-table/ap-table-supplier')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AP Suplier</span>
             </a>

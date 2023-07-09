@@ -16,6 +16,10 @@ class APController extends Controller
         return view("admin.ViewList.tableAP");
     }
 
+    public function PaymentAPCustomer(){
+        return view('admin.payment.paymentAPCustomer');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
