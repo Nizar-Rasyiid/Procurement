@@ -7,6 +7,10 @@ use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\APController;
+use App\Http\Controllers\APSuplierController;
+use App\Http\Controllers\ARController;
+use App\Http\Controllers\ARSuplierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -52,4 +56,20 @@ Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validate
 //SO
 Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
 Route::get('/admin-table/store-so',[SalesOrderController::class, 'halamanInput'])->name('inputSalesOrder');
+
+//payment
 Route::get('/admin-table/payment-so',[SalesOrderController::class, 'paymentSO'])->name('paymentSo');
+Route::get('/admin-table/payment-ar-supplier',[ARSuplierController::class, 'PaymentARSupplier'])->name('PaymentARSupplier');
+Route::get('/admin-table/payment-ar-customer',[ARController::class, 'PaymentARCustomer'])->name('PaymentARCustomer');
+Route::get('/admin-table/payment-ap-supplier',[APSuplierController::class, 'PaymentAPSupplier'])->name('PaymentAPSupplier');
+Route::get('/admin-table/payment-ap-customer',[APController::class, 'PaymentAPCustomer'])->name('PaymentAPCustomer');
+
+//ap
+Route::get('/admin-table/ap-table-supplier',[APSuplierController::class, 'index'])->name('index');
+Route::get('/admin-table/ap-table-customer',[APController::class, 'index'])->name('index');
+
+//ar
+Route::get('/admin-table/ar-table-supplier',[ARSuplierController::class, 'index'])->name('index');
+Route::get('/admin-table/ar-table-customer',[ARController::class, 'index'])->name('index');
+
+

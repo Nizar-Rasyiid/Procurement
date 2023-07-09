@@ -19,6 +19,10 @@ class SalesOrderController extends Controller
     public function paymentSO()  {
         return view('admin.Payment.SoPayment');
     }
+
+    
+
+    
     /**
      * Show the form for creating a new resource.
      */

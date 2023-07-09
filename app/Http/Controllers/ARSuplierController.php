@@ -3,24 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Suplier;
+use App\Models\ARSuplier;
 use Illuminate\Support\Facades\DB;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-class SuplierController extends Controller
+
+class ARSuplierController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $supliers = Suplier::all();
-        return view('admin.ViewList.tableSuplier',compact('supliers'));
-    }
-    public function halamanStore()
-    {
-        return view('admin.Input.suplierStore');
+        return view("admin.ViewList.tableARSuplier");
     }
 
+    public function PaymentARSupplier(){
+        return view('admin.payment.paymentARSuplier');
+    }
 
     /**
      * Show the form for creating a new resource.

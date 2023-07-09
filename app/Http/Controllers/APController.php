@@ -3,24 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Suplier;
+use App\Models\AP;
 use Illuminate\Support\Facades\DB;
-use Haruncpi\LaravelIdGenerator\IdGenerator;
-class SuplierController extends Controller
+
+class APController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $supliers = Suplier::all();
-        return view('admin.ViewList.tableSuplier',compact('supliers'));
-    }
-    public function halamanStore()
-    {
-        return view('admin.Input.suplierStore');
+        return view("admin.ViewList.tableAP");
     }
 
+    public function PaymentAPCustomer(){
+        return view('admin.payment.paymentAPCustomer');
+    }
 
     /**
      * Show the form for creating a new resource.
