@@ -38,20 +38,6 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md-4 my-2">
-                                <div class="form-group">
-                                    <label for="saldoHutang">Saldo Hutang</label>
-                                    <input type="text" class="form-control" id="saldoHutang" placeholder="Saldo Hutang" value="Saldo Hutang" readonly>
-                                </div>
-                            </div>
-                            <div class="col-md-4 my-2">
-                                <div class="form-group">
-                                    <label for="saldoPiutang">Saldo Piutang</label>
-                                    <input type="text" class="form-control" id="saldoPiutang" placeholder="Saldo Piutang" value="Saldo Piutang" readonly>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>

@@ -42,8 +42,6 @@ Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@
 
 //Transaksi
 Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])->name('tableTransaksi');
-//transaksi/SO
-Route::get('/admin-table/transaksi-Sales_Order', [CustomerController::class, 'ambil'])->name('paymentSalesOrder');
 
 
 //DO
@@ -54,3 +52,7 @@ Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO
 Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
 Route::get('/admin-table/store-so',[SalesOrderController::class, 'halamanInput'])->name('inputSalesOrder');
 Route::get('/admin-table/payment-so',[SalesOrderController::class, 'paymentSO'])->name('paymentSo');
+Route::get('/admin-table/payment-ar-supplier',[SalesOrderController::class, 'PaymentARSupplier'])->name('PaymentARSupplier');
+Route::get('/admin-table/payment-ar-customer',[SalesOrderController::class, 'PaymentARCustomer'])->name('PaymentARCustomer');
+Route::get('/admin-table/payment-ap-supplier',[SalesOrderController::class, 'PaymentAPSupplier'])->name('PaymentAPSupplier');
+Route::get('/admin-table/payment-ap-customer',[SalesOrderController::class, 'PaymentAPCustomer'])->name('PaymentAPCustomer');
