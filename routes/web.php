@@ -4,6 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\SuplierController;
+use App\Http\Controllers\ARController;
+use App\Http\Controllers\APController;
+use App\Http\Controllers\APSuplierController;
+use App\Http\Controllers\ARSuplierController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,3 +39,15 @@ Route::post('/admin-table/storeCustomer','App\Http\Controllers\CustomerControlle
 Route::get('/admin-table/suplier-table',[SuplierController::class, 'index'])->name('tableSuplier');
 Route::get('/admin-table/storeSuplier',[SuplierController::class, 'halamanStore'])->name('storeSuplier');
 Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@store');
+
+//AR
+Route::get('/admin-table/ar-table',[ARController::class, 'index'])->name('tableAR');
+
+//AP
+Route::get('/admin-table/ap-table',[APController::class, 'index'])->name('tableAP');
+
+//ARSuplier
+Route::get('/admin-table/arsuplier-table',[ARSuplierController::class, 'index'])->name('tableARSuplier');
+
+//APSuplier
+Route::get('/admin-table/apsuplier-table',[APSuplierController::class, 'index'])->name('tableAPSuplier');
