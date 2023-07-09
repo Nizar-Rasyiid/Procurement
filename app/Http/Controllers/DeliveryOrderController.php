@@ -21,6 +21,9 @@ class DeliveryOrderController extends Controller
     public function paymentDO() {
         return view('admin.Payment.DoPayment');
     }
+    public function validateDO() {
+        return view('admin.Validasi.validationDo');
+    }
 
     /**
      * Show the form for creating a new resource.

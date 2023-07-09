@@ -3,19 +3,15 @@
     <div class="page-content">
         <form action="{{ url('/admin-table/storeSuplier') }}" method="POST">
             @csrf
+            <div class="row my-3">
+                <div class="col-12">
+                    <span>Data DO</span>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="id_so" class="form-label">ID DO</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="id_so" name="id_so" required>
-                            <button type="search" class="btn btn-secondary">Auto</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="id_so" class="form-label">ID SO</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="id_so" name="id_so" required>
                             <button type="search" class="btn btn-primary">Select</button>
@@ -30,40 +26,56 @@
                             <div class="row">
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="id_customer">ID Customer</label>
-                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="" readonly>
+                                        <label for="tanggalDo">Tanggal DO</label>
+                                        <input type="text" class="form-control" id="tanggalDo" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3 my-2">
                                     <div class="form-group">
-                                        <label for="namaCustomer">Nama Customer</label>
-                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                        <label for="kandang">Kandang</label>
+                                        <input type="text" class="form-control" id="kandang" placeholder="kandang" value="kandang" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3 my-2">
                                     <div class="form-group">
-                                        <label for="alamat">Alamat</label>
-                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                        <label for="No Kendaraan">No Kendaraan</label>
+                                        <input type="text" class="form-control" id="No Kendaraan" placeholder="No Kendaraan" value="No Kendaraan" readonly>
                                     </div>
                                 </div>
                                 <div class="col-md-3 my-2">
                                     <div class="form-group">
-                                        <label for="noHp">No Hp</label>
-                                        <input type="text" class="form-control" id="noHp" placeholder="No Hp" value="No Hp" readonly>
+                                        <label for="Nama Supir">Nama Supir</label>
+                                        <input type="text" class="form-control" id="Nama Supir" placeholder="Nama Supir" value="Nama Supir" readonly>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
                                 <div class="col-md-3 my-2">
                                     <div class="form-group">
-                                        <label for="tanggalSO">Tanggal SO</label>
-                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                        <label for="No SIM">No SIM</label>
+                                        <input type="text" class="form-control" id="No SIM" placeholder="No SIM" value="No SIM" readonly>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-md-3 my-2">
                                     <div class="form-group">
-                                        <label for="keterangan">Keterangan</label>
-                                        <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
+                                        <label for="Total Ekor">Total Ekor</label>
+                                        <input type="text" class="form-control" id="Total Ekor" placeholder="Total Ekor" value="Total Ekor" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 my-2">
+                                    <div class="form-group">
+                                        <label for="Total Kg">Total Kg</label>
+                                        <input type="text" class="form-control" id="Total Kg" placeholder="Total Kg" value="Total Kg" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 my-2">
+                                    <div class="form-group">
+                                        <label for="Harga/Kg">Harga/Kg</label>
+                                        <input type="text" class="form-control" id="Harga/Kg" placeholder="Harga/Kg" value="Harga/Kg" readonly>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 my-2">
+                                    <div class="form-group">
+                                        <label for="Keterangan">Keterangan</label>
+                                        <textarea type="text" class="form-control" id="Keterangan" placeholder="Keterangan" value="Keterangan" readonly></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -73,31 +85,20 @@
             </div>
             <div class="row my-3">
                 <div class="col-12">
-                    <label for="Data DO" class="form-label">Data DO</label>
+                    <label for="Data Validasi" class="form-label">Data Validasi</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
                         <label for="tanggal" class="form-label">
-                            <i class="fas fa-calendar-alt" style="color: white;"></i> Tanggal DO
+                            <i class="fas fa-calendar-alt" style="color: white;"></i> Tanggal Validasi
                         </label>
                         <input type="date" class="form-control" id="tanggal" placeholder="Tanggal">
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="id_suplier" class="form-label">ID Suplier</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" id="id_suplier" name="id_suplier" required>
-                            <button type="search" class="btn btn-primary">Select</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
+            {{-- <div class="row">
                 <div class="col-12">
                     <div class="card mt-0 mb-3">
                         <div class="card-body">
@@ -131,60 +132,73 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="Kandang" class="form-label">Kandang</label>
-                        <input type="text" class="form-control" id="Kandang" placeholder="Kandang">
+                        <label for="Total Kg Tiba" class="form-label">Total Kg Tiba</label>
+                        <input type="text" class="form-control" id="Total Kg Tiba" placeholder="Total Kg Tiba">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="No Kendaraan" class="form-label">No Kendaraan</label>
-                        <input type="text" class="form-control" id="No Kendaraan" placeholder="No Kendaraan">
+                        <label for="Gp" class="form-label">Gp</label>
+                        <input type="text" class="form-control" id="Gp" placeholder="Gp">
+                    </div>
+                </div>
+            </div>
+            <div class="row my-1">
+                <div class="col-12">
+                    <label for="Data Validasi" class="form-label">Data Validasi</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="mb-3">
+                        <label for="Ekor" class="form-label">Ekor</label>
+                        <input type="text" class="form-control" id="Ekor" placeholder="Ekor">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="Nama Supir" class="form-label">Nama Supir</label>
-                        <input type="text" class="form-control" id="Nama Supir" placeholder="Nama Supir">
+                        <label for="Kg" class="form-label">Kg</label>
+                        <input type="text" class="form-control" id="Kg" placeholder="Kg">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="No SIM" class="form-label">No SIM</label>
-                        <input type="text" class="form-control" id="No SIM" placeholder="No SIM">
+                        <label for="Susut %" class="form-label">Susut %</label>
+                        <input type="text" class="form-control" id="Susut %" placeholder="Susut %">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="Total Ekor" class="form-label">Total Ekor</label>
-                        <input type="text" class="form-control" id="Total Ekor" placeholder="Total Ekor">
+                        <label for="Muat Susulan" class="form-label">Muat Susulan</label>
+                        <input type="text" class="form-control" id="Muat Susulan" placeholder="Muat Susulan">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="Total Kg" class="form-label">Total Kg</label>
-                        <input type="text" class="form-control" id="Total Kg" placeholder="Total Kg">
+                        <label for="Total Final Kg" class="form-label">Total Final Kg</label>
+                        <input type="text" class="form-control" id="Total Final Kg" placeholder="Total Final Kg">
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="Harga/Kg" class="form-label">Harga/Kg</label>
-                        <input type="text" class="form-control" id="Harga/Kg" placeholder="Harga/Kg">
+                        <label for="Tonase Akhir" class="form-label">Tonase Akhir</label>
+                        <input type="text" class="form-control" id="Tonase Akhir" placeholder="Tonase Akhir">
                     </div>
                 </div>
             </div>
@@ -196,7 +210,7 @@
                     </div>
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">Input DO</button>
+            <button type="submit" class="btn btn-primary">Input Validasi DO</button>
         </form>
     </div>
 @endsection

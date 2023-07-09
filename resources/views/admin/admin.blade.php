@@ -103,6 +103,13 @@
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment DO</span>
             </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('/admin-table/validate-do')}}" class="nav-link">
+              <i class="link-icon" data-feather="box"></i>
+              <span class="link-title">Validation DO</span>
+            </a>
+          </li>
         <li class="nav-item nav-category">Transaction</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/transaksi-table')}}" class="nav-link">

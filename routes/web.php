@@ -48,6 +48,7 @@ Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])
 Route::get('/admin-table/DO-table',[DeliveryOrderController::class, 'index'])->name('tableDeliveryOrder');
 Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'halamanInput'])->name('paymentDo');
 Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('inputDeliveryOrder');
+Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
 //SO
 Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
 Route::get('/admin-table/store-so',[SalesOrderController::class, 'halamanInput'])->name('inputSalesOrder');
