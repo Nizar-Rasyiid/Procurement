@@ -65,11 +65,11 @@ Route::get('/admin-table/payment-ap-supplier',[APSuplierController::class, 'Paym
 Route::get('/admin-table/payment-ap-customer',[APController::class, 'PaymentAPCustomer'])->name('PaymentAPCustomer');
 
 //ap
-Route::get('/admin-table/ap-table-supplier',[APSuplierController::class, 'index'])->name('index');
-Route::get('/admin-table/ap-table-customer',[APController::class, 'index'])->name('index');
+Route::get('/admin-table/ap-table-supplier',[APSuplierController::class, 'index'])->name('indexApSuplier');
+Route::get('/admin-table/ap-table-customer',[APController::class, 'index'])->name('indexApCustomer');
 
 //ar
-Route::get('/admin-table/ar-table-supplier',[ARSuplierController::class, 'index'])->name('index');
-Route::get('/admin-table/ar-table-customer',[ARController::class, 'index'])->name('index');
+Route::get('/admin-table/ar-table-supplier',[ARSuplierController::class, 'index'])->name('indexArSuplier');
+Route::get('/admin-table/ar-table-customer',[ARController::class, 'index'])->name('indexArCustomer');
 
 

@@ -9,7 +9,7 @@
                         <label for="id_so" class="form-label">ID SO</label>
                         <div class="input-group">
                             <input type="text" class="form-control" id="id_so" name="id_so" required>
-                            <button type="search" class="btn btn-secondary">Auto</button>
+                            <button type="search" class="btn btn-secondary">Auto Increment</button>
                         </div>
                     </div>
                 </div>

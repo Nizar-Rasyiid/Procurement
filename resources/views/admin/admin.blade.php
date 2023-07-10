@@ -124,13 +124,13 @@
               <span class="link-title">AR Customer</span>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{url('/admin-table/ar-table-supplier')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AR Suplier</span>
             </a> 
-          </li>
-          <li class="nav-item">
+          </li> --}}
+          {{-- <li class="nav-item">
             <a href="{{url('/admin-table/payment-ar-customer')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment AR Customer</span>
@@ -141,21 +141,21 @@
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment AR Suplier</span>
             </a> 
-          </li>
+          </li> --}}
           <li class="nav-item nav-category">AP</li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{url('/admin-table/ap-table-customer')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AP Customer</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{url('/admin-table/ap-table-supplier')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">AP Suplier</span>
             </a>
           </li>
-          <li class="nav-item">
+          {{-- <li class="nav-item">
             <a href="{{url('/admin-table/payment-ap-customer')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment AP Customer</span>
@@ -166,7 +166,7 @@
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment AP Suplier</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item nav-category">Customer</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/storeCustomer')}}" class="nav-link">

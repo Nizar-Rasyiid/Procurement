@@ -149,11 +149,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row my-1">
-                <div class="col-12">
-                    <label for="Data Validasi" class="form-label">Data Validasi</label>
-                </div>
-            </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
@@ -181,8 +176,8 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="Muat Susulan" class="form-label">Muat Susulan</label>
-                        <input type="text" class="form-control" id="Muat Susulan" placeholder="Muat Susulan">
+                        <label for="Mati Susulan" class="form-label">Mati Susulan</label>
+                        <input type="text" class="form-control" id="Mati Susulan" placeholder="Mati Susulan">
                     </div>
                 </div>
             </div>

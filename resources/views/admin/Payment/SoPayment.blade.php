@@ -124,8 +124,8 @@
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="muatSusulan">Muat Susulan</label>
-                                    <input type="text" class="form-control" id="muatSusulan" placeholder="Muat Susulan" value="Muat Susulan" readonly>
+                                    <label for="muatSusulan">Mati Susulan</label>
+                                    <input type="text" class="form-control" id="muatSusulan" placeholder="Mati Susulan" value="Mati Susulan" readonly>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
