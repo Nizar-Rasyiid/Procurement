@@ -92,12 +92,12 @@
             </a>
             </li>
             
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a href="{{url('/')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Update DO</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{url('/admin-table/payment-do')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
@@ -117,6 +117,19 @@
               <span class="link-title">List Transaction</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{url('/admin-table/margin-detail')}}" class="nav-link">
+              <i class="link-icon" data-feather="layout"></i>
+              <span class="link-title">Margin</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('/admin-table/margin-table')}}" class="nav-link">
+              <i class="link-icon" data-feather="layout"></i>
+              <span class="link-title">View List Margin</span>
+            </a>
+          </li>
+        </li>
           <li class="nav-item nav-category">AR</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/ar-table-customer')}}" class="nav-link">

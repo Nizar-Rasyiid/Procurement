@@ -10,7 +10,13 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="date">Tanggal</label>
+                <label for="date">Tanggal SO </label>
+                <input type="date" class="form-control" id="date">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="date">Tanggal DO </label>
                 <input type="date" class="form-control" id="date">
             </div>
         </div>
@@ -32,7 +38,7 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="date_range">Range Tanggal</label>
+                <label for="date_range">Range Tanggal SO</label>
                 <div class="input-group">
                     <input type="date" class="form-control" id="start_date">
                     <div class="input-group-append">
@@ -44,13 +50,14 @@
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="status">Status</label>
-                <select class="form-control" id="status">
-                    <option value="">-- Select Status --</option>
-                    <option value="Pending">Pending</option>
-                    <option value="Paid">Paid</option>
-                    <option value="Overdue">Overdue</option>
-                </select>
+                <label for="date_range">Range Tanggal DO</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" id="start_date">
+                    <div class="input-group-append">
+                        <span class="input-group-text">to</span>
+                    </div>
+                    <input type="date" class="form-control" id="end_date">
+                </div>
             </div>
         </div>
     </div>
@@ -75,12 +82,14 @@
                 <th>ID SO</th>
                 <th>ID DO</th>
                 <th>Tanggal SO</th>
-                <th>Nama Customer</th>
-                <th>Suplier/Vendor</th>
                 <th>Tanggal DO</th>
-                <th>Status</th>
+                <th>Customer</th>
+                <th>Suplier/Vendor</th>
+                <th>Harga Penjualan DO</th>
+                <th>Margin Harian</th>
                 <th>Keterangan</th>
                 <th>Detail</th>
+                <th>Download</th>
             </tr>
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
@@ -100,12 +109,14 @@
                 <th>ID SO</th>
                 <th>ID DO</th>
                 <th>Tanggal SO</th>
-                <th>Nama Customer</th>
-                <th>Suplier/Vendor</th>
                 <th>Tanggal DO</th>
-                <th>Status</th>
+                <th>Customer</th>
+                <th>Suplier/Vendor</th>
+                <th>Harga Penjualan DO</th>
+                <th>Margin Harian</th>
                 <th>Keterangan</th>
                 <th>Detail</th>
+                <th>Download</th>
             </tr>
         </tfoot>
     </table>

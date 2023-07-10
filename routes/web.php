@@ -46,6 +46,7 @@ Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@
 
 //Transaksi
 Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])->name('tableTransaksi');
+Route::get('/admin-table/transaksi-table/1',[TransaksiController::class, 'detailTransaksi'])->name('detailTransaksi');
 
 
 //DO
@@ -77,6 +78,9 @@ Route::get('/admin-table/ar-table-customer',[ARController::class, 'index'])->nam
 Route::get('/admin-table/ar-table-customer/1',[ARController::class, 'DetailAR'])->name('DetailAR');
 Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'DetailAP'])->name('DetailAP');
 
+//Margin
+Route::get('/admin-table/margin-detail/1',[TransaksiController::class, 'margin'])->name('margin');
+Route::get('/admin-table/margin-table',[TransaksiController::class, 'marginTable'])->name('tableMargin');
 
 
 

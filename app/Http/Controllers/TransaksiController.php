@@ -15,6 +15,18 @@ class TransaksiController extends Controller
     {
         return view('admin.ViewList.tableTransaksi');
     }
+    public function margin()
+    {
+        return view('admin.Details.margin');
+    }
+    public function marginTable()
+    {
+        return view('admin.ViewList.tableMargin');
+    }
+    public function detailTransaksi()
+    {
+        return view('admin.Details.transaksiDetail');
+    }
 
     /**
      * Show the form for creating a new resource.

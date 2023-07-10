@@ -22,7 +22,7 @@ class ARController extends Controller
     }
 
     public function DetailAR(){
-        return view('admin.ViewList.ARDetail');
+        return view('admin.Details.ARDetail');
     }
     /**
      * Show the form for creating a new resource.
