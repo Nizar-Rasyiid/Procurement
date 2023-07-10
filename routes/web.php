@@ -73,3 +73,11 @@ Route::get('/admin-table/ar-table-supplier',[ARSuplierController::class, 'index'
 Route::get('/admin-table/ar-table-customer',[ARController::class, 'index'])->name('indexArCustomer');
 
 
+//try itself
+Route::get('/admin-table/ar-table-customer/1',[ARController::class, 'DetailAR'])->name('DetailAR');
+Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'DetailAP'])->name('DetailAP');
+
+
+
+
+

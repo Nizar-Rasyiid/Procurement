@@ -21,6 +21,9 @@ class ARController extends Controller
         return view('admin.payment.paymentARCustomer');
     }
 
+    public function DetailAR(){
+        return view('admin.ViewList.ARDetail');
+    }
     /**
      * Show the form for creating a new resource.
      */

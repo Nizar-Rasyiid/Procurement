@@ -20,6 +20,10 @@ class APSuplierController extends Controller
         return view('admin.payment.paymentAPSuplier');
     }
 
+    public function DetailAP(){
+        return view('admin.ViewList.APDetail');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
