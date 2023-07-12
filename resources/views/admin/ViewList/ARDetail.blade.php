@@ -72,7 +72,7 @@
                 </div>
                 <div class="card mt-2">
                     <div class="card-header">
-                        <h5>AR Actival</h5>
+                        <h5>AR Actual</h5>
                     </div>
                     <div class="card-body">
                         <p>AR Actual : Rp. </p>
