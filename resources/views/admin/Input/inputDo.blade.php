@@ -166,14 +166,14 @@
                             <div class="mb-3">
                                 <div class="input-group w-flex">
                                 <span for="Kandang" class="input-group-text">Kandang</span>
-                                <input type="text" class="form-control" id="Kandang" placeholder="Kandang">                    </div>
+                                <input type="text" class="form-control border border-secondary" id="Kandang" placeholder="Kandang">                    </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="No Kendaraan" class="input-group-text">No Kendaraan</span>
-                                <input type="text" class="form-control" id="No Kendaraan" placeholder="No Kendaraan">                    </div>
+                                <input type="text" class="form-control border border-secondary" id="No Kendaraan" placeholder="No Kendaraan">                    </div>
                             </div>
                         </div>
                     </div>
@@ -182,14 +182,14 @@
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="Nama Supir" class="input-group-text">Nama Supir</span>
-                                <input type="text" class="form-control" id="Nama Supir" placeholder="Nama Supir">                    </div>
+                                <input type="text" class="form-control border border-secondary" id="Nama Supir" placeholder="Nama Supir">                    </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="No SIM" class="input-group-text">No SIM</span>
-                                <input type="text" class="form-control" id="No SIM" placeholder="No SIM">                    </div>
+                                <input type="text" class="form-control border border-secondary" id="No SIM" placeholder="No SIM">                    </div>
                             </div>
                         </div>
                     </div>
@@ -198,14 +198,14 @@
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="Total Ekor" class="input-group-text">Total Ekor</span>
-                                <input type="text" class="form-control" id="Total Ekor" placeholder="Total Ekor">                    </div>
+                                <input type="text" class="form-control border border-secondary" id="Total Ekor" placeholder="Total Ekor">                    </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="Total Kg" class="input-group-text">Total Kg</span>
-                                <input type="text" class="form-control" id="Total Kg" placeholder="Total Kg">                    </div>
+                                <input type="text" class="form-control border border-secondary" id="Total Kg" placeholder="Total Kg">                    </div>
                             </div>
                         </div>
                     </div>
@@ -214,14 +214,14 @@
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="Harga/Kg" class="input-group-text">Harga/Kg</span>
-                                <input type="text" class="form-control" id="Harga/Kg" placeholder="Harga/Kg">        </div>
+                                <input type="text" class="form-control border border-secondary" id="Harga/Kg" placeholder="Harga/Kg">        </div>
                             </div>
                         </div>
                         <div class="col-6">
                             <div class="mb-3">
                                 <div class="input-group">
                                 <span for="keterangan" class="input-group-text">Keterangan</span>
-                                <textarea class="form-control" id="keterangan" rows="3"></textarea>                    </div>
+                                <textarea class="form-control border border-secondary" id="keterangan" rows="3"></textarea>                    </div>
                             </div>
                         </div>
                     </div>
