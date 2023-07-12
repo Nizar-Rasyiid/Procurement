@@ -59,7 +59,7 @@
               <span class="link-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item nav-category">PENJUALAN</li>
+          <li class="nav-item nav-category">Penjualan</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/store-so')}}" class="nav-link">
               <i class="link-icon" data-feather="inbox"></i>
@@ -78,7 +78,7 @@
               <span class="link-title">Payment Penjualan</span>
             </a>
             </li>
-          <li class="nav-item nav-category">PEMBELIAN</li>
+          <li class="nav-item nav-category">Pembelian</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/store-do')}}" class="nav-link">
               <i class="link-icon" data-feather="inbox"></i>
@@ -92,22 +92,22 @@
             </a>
             </li>
             
-            <li class="nav-item">
+            {{-- <li class="nav-item">
             <a href="{{url('/')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Update Pembelian</span>
             </a>
-          </li>
+          </li> --}}
           <li class="nav-item">
             <a href="{{url('/admin-table/payment-do')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Payment pembelian</span>
+              <span class="link-title">Payment Order</span>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url('/admin-table/validate-do')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Validation Pembelian</span>
+              <span class="link-title">Verifikasi Pembelian</span>
             </a>
           </li>
         <li class="nav-item nav-category">Transaction</li>
@@ -117,6 +117,19 @@
               <span class="link-title">List Transaction</span>
             </a>
           </li>
+          <li class="nav-item">
+            <a href="{{url('/admin-table/margin-detail')}}" class="nav-link">
+              <i class="link-icon" data-feather="layout"></i>
+              <span class="link-title">Margin</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{url('/admin-table/margin-table')}}" class="nav-link">
+              <i class="link-icon" data-feather="layout"></i>
+              <span class="link-title">View List Margin</span>
+            </a>
+          </li>
+        </li>
           <li class="nav-item nav-category">AR</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/ar-table-customer')}}" class="nav-link">

@@ -1,13 +1,15 @@
 @extends('admin.admin')
 @section('admin')
     <div class="page-content">
-        <form action="{{ url('/admin-table/storeSuplier') }}" method="POST">
+        <form action="{{ url('/admin-table/storeSuplier') }}" method="POST" class="d-flex flex-column px-5 ">
             @csrf
-            <div class="row">
+            <div class="row ">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="id_so" class="form-label">ID SO</label>
                         <div class="input-group">
+                            <span class="input-group-text">
+                                ID Penjualan
+                            </span>
                             <input type="text" class="form-control" id="id_so" name="id_so" required>
                             <button type="search" class="btn btn-primary">Select</button>
                         </div>
@@ -19,78 +21,55 @@
                     <div class="card my-1">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="id_customer">ID Customer</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                <div class="col-md-6 my-2">
+                                    <div class="form-group border">
+                                        <div class="input-group">
+                                       <span class="input-group-text w-flex">ID Customer</span>
+                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="CUST032312" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-md-6 my-2">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="namaCustomer">Nama Customer</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                        <span class="input-group-text w-flex">Nama</span>
+                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-md-6 my-2">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="alamat">Alamat</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                           <span class="input-group-text w-flex"> Alamat</span>
+                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 my-2">
+                                    <div class="form-group">
+                                        <div class="input-group">
+                                        <span class="input-group-text w-flex">Nomor Hp</span>
+                                        <input type="text" class="form-control" id="noHp" placeholder="No Hp" value="No Hp" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-md-4 my-2">
+                                <div class="col-md-6 my-2">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="noHp">No Hp</label> 
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                        <span class="input-group-text w-flex">Tanggal Penjualan</span>
+                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-4 my-2">
+                                <div class="col-md-6 my-2">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <label for="tanggalSO">Tanggal SO</label>   
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                        <span class="input-group-text w-flex">Keterangan</span>
+                                        <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4 my-2">
-                                    <div class="form-group">
-                                       <div class="row">
-                                        <div class="col-md-3">
-                                            <label for="keterangan">Keterangan</label>
-                                        </div>
-                                        <div class="col border-bottom">
-                                            <p>: </p>
-                                        </div>
-                                       </div>
                                     </div>
                                 </div>
                             </div>
@@ -99,27 +78,31 @@
                 </div>
             </div>
             <div class="row my-3">
-                <div class="col-12 border-top mt-5">
-                    <label for="Data DO" class="form-label mt-5">Data DO</label>
+                <div class="col-12">
+                    <label for="Data DO" class="form-label">Data Pembelian</label>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="tanggal" class="form-label">
-                            <i class="fas fa-calendar-alt" style="color: white;"></i> Tanggal DO
-                        </label>
-                        <input type="date" class="form-control border-white" id="tanggal" placeholder="Tanggal">
+                        <div class="input-group">
+                            <span for="tanggal" class="input-group-text">
+                                Tanggal Pembelian
+                             </span>
+                             <input type="date" class="form-control" id="tanggal" placeholder="Tanggal">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
                     <div class="mb-3">
-                        <label for="id_suplier" class="form-label">ID Suplier</label>
                         <div class="input-group">
-                            <input type="text" class="form-control" id="id_suplier" name="id_suplier" required>
-                            <button type="search" class="btn btn-primary">Select</button>
+                            <div class="input-group">
+                            <span for="id_suplier" class="input-group-text">ID Suplier</span>
+                                <input type="text" class="form-control" id="id_suplier" name="id_suplier" required>
+                                <button type="search" class="btn btn-primary">Select</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -129,53 +112,37 @@
                     <div class="card mt-0 mb-3">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="namaSuplier">Suplier</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                            <span for="namaSuplier" class="input-group-text">Suplier/Vendor</span>
+                                            <input type="text" class="form-control" id="namaSuplier" placeholder="PT.." value="PT..." readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="alamatSuplier">Alamat</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                            <span for="alamatSuplier" class="input-group-text">Alamat</span>
+                                            <input type="text" class="form-control" id="alamatSuplier" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="row mt-2">
-                                <div class="col-md-5">
+                            <div class="row mt-3">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="noHp">No Hp</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                                <p>: </p>
-                                            </div>
+                                        <div class="input-group">
+                                         <span for="noHp" class="input-group-text">No Hp</span>
+                                            <input type="text" class="form-control" id="noHp" placeholder="noHp" value="noHp" readonly>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <div class="row">
-                                            <div class="col-md-3">
-                                                <label for="saldoHutang">Saldo Hutang</label>
-                                            </div>
-                                            <div class="col border-bottom">
-                                            <p>: </p>
-                                        </div>
+                                        <div class="input-group">
+                                        <span for="saldoHutang" class="input-group-text">Saldo Hutang</span>
+                                            <input type="text" class="form-control" id="saldoHutang" placeholder="Saldo Hutang" value="Saldo Hutang" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -184,71 +151,83 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="Kandang" class="form-label">Kandang</label>
-                        <input type="text" class="form-control border-white" id="Kandang" placeholder="Kandang">
+
+            <div class="card">
+                <div class="row mx-3 mt-3 mb-0">
+                    <div class="col-12">
+                        <label for="Data DO" class="form-label">Input Data</label>
+                    </div>
+                </div>
+                <div class="card-body my-3">
+                    
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group w-flex">
+                                <span for="Kandang" class="input-group-text">Kandang</span>
+                                <input type="text" class="form-control border border-secondary" id="Kandang" placeholder="Kandang">                    </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="No Kendaraan" class="input-group-text">No Kendaraan</span>
+                                <input type="text" class="form-control border border-secondary" id="No Kendaraan" placeholder="No Kendaraan">                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="Nama Supir" class="input-group-text">Nama Supir</span>
+                                <input type="text" class="form-control border border-secondary" id="Nama Supir" placeholder="Nama Supir">                    </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="No SIM" class="input-group-text">No SIM</span>
+                                <input type="text" class="form-control border border-secondary" id="No SIM" placeholder="No SIM">                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="Total Ekor" class="input-group-text">Total Ekor</span>
+                                <input type="text" class="form-control border border-secondary" id="Total Ekor" placeholder="Total Ekor">                    </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="Total Kg" class="input-group-text">Total Kg</span>
+                                <input type="text" class="form-control border border-secondary" id="Total Kg" placeholder="Total Kg">                    </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="Harga/Kg" class="input-group-text">Harga/Kg</span>
+                                <input type="text" class="form-control border border-secondary" id="Harga/Kg" placeholder="Harga/Kg">        </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <div class="input-group">
+                                <span for="keterangan" class="input-group-text">Keterangan</span>
+                                <textarea class="form-control border border-secondary" id="keterangan" rows="3"></textarea>                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="No Kendaraan" class="form-label">No Kendaraan</label>
-                        <input type="text" class="form-control border-white" id="No Kendaraan" placeholder="No Kendaraan">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="Nama Supir" class="form-label">Nama Supir</label>
-                        <input type="text" class="form-control border-white" id="Nama Supir" placeholder="Nama Supir">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="No SIM" class="form-label">No SIM</label>
-                        <input type="text" class="form-control border-white" id="No SIM" placeholder="No SIM">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="Total Ekor" class="form-label border-white">Total Ekor</label>
-                        <input type="text" class="form-control border-white" id="Total Ekor" placeholder="Total Ekor">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="Total Kg" class="form-label border-white">Total Kg</label>
-                        <input type="text" class="form-control border-white" id="Total Kg" placeholder="Total Kg">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="Harga/Kg" class="form-label border-white">Harga/Kg</label>
-                        <input type="text" class="form-control border-white" id="Harga/Kg" placeholder="Harga/Kg">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-12">
-                    <div class="mb-3">
-                        <label for="keterangan" class="form-label ">Keterangan</label>
-                        <textarea class="form-control border-white" id="keterangan" rows="3"></textarea>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary">Input DO</button>
+
+            <button type="submit" class="btn btn-primary mt-3">Input DO</button>
         </form>
     </div>
 @endsection

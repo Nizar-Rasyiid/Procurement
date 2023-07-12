@@ -1,13 +1,13 @@
 @extends('admin.admin')
 @section('admin')
 <div class="page-content">
-    <form action="{{ url('/admin-table/store-so') }}" method="POST">
+    <form action="{{ url('/admin-table/store-so') }}" method="POST" class="px-5 column-flex ">
         @csrf
         <div class="row">
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="id_so" class="form-label">ID SO</label>
                     <div class="input-group">
+                    <span for="id_so" class="input-group-text">ID Penjualan</span>
                         <input type="text" class="form-control" id="id_so" name="id_so" required>
                         <button type="search" class="btn btn-primary">Select</button>
                     </div>
@@ -47,7 +47,7 @@
                         <div class="row">
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="tanggalSO">Tanggal SO</label>
+                                    <label for="tanggalSO">Tanggal Penjualan</label>
                                     <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
                         <div class="row">
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="Kg">Tanggal SO</label>
+                                    <label for="Kg">Tanggal Penjualan</label>
                                     <input type="text" class="form-control" id="Kg" placeholder="Kg" value="Kg" readonly>
                                 </div>
                             </div>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="buktiBayarSO">Bukti Bayar SO</label>
+                                    <label for="buktiBayarSO">Bukti Bayar Penjualan</label>
                                     <div class="custom-file">
                                         <input type="file" class="custom-file-input" id="buktiBayarSO" name="buktiBayarSO">
                                         <label class="custom-file-label" for="buktiBayarSO">
@@ -192,7 +192,7 @@
                 </div>
             </div>
         </div>
-        <button type="submit" class="btn btn-primary">Input Payment SO</button>
+        <button type="submit" class="btn btn-primary col-12">Input Payment Penjualan</button>
     </form>
 </div>
 @endsection

@@ -73,6 +73,7 @@
                 <th>AP Actual</th>
                 <th>Keterangan</th>
                 <th>Detail</th>
+                <th>Download</th>
             </tr>
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
@@ -93,6 +94,7 @@
                 <th>AP Actual</th>
                 <th>Keterangan</th>
                 <th>Detail</th>
+                <th>Download</th>
             </tr>
         </tfoot>
     </table>

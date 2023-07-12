@@ -21,7 +21,7 @@ class APSuplierController extends Controller
     }
 
     public function DetailAP(){
-        return view('admin.ViewList.APDetail');
+        return view('admin.Details.APDetail');
     }
 
     /**
