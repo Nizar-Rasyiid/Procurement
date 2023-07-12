@@ -1,13 +1,13 @@
 @extends('admin.admin')
 @section('admin')
 <div class="page-content">
-    <form action="{{ url('/admin-table/store-so') }}" method="POST">
+    <form action="{{ url('/admin-table/store-so') }}" method="POST" class="d-flex flex-column px-5  mt-0">
         @csrf
         <div class="row">
             <div class="col-12">
                 <div class="mb-3">
-                    <label for="id_do" class="form-label">ID DO</label>
                     <div class="input-group">
+                    <span for="id_do" class="input-group-text">ID Pemesanan</span>
                         <input type="text" class="form-control" id="id_do" name="id_do" required>
                         <button type="search" class="btn btn-primary">Search</button>
                     </div>

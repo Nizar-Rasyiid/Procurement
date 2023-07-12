@@ -59,36 +59,36 @@
               <span class="link-title">Dashboard</span>
             </a>
           </li>
-          <li class="nav-item nav-category">SO</li>
+          <li class="nav-item nav-category">Penjualan</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/store-so')}}" class="nav-link">
               <i class="link-icon" data-feather="inbox"></i>
-              <span class="link-title">Input SO</span>
+              <span class="link-title">Input Penjualan</span>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url('/admin-table/SO-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
-              <span class="link-title">View List SO</span>
+              <span class="link-title">View List Penjualan</span>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url('/admin-table/payment-so')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Payment SO</span>
+              <span class="link-title">Payment Penjualan</span>
             </a>
             </li>
-          <li class="nav-item nav-category">DO</li>
+          <li class="nav-item nav-category">Pembelian</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/store-do')}}" class="nav-link">
               <i class="link-icon" data-feather="inbox"></i>
-              <span class="link-title">Input DO</span>
+              <span class="link-title">Input Pembelian</span>
             </a>
           </li>
             <li class="nav-item">
             <a href="{{url('/admin-table/DO-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
-              <span class="link-title">View List DO</span>
+              <span class="link-title">View List Pembelian</span>
             </a>
             </li>
             
@@ -101,13 +101,13 @@
           <li class="nav-item">
             <a href="{{url('/admin-table/payment-do')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Payment DO</span>
+              <span class="link-title">Payment Order</span>
             </a>
           </li>
           <li class="nav-item">
             <a href="{{url('/admin-table/validate-do')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Validation DO</span>
+              <span class="link-title">Verifikasi Pembelian</span>
             </a>
           </li>
         <li class="nav-item nav-category">Transaction</li>

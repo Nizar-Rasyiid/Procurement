@@ -76,6 +76,7 @@
                             <th>AR Actual</th>
                             <th>Keterangan</th>
                             <th>Detail</th>
+                            <th>Download</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,6 +97,7 @@
                             <th>AR Actual</th>
                             <th>Keterangan</th>
                             <th>Detail</th>
+                            <th>Download</th>
                         </tr>
                     </tfoot>
                 </table>

@@ -2,22 +2,31 @@
 @section('admin')
 <div class="page-content">
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group">
                 <label for="id_transaksi">ID Transaksi</label>
                 <input type="text" class="form-control" id="id_transaksi" placeholder="ID Transaksi">
             </div>
         </div>
+
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="date">Tanggal SO </label>
+                <label for="date">Tanggal DO </label>
                 <input type="date" class="form-control" id="date">
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label for="date">Tanggal DO </label>
-                <input type="date" class="form-control" id="date">
+                <label for="date_range">Range Tanggal DO</label>
+                <div class="input-group">
+                    <input type="date" class="form-control" id="start_date">
+                    <div class="input-group-append">
+                        <span class="input-group-text">to</span>
+                    </div>
+                    <input type="date" class="form-control" id="end_date">
+                </div>
             </div>
         </div>
     </div>
@@ -38,6 +47,12 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+                <label for="date">Tanggal SO </label>
+                <input type="date" class="form-control" id="date">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="form-group">
                 <label for="date_range">Range Tanggal SO</label>
                 <div class="input-group">
                     <input type="date" class="form-control" id="start_date">
@@ -48,22 +63,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="form-group">
-                <label for="date_range">Range Tanggal DO</label>
-                <div class="input-group">
-                    <input type="date" class="form-control" id="start_date">
-                    <div class="input-group-append">
-                        <span class="input-group-text">to</span>
-                    </div>
-                    <input type="date" class="form-control" id="end_date">
-                </div>
-            </div>
-        </div>
+
     </div>
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <div class="form-group">
                 <label for="ar_actual">AR Actual</label>
                 <select class="form-control" id="ar_actual">
@@ -115,7 +119,7 @@
                 <th>Harga Penjualan DO</th>
                 <th>Margin Harian</th>
                 <th>Keterangan</th>
-                <th>Detail</th>
+                <th>Detail</th> 
                 <th>Download</th>
             </tr>
         </tfoot>
