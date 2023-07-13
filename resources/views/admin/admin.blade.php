@@ -95,7 +95,7 @@
             {{-- <li class="nav-item">
             <a href="{{url('/')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
-              <span class="link-title">Update DO</span>
+              <span class="link-title">Update Pembelian</span>
             </a>
           </li> --}}
           <li class="nav-item">
