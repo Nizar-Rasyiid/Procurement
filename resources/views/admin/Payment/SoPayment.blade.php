@@ -21,52 +21,68 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="id_customer">ID Customer</label>
-                                    <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="" readonly>
+                                    <div class="input-group text-sm">
+                                        <label for="id_customer" class="input-group-text">ID Customer</label>
+                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 my-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="namaCustomer">Nama Customer</label>
-                                    <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="namaCustomer">Nama Customer</label>
+                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 my-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="alamat">Alamat</label>
-                                    <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="alamat">Alamat</label>
+                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 my-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="noHp">No Hp</label>
-                                    <input type="text" class="form-control" id="noHp" placeholder="No Hp" value="No Hp" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="noHp">No Hp</label>
+                                        <input type="text" class="form-control" id="noHp" placeholder="No Hp" value="No Hp" readonly>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="tanggalSO">Tanggal Penjualan</label>
-                                    <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="tanggalSO">Tanggal Penjualan</label>
+                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="jumlahKg">Jumlah Kg</label>
-                                    <input type="text" class="form-control" id="jumlahKg" placeholder="Kg" value="Kg" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="jumlahKg">Jumlah Kg</label>
+                                        <input type="text" class="form-control" id="jumlahKg" placeholder="Kg" value="Kg" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="hargaKg">Harga/Kg</label>
-                                    <input type="text" class="form-control" id="hargaKg" placeholder="Rp" value="Rp" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="hargaKg">Harga/Kg</label>
+                                        <input type="text" class="form-control" id="hargaKg" placeholder="Rp" value="Rp" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="keterangan">Keterangan</label>
-                                    <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="keterangan">Keterangan</label>
+                                        <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -86,64 +102,84 @@
                         <div class="row">
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="tanggalValidasi">Tanggal Validasi</label>
-                                    <input type="text" class="form-control" id="tanggalValidasi" placeholder="Tanggal Validasi" value="dd/mm/yy" readonly>
+                                    <div class="input-group text-sm">
+                                        <label for="id_customer" class="input-group-text">Tanggal Validasi</label>
+                                        <input type="text" class="form-control" id="id_customer" placeholder="mm/dd/yyyy" value="" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 my-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="Total Kg Tiba">Nama Customer</label>
-                                    <input type="text" class="form-control" id="Total Kg Tiba" placeholder="Nama" value="Nama" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="namaCustomer">Nama Customer</label>
+                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 my-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="Gp">Gp</label>
-                                    <input type="text" class="form-control" id="Gp" placeholder="Gp" value="Gp" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="alamat">GP</label>
+                                        <input type="text" class="form-control" id="alamat" placeholder="Gp" value="Gp" readonly>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="col-md-3 my-2">
+                            <div class="col-md-3">
                                 <div class="form-group">
-                                    <label for="ekor">Ekor</label>
-                                    <input type="text" class="form-control" id="ekor" placeholder="Ekor" value="Ekor" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="noHp">Ekor</label>
+                                        <input type="text" class="form-control" id="noHp" placeholder="No Hp" value="Ekor" readonly>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="Kg">Tanggal Penjualan</label>
-                                    <input type="text" class="form-control" id="Kg" placeholder="Kg" value="Kg" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="tanggalSO">Tanggal Penjualan</label>
+                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="Susut %">Susut %</label>
-                                    <input type="text" class="form-control" id="Susut %" placeholder="%" value="%" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="jumlahKg">Susut%</label>
+                                        <input type="text" class="form-control" id="jumlahKg" placeholder="Kg" value="%" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="muatSusulan">Mati Susulan</label>
-                                    <input type="text" class="form-control" id="muatSusulan" placeholder="Mati Susulan" value="Mati Susulan" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="hargaKg">Mati susulan</label>
+                                        <input type="text" class="form-control" id="hargaKg" placeholder="" value="" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="Total Final Kg">Total Final Kg</label>
-                                    <input type="text" class="form-control" id="Total Final Kg" placeholder="Kg" value="Kg" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="hargaKg">Total Final KG</label>
+                                        <input type="text" class="form-control" id="hargaKg" placeholder="" value="" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="Tonase Akhir">Tonase Akhir</label>
-                                    <input type="text" class="form-control" id="Tonase Akhir" placeholder="Tonase Akhir" value="Tonase Akhir" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="hargaKg">Tonase akhir</label>
+                                        <input type="text" class="form-control" id="hargaKg" placeholder="" value="" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-3 my-2">
                                 <div class="form-group">
-                                    <label for="keterangan">Keterangan</label>
-                                    <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="keterangan">Keterangan</label>
+                                        <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -163,18 +199,20 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="jumlahBayar">Jumlah Bayar</label>
-                                    <input type="text" class="form-control" id="jumlahBayar" placeholder="Jumlah Bayar" value="Jumlah Bayar" readonly>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="jumlahBayar">Jumlah Bayar</label>
+                                        <input type="text" class="form-control" id="jumlahBayar" placeholder="Jumlah Bayar" value="Jumlah Bayar" readonly>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
-                                    <label for="buktiBayarSO">Bukti Bayar Penjualan</label>
-                                    <div class="custom-file">
-                                        <input type="file" class="custom-file-input" id="buktiBayarSO" name="buktiBayarSO">
-                                        <label class="custom-file-label" for="buktiBayarSO">
-                                            <i class="fas fa-upload"></i> 
-                                        </label>
+                                    <div class="input-group">
+                                        <label class="input-group-text" for="buktiBayarSO">Bukti Bayar Penjualan</label>
+                                            <input type="file" class="custom-file-input mt-2" id="buktiBayarSO" name="buktiBayarSO">
+                                            <label class="custom-file-label" for="buktiBayarSO">
+                                                <i class="fas fa-upload"></i> 
+                                            </label>
                                     </div>
                                 </div>
                             </div>
