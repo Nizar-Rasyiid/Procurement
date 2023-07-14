@@ -3,6 +3,7 @@
 <div class="page-content">
     <div class="card">
         <div class="card-body ">
+            <h5 class="card-title">Filters</h5>
             <div class="row">
                 <div class="col-md-6 my-1">
                     <div class="form-group">
@@ -60,7 +61,7 @@
         </tbody>
         <tfoot>
             <tr>
-                <th>ID DO</th>
+                <th>ID Pembelian</th>
                 <th>Tanggal</th>
                 <th>Status</th>
                 <th>Detail</th>

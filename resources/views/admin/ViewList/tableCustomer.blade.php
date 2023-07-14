@@ -3,28 +3,29 @@
 <div class="page-content">
     <div class="card">
         <div class="card-body ">
+        <h5 class="card-title">Filters</h5>
             <div class="row">
                 <div class="col-md-6 my-1">
                     <div class="form-group">
-                        <label for="id_transaksi">ID Customer</label>
-                        <input type="text" class="form-control" id="id_transaksi" placeholder="ID Transaksi">
+                        <label for="id_customer">ID Customer</label>
+                        <input type="text" class="form-control border border-secondary" id="id_customer" placeholder="ID Customer">
                     </div>
                 </div>
                 <div class="col-md-6 my-1">
                     <label for="nama">Nama</label>
-                    <input type="text" class="form-control" id="nama" placeholder="Nama">
+                    <input type="text" class="form-control border border-secondary" id="nama" placeholder="Nama">
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 my-1">
                     <div class="form-group">
                         <label for="id_transaksi">Nomor Telepon</label>
-                        <input type="text" class="form-control" id="id_transaksi" placeholder="Nomor Telepon">
+                        <input type="text" class="form-control border border-secondary" id="id_transaksi" placeholder="Nomor Telepon">
                     </div>
                 </div>
                 <div class="col-md-6 my-1">
                     <label for="nama">Alamat</label>
-                    <input type="text" class="form-control" id="nama" placeholder="Alamat">
+                    <input type="text" class="form-control border border-secondary" id="nama" placeholder="Alamat">
                 </div>
             </div>
         </div>

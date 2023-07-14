@@ -1,9 +1,9 @@
 @extends('admin.admin')
 @section('admin')
     <div class="page-content">
-        <form action="{{ url('/admin-table/storeSuplier') }}" method="POST" class="p-5">
+        <form action="{{ url('/admin-table/storeSuplier') }}" method="POST" class="px-5">
             @csrf
-            <div class="row my-3">
+            <div class="row my-1">
                 <div class="col-12">
                     <span>Data Pembelian</span>
                 </div>
