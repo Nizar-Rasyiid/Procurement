@@ -14,7 +14,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row mb-3">
                 <div class="col-12">
                     <div class="card my-1">
                         <div class="card-body">

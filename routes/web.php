@@ -11,7 +11,7 @@ use App\Http\Controllers\APController;
 use App\Http\Controllers\APSuplierController;
 use App\Http\Controllers\ARController;
 use App\Http\Controllers\ARSuplierController;
-use App\Http\Controllers\LoginController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -83,6 +83,8 @@ Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'Deta
 Route::get('/admin-table/margin-detail/1',[TransaksiController::class, 'margin'])->name('margin');
 Route::get('/admin-table/margin-table',[TransaksiController::class, 'marginTable'])->name('tableMargin');
 
+Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/regis', [AuthController::class, 'Regis'])->name('Regis');
 
 
 
