@@ -11,6 +11,7 @@ use App\Http\Controllers\APController;
 use App\Http\Controllers\APSuplierController;
 use App\Http\Controllers\ARController;
 use App\Http\Controllers\ARSuplierController;
+use App\Http\Controllers\LoginController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -84,4 +85,9 @@ Route::get('/admin-table/margin-table',[TransaksiController::class, 'marginTable
 
 
 
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
