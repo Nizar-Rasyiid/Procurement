@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('admin')
+@include('sweetalert::alert')
     <div class="page-content pt-5">
       <div class="card mt-5">
         <div class="card-body">
@@ -16,15 +17,16 @@
                 <div class="form-group mt-3">
                     <div class="input-group">
                       <span class="input-group-text">Nomor Telepon</span>
-                    <input type="number" class="form-control border border-secondary" id="nomor_telepon" name="nomor_telepon" required>
+                    <input type="number" class="form-control border border-secondary" id="nomor_telepon_suplier" name="nomor_telepon_suplier" required>
                     </div>
                 </div>
                 <div class="form-group mt-3">
                   <div class="input-group">
                     <span class="input-group-text">Alamat</span>
-                    <input type="text" class="form-control border border-secondary" id="alamat_suplier" name="alamat_suplier" required>
+                    <input type="text" class="form-control border border-secondary" id="alamat" name="alamat" required>
                   </div>
                 </div>
+                
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

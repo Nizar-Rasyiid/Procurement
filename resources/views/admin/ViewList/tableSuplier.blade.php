@@ -1,5 +1,6 @@
 @extends('admin.admin')
 @section('admin')
+@include('sweetalert::alert')
 <div class="page-content">
     <div class="card">
         <div class="card-body">
@@ -47,14 +48,17 @@
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
         <tbody>
-            {{-- @foreach ($customer as $item)
+            @foreach ($supliers as $item)
             <tr>
-                <td>{{$item->id_customer}}</td>
-                <td>{{$item->nama}}</td>
+                <td>{{$item->id_suplier}}</td>
+                <td>{{$item->nama_suplier}}</td>
                 <td>{{$item->alamat}}</td>
-                <td>{{$item->nomor_telepon}}</td>
+                <td>{{$item->nomor_telepon_suplier}}</td>
+                <td><button class="btn btn-success">Detail</button></td>
+                <td><button class="btn btn-danger">Download</button></td>
+
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
         <tfoot>
             <tr>
@@ -67,5 +71,13 @@
             </tr>
         </tfoot>
     </table>
+
+    {{-- <nav aria-label="Page navigation example">
+        {{ $supliers->links() }}
+    </nav> --}}
+    <nav aria-label="Page navigation example">
+        {{ $supliers->links() }}
+    </nav>
+
 </div>
 @endsection

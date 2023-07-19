@@ -13,7 +13,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    {{ __('Logout') }}
+
+                    {{ __('Wait For Acceptance') }}
                 </div>
             </div>
         </div>
