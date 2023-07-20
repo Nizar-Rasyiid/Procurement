@@ -83,7 +83,8 @@ Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'Deta
 Route::get('/admin-table/margin-detail/1',[TransaksiController::class, 'margin'])->name('margin');
 Route::get('/admin-table/margin-table',[TransaksiController::class, 'marginTable'])->name('tableMargin');
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', function(){return view("admin.Auth.login");})->name('login');
+Route::post('login', [AuthController::class, "login"])->name('loginProses');
 Route::get('/regis', [AuthController::class, 'Regis'])->name('Regis');
 
 
