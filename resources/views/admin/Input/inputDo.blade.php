@@ -8,7 +8,7 @@
                     <div class="mb-3">
                         <div class="input-group">
                             <span class="input-group-text">
-                                ID Penjualan
+                                ID Suplier/Customer
                             </span>
                             <input type="text" class="form-control" id="id_so" name="id_so" required>
                             <button type="search" class="btn btn-primary">Select</button>
@@ -25,7 +25,7 @@
                                     <div class="form-group border">
                                         <div class="input-group">
                                        <span class="input-group-text w-flex">ID Customer</span>
-                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="CUST032312" readonly>
+                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="Id" readonly>
                                         </div>
                                     </div>
                                 </div>

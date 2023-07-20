@@ -34,6 +34,8 @@
   <!-- End layout styles -->
 
   <link rel="shortcut icon" href="{{ asset('../assets/images/favicon.png') }} " />
+  <link href="{{ asset('css/custom-pagination.css') }}" rel="stylesheet">
+  @include('sweetalert::alert')
 </head>
 <body>
 	<div class="main-wrapper">
@@ -54,7 +56,7 @@
         <ul class="nav">
           <li class="nav-item nav-category">Main</li>
           <li class="nav-item">
-            <a href="{{url('/')}}" class="nav-link">
+            <a href="{{url('/home')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Dashboard</span>
             </a>
@@ -118,7 +120,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/admin-table/margin-detail')}}" class="nav-link">
+            <a href="{{url('/admin-table/margin-detail/1')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">Margin</span>
             </a>
@@ -172,7 +174,7 @@
             <a href="{{url('/admin-table/payment-ap-customer')}}" class="nav-link">
               <i class="link-icon" data-feather="box"></i>
               <span class="link-title">Payment AP Customer</span>
-            </a>
+            </a
           </li>
           <li class="nav-item">
             <a href="{{url('/admin-table/payment-ap-supplier')}}" class="nav-link">
@@ -418,12 +420,12 @@
 										<img class="wd-80 ht-80 rounded-circle" src="https://via.placeholder.com/80x80" alt="">
 									</div>
 									<div class="text-center">
-										<p class="tx-16 fw-bolder">Amiah Burton</p>
-										<p class="tx-12 text-muted">amiahburton@gmail.com</p>
+										<p class="tx-16 fw-bolder">{{Auth::user()->name}} </p>
+										<p class="tx-12 text-muted">{{Auth::user()->email}}</p>
 									</div>
 								</div>
                 <ul class="list-unstyled p-1">
-                  <li class="dropdown-item py-2">
+                  {{-- <li class="dropdown-item py-2">
                     <a href="pages/general/profile.html" class="text-body ms-0">
                       <i class="me-2 icon-md" data-feather="user"></i>
                       <span>Profile</span>
@@ -440,11 +442,15 @@
                       <i class="me-2 icon-md" data-feather="repeat"></i>
                       <span>Switch User</span>
                     </a>
-                  </li>
+                  </li> --}}
                   <li class="dropdown-item py-2">
-                    <a href="javascript:;" class="text-body ms-0">
+                    <a href="{{ route('logout') }}"  class="text-body ms-0"  onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
                       <i class="me-2 icon-md" data-feather="log-out"></i>
                       <span>Log Out</span>
+                      <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
                     </a>
                   </li>
                 </ul>

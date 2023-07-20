@@ -1,0 +1,33 @@
+/* Mengatur ul dan li untuk menghilangkan tanda bulat dan padding */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+}
+
+.pagination li {
+    margin: 0;
+}
+
+/* Mengatur tampilan tombol paginasi */
+.pagination li a {
+    display: block;
+    padding: 0.5rem 0.75rem;
+    text-decoration: none;
+    color: #333;
+    border: 1px solid #ddd;
+    margin: 0 5px;
+}
+
+/* Mengatur tampilan tombol aktif */
+.pagination li.active a {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+/* Mengatur tampilan tombol ketika dihover */
+.pagination li a:hover {
+    background-color: #f2f2f2;
+}

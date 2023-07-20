@@ -21,34 +21,41 @@ class CustomerController extends Controller
       return view('admin.Input.customerStore');
     }
     public function storeCustomer(Request $request) {
-      $request->validate([
-          'nama' => 'required',
-          'nomor_telepon' => 'required',
-          'alamat' => 'required',
-      ]);
-      try {
-          DB::beginTransaction();
-        // Mengambil ID terakhir dari database
-        $lastCustomer = Customer::latest()->first();
+        $request->validate([
+            'nama' => 'required',
+            'nomor_telepon' => 'required',
+            'alamat' => 'required',
+        ]);
+        try {
+            DB::beginTransaction();
+           // Mengambil ID terakhir dari database
+$lastCustomer = Customer::latest()->first();
 
-        // Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
-        $lastIdNumber = $lastCustomer ? intval(substr($lastCustomer->id_customer, 5)) : 0;
-        $newIdNumber = $lastIdNumber + 1;
+// Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
+$lastIdNumber = $lastCustomer ? intval(substr($lastCustomer->id_customer, 5)) : 0;
+$newIdNumber = $lastIdNumber + 1;
 
-        // Menghasilkan ID dengan format "CUST-xxxxxx"
-        $id = 'CUST-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
-          $customer = new Customer();
-          $customer->id_customer = $id;
-          $customer->nama = $request->input('nama');
-          $customer->nomor_telepon = $request->input('nomor_telepon');
-          $customer->alamat = $request->input('alamat');
-          $customer->save();
-          DB::commit();
-          return redirect()->route('tableCustomer')->with('success', 'Customer Berhasil disimpan');
-      } catch (\Exception $e) {
-          DB::rollback();
-          return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Customer: ' . $e->getMessage());
-      }
+// Menghasilkan ID dengan format "CUST-xxxxxx"
+$id = 'CUST-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
+
+// Simpan data baru dengan ID yang sudah di-generate
+$customer = new Customer();
+$customer->id_customer = $id;
+
+// Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan, misalnya:
+$customer->nama = $request->input('nama');
+$customer->alamat = $request->input('alamat');
+$customer->nomor_telepon = $request->input('nomor_telepon');
+// ... lanjutkan menyimpan data lainnya ...
+
+// Simpan data customer
+$customer->save();
+            DB::commit();
+            return redirect()->route('tableCustomer')->with('success', 'Berhasil Menambahkan Customer');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Customer: ' . $e->getMessage());
+        }
     }
 
       public function deleteAdmin(Request $request) {

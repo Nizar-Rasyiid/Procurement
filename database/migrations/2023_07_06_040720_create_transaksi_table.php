@@ -19,10 +19,6 @@ return new class extends Migration
             $table->date('tanggal');
             $table->boolean('status');
             $table->timestamps();
-    
-            $table->foreign('id_do')->references('id')->on('do');
-            $table->foreign('id_so')->references('id')->on('so');
-            $table->foreign('id_supplier')->references('id_suplier')->on('suplier');
         });
     }
 

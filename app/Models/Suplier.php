@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class Suplier extends Model
 {
     protected $fillable = ["id_suplier","nama_suplier","alamat","nomor_telepon_suplier"];
-    protected $table = 'customer';
+    protected $table = 'suplier';
 }

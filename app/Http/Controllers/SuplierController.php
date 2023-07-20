@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Suplier;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
+use App\Models\Suplier;
+use RealRashid\SweetAlert\Facades\Alert;
 class SuplierController extends Controller
 {
     /**
@@ -13,7 +14,7 @@ class SuplierController extends Controller
      */
     public function index()
     {
-        $supliers = Suplier::all();
+        $supliers = DB::table('suplier')->simplePaginate(5);
         return view('admin.ViewList.tableSuplier',compact('supliers'));
     }
     public function halamanStore()
@@ -35,7 +36,37 @@ class SuplierController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_suplier' => 'required',
+            'nomor_telepon_suplier' => 'required',
+            'alamat' => 'required',
+        ]);
+        try {
+            DB::beginTransaction();
+
+            // Mengambil ID terakhir dari database
+            $lastSuplier = Suplier::latest()->first();
+            
+            // Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
+            $lastIdNumber = $lastSuplier ? intval(substr($lastSuplier->id_suplier, 4)) : 0;
+            $newIdNumber = $lastIdNumber + 1;
+            
+            // Menghasilkan ID dengan format "SUP-xxxxxx"
+            $id = 'SUP-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
+            
+            // Simpan data baru dengan ID yang sudah di-generate
+            $suplier = new Suplier();
+            $suplier->id_suplier = $id;
+            $suplier->nama_suplier = $request->input('nama_suplier');
+            $suplier->alamat = $request->input('alamat');
+            $suplier->nomor_telepon_suplier = $request->input('nomor_telepon_suplier');
+            $suplier->save();
+            DB::commit();
+            return redirect()->route('tableSuplier')->with('success', 'Berhasil Menambahkan Suplier');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Suplier: ' . $e->getMessage());
+        }
     }
 
     /**

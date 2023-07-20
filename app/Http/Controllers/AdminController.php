@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Admin;
+use App\Models\User;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 class AdminController extends Controller{
 
 // Halaman Goes Here
     public function index()  {
-        return view("admin.dashboard");
+        return view("home");
     }  
     public function indexTable()  {
         $admins = Admin::all();
@@ -39,7 +40,6 @@ class AdminController extends Controller{
             $admin = new Admin();
             $admin->nama = $request->input('nama');
             // Tambahkan atribut lainnya sesuai dengan kebutuhan
-    
             $admin->save();
             DB::commit();
     
