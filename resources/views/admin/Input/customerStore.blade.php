@@ -13,7 +13,7 @@
                         <input type="text" class="form-control border border-secondary" id="nama" name="nama" required>
                     </div>
                 </div>
-
+                
                 <div class="form-group mt-3">
                     <div class="input-group">
                         <span class="input-group-text">Nomor Telepon</span>

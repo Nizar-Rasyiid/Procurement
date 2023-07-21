@@ -68,9 +68,14 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'halamanInput'])->name('paymentDo');
     Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('inputDeliveryOrder');
     Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
+    Route::get('/admin-table/store-do/{id}', 'CustomerController@getCustomerAutoFill');
+
     //SO
     Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
     Route::get('/admin-table/store-so',[SalesOrderController::class, 'halamanInput'])->name('inputSalesOrder');
+    Route::post('/admin-table/store-so',[SalesOrderController::class, 'store'])->name('storeSo');
+    Route::post('/admin-table/get-customer-info', [SalesOrderController::class, 'getCustomerInfo'])->name('getCustomerInfo');
+    Route::post('/admin-table/get-customer-infoJson', [SalesOrderController::class, 'getCustomerInfoJson'])->name('getCustomerInfoJson');
     
     //payment
     Route::get('/admin-table/payment-so',[SalesOrderController::class, 'paymentSO'])->name('paymentSo');

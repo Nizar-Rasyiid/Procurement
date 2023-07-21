@@ -12,7 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('salesOrder', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('id_so');
+            $table->string('id_customer');
+            $table->string('tanggal');
+            $table->integer('jumlahKg');
+            $table->integer('hargaPerKg');
+            $table->string('keterangan');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

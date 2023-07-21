@@ -1,6 +1,9 @@
+<!-- ... Your other HTML code ... -->
 @extends('admin.admin')
 @section('admin')
 <div class="page-content">
+<!-- ... Your other HTML code ... -->
+
 <form id="inputSoForm" action="{{ url('/admin-table/store-so') }}" method="POST" class="px-5 d-flex flex-column">
     @csrf
     <div class="row">
@@ -14,7 +17,7 @@
             </div>
         </div>
     </div>
-    <div class="row mb-3">
+    <div class="row mb-3 px-5 d-flex flex-column">
         <div class="col-12">
             <div class="card my-1">
                 <div class="card-body">
@@ -51,46 +54,7 @@
         </div>
     </div>
     <div class="row">
-        <div class="row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <div class="input-group">
-                    <span for="tanggal" class="input-group-text w-flex">Tanggal</span>
-                    <input type="date" class="form-control border border-secondary" id="tanggal" name="tanggal" placeholder="Tanggal">
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <div class="input-group">
-                    <span for="jumlahKg" class="input-group-text w-flex">Jumlah (kg)</span>
-                    <input type="number" class="form-control border border-secondary" id="jumlahKg" name="jumlahKg" required>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <div class="input-group">
-                    <span for="hargaPerKg" class="input-group-text w-flex">Harga/kg</span>
-                    <input type="number" class="form-control border border-secondary" id="hargaPerKg" name="hargaPerKg" required>
-                </div>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="mb-3">
-                    <div class="input-group">
-                    <span for="keterangan" class="input-group-text w-flex">Keterangan</span>
-                    <textarea class="form-control border border-secondary" id="keterangan" name="keterangan" rows="3"></textarea>
-                </div>
-                </div>
-            </div>
-        </div>
+        <!-- ... Other form fields ... -->
     </div>
     <button type="submit" class="btn btn-primary">Input SO</button>
 </form>

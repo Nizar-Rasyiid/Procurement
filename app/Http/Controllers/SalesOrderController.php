@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\DeliveryOrder;
+use App\Models\SalesOrder;
+use App\Models\Customer;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 class SalesOrderController extends Controller
 {
@@ -11,18 +13,40 @@ class SalesOrderController extends Controller
      * Display a listing of the resource.
      */
     public function index(){
-        return view('admin.ViewList.tableSalesOrder');
+        $so = SalesOrder::all();
+        return view('admin.ViewList.tableSalesOrder',compact('so'));
     }
-    public function halamanInput()  {
-        return view('admin.Input.InputSO');
+    public function halamanInput(Request $request)  {
+        $customerId = $request->input('id_customer');
+        $customer = Customer::where('id', $customerId)->first();
+        return view('admin.Input.InputSo',compact('customer'));
     }
     public function paymentSO()  {
         return view('admin.Payment.SoPayment');
     }
 
     
+    public function getCustomerInfo(Request $request){
+        $customerId = $request->input('id_customer');
+        $customer = Customer::where('id_customer', $customerId)->first();
 
+        return view('admin.Input.InputSo', compact('customer'));
+
+    }
+    public function getCustomerInfoJson(Request $request)
+    {
+        $customerId = $request->input('id_customer');
+        $customer = Customer::where('id_customer', $customerId)->first();
     
+        if ($customer) {
+            return response()->json($customer); // Return the customer data as JSON
+        } else {
+            return response()->json(['error' => 'Customer not found'], 404);
+        }
+    }
+    
+    
+
     /**
      * Show the form for creating a new resource.
      */
@@ -36,7 +60,45 @@ class SalesOrderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'id_customer' => 'required',
+            'tanggal' => 'required',
+            'jumlahKg' => 'required',
+            'hargaPerKg' => 'required',
+            'keterangan' => 'required',
+        ]);
+        try {
+            DB::beginTransaction();
+           // Mengambil ID terakhir dari database
+        $lastSO = SalesOrder::latest()->first();
+
+        // Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
+        $lastIdNumber = $lastSO ? intval(substr($lastSO->id_so, 5)) : 0;
+        $newIdNumber = $lastIdNumber + 1;
+
+        // Menghasilkan ID dengan format "SO-xxxxxx"
+        $id = 'SO-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
+
+        // Simpan data baru dengan ID yang sudah di-generate
+        $salesOrder = new SalesOrder();
+        $salesOrder->id_so = $id;
+
+        // Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan
+        $salesOrder->id_customer = $request->input('id_customer');
+        $salesOrder->tanggal = $request->input('tanggal');
+        $salesOrder->jumlahKg = $request->input('jumlahKg');
+        $salesOrder->hargaPerKg = $request->input('hargaPerKg');
+        $salesOrder->keterangan = $request->input('keterangan');
+
+        // Simpan data so
+        $salesOrder->save();
+            DB::commit();
+            return redirect()->route('tableSalesOrder')->with('success', 'Berhasil Menambahkan So');
+        } catch (\Exception $e) {
+            dd($e);
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Customer: ' . $e->getMessage());
+        }
     }
 
     /**

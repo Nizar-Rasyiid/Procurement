@@ -8,7 +8,7 @@
                     <div class="mb-3">
                         <div class="input-group">
                             <span class="input-group-text">
-                                ID Suplier/Customer
+                                ID Customer
                             </span>
                             <input type="text" class="form-control" id="id_so" name="id_so" required>
                             <button type="search" class="btn btn-primary">Select</button>
@@ -230,4 +230,28 @@
             <button type="submit" class="btn btn-primary mt-3">Input DO</button>
         </form>
     </div>
+    
+<script>
+    // Script untuk mengambil informasi customer
+    document.getElementById('selectCustomer').addEventListener('click', function() {
+        var customerId = document.getElementById('id_so').value;
+        // Lakukan request AJAX ke URL yang telah Anda buat di routes/web.php
+        fetch('/get-customer-info/' + customerId)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('id_customer').value = data.customer.id;
+                    document.getElementById('namaCustomer').value = data.customer.name;
+                    document.getElementById('alamat').value = data.customer.address;
+                    document.getElementById('noHp').value = data.customer.phone;
+                    // Tambahkan informasi lainnya sesuai dengan kolom yang ada pada tabel customers
+                } else {
+                    alert(data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    });
+</script>
 @endsection
