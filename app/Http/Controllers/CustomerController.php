@@ -29,27 +29,27 @@ class CustomerController extends Controller
         try {
             DB::beginTransaction();
            // Mengambil ID terakhir dari database
-$lastCustomer = Customer::latest()->first();
+        $lastCustomer = Customer::latest()->first();
 
-// Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
-$lastIdNumber = $lastCustomer ? intval(substr($lastCustomer->id_customer, 5)) : 0;
-$newIdNumber = $lastIdNumber + 1;
+        // Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
+        $lastIdNumber = $lastCustomer ? intval(substr($lastCustomer->id_customer, 5)) : 0;
+        $newIdNumber = $lastIdNumber + 1;
 
-// Menghasilkan ID dengan format "CUST-xxxxxx"
-$id = 'CUST-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
+        // Menghasilkan ID dengan format "CUST-xxxxxx"
+        $id = 'CUST-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
 
-// Simpan data baru dengan ID yang sudah di-generate
-$customer = new Customer();
-$customer->id_customer = $id;
+        // Simpan data baru dengan ID yang sudah di-generate
+        $customer = new Customer();
+        $customer->id_customer = $id;
 
-// Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan, misalnya:
-$customer->nama = $request->input('nama');
-$customer->alamat = $request->input('alamat');
-$customer->nomor_telepon = $request->input('nomor_telepon');
-// ... lanjutkan menyimpan data lainnya ...
+        // Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan, misalnya:
+        $customer->nama = $request->input('nama');
+        $customer->alamat = $request->input('alamat');
+        $customer->nomor_telepon = $request->input('nomor_telepon');
+        // ... lanjutkan menyimpan data lainnya ...
 
-// Simpan data customer
-$customer->save();
+        // Simpan data customer
+        $customer->save();
             DB::commit();
             return redirect()->route('tableCustomer')->with('success', 'Berhasil Menambahkan Customer');
         } catch (\Exception $e) {
@@ -58,37 +58,7 @@ $customer->save();
         }
     }
 
-      public function deleteAdmin(Request $request) {
-        if (in_array($request->method(), ['POST', 'PUT', 'PATCH'])
-        && $request->isJson()
-        ) {
-            $dataReq = $request->json()->all();
-            //json_decode($dataReq, true);
-            $arrDataReq =json_decode(json_encode($dataReq),true);
-            $id=$arrDataReq["id"];
-        }else{
-            $id=$request->input["id"];
-        }
 
-        $data = Customer::find($id_customer);
-        try {
-            if($data->delete()){
-                $response = [
-                    'message'		=> 'Delete Customer Sukses',
-                    'data' 		    => $data,
-                ];
-
-                return response()->json($response, 200);
-            }
-        } catch (\Exception $e) {
-            DB::rollback();
-            $response = [
-                'message'        => 'Transaction DB Error',
-                'data'      => $e->getMessage()
-            ];
-            return response()->json($response, 500);
-        }
-      }
 
         public function deleteCustomer(Request $request) {
           if (in_array($request->method(), ['POST', 'PUT', 'PATCH'])
@@ -170,5 +140,22 @@ $customer->save();
             return response()->json($response, 200);
         }
 
-
+        public function show($id){
+            $customer = Customer::findOrFail($id);
+            return view('admin.Input.inputDO', ['customer' => $customer]);
+        }
+        public function getCustomerAutoFill($id)  {
+            if ($customer) {
+                return response()->json([
+                    'success' => true,
+                    'customer' => $customer
+                ]);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Customer not found'
+                ]);
+            }
+        }
     }
+

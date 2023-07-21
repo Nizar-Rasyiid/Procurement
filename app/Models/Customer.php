@@ -9,4 +9,10 @@ class Customer extends Model
 {
     protected $fillable = ["id_customer","nama","nomor_telepon","alamat"];
     protected $table = 'customer';
+
+    public function salesOrders()
+    {
+        return $this->hasMany(SalesOrder::class,'id_customer');
+    }
+
 }
