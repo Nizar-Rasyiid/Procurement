@@ -25,7 +25,8 @@ use App\Http\Controllers\UserController;
 */
 
 
-Route::get('/login', [AuthController::class, 'login'])->name('login');
+Route::get('/login', function(){return view("admin.Auth.login");})->name('login');
+Route::post('login', [AuthController::class, "login"])->name('loginProses');
 Route::get('/regis', [AuthController::class, 'Regis'])->name('Regis');
 
 
