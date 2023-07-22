@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\DeliveryOrder;
+use App\Models\SalesOrder;
+use App\Models\Suplier;
 use Illuminate\Support\Facades\DB;
 
 class DeliveryOrderController extends Controller
@@ -23,6 +25,28 @@ class DeliveryOrderController extends Controller
     }
     public function validateDO() {
         return view('admin.Validasi.validationDo');
+    }
+
+    public function getSuplierInfoJson(Request $request) {
+        $suplierId = $request->input('id_suplier');
+        $suplier = Suplier::where('id_suplier', $suplierId)->first();
+    
+        if ($suplier) {
+            return response()->json($suplier); // Return the suplier data as JSON
+        } else {
+            return response()->json(['error' => 'Suplier not found'], 404);
+        }
+    }
+    
+    public function getSoInfoJson(Request $request) {
+        $SoId = $request->input('id_so');
+        $So = SalesOrder::where('id_so', $SoId)->first();
+    
+        if ($So) {
+            return response()->json($So); // Return the suplier data as JSON
+        } else {
+            return response()->json(['error' => 'Sales Order not found'], 404);
+        }
     }
 
     /**

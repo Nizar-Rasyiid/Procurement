@@ -36,6 +36,13 @@
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="text-end mt-3">
+                    <a href="{{ route('downloadSalesOrder') }}" class="btn btn-danger btn-sm">
+                        <i class="fas fa-file-csv"></i> Download CSV
+                    </a>    
+                </div>
+            </div>
         </div>
     </div>
     <table id="example" class="table table-striped" style="width:100%">
@@ -45,7 +52,6 @@
                 <th>Tanggal</th>
                 <th>Status</th>
                 <th>Detail</th>
-                <th>Download</th>
             </tr>
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
@@ -60,14 +66,9 @@
                       @else
                       Lunas
                     @endif
-                    
-                
                 </td>
                 <td>
-                    <button class="btn btn-success text-white btn-sm">Detail</button>
-                </td>
-                <td>
-                    <button class="btn btn-danger text-white btn-sm">Download</button>
+                    <a href="{{ route('detailSo', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
                 </td>
             </tr>
             @endforeach
@@ -78,7 +79,6 @@
                 <th>Tanggal</th>
                 <th>Status</th>
                 <th>Detail</th>
-                <th>Download</th>
             </tr>
         </tfoot>
     </table>
