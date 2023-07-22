@@ -66,10 +66,13 @@ Route::middleware('accept.user')->group(function () {
     
     //DO
     Route::get('/admin-table/DO-table',[DeliveryOrderController::class, 'index'])->name('tableDeliveryOrder');
-    Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'halamanInput'])->name('paymentDo');
-    Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('inputDeliveryOrder');
+    Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'halamanInput'])->name('inputDeliveryDo');
+    Route::post('/admin-table/store-do',[DeliveryOrderController::class, 'store'])->name('storeDo');
+    Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('paymentOrder');
     Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
-    Route::get('/admin-table/store-do/{id}', 'CustomerController@getCustomerAutoFill');
+    Route::post('/admin-table/get-customer-info', [DeliveryOrderController::class, 'getCustomerInfo'])->name('getCustomerInfo');
+    Route::post('/admin-table/get-customer-infoJson', [DeliveryOrderController::class, 'getCustomerInfoJson'])->name('getCustomerInfoJson');
+    // Route::get('/admin-table/store-do/{id}', 'CustomerController@getCustomerAutoFill');
 
     //SO
     Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');

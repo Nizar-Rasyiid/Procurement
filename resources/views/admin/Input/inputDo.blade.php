@@ -1,7 +1,7 @@
 @extends('admin.admin')
 @section('admin')
     <div class="page-content">
-        <form action="{{ url('/admin-table/storeSuplier') }}" method="POST" class="d-flex flex-column px-5 ">
+        <form id="tableDOForm" action="{{ url('/admin-table/store-do')}}" method="POST" class="d-flex flex-column px-5 ">
             @csrf
             <div class="row ">
                 <div class="col-12">
@@ -10,8 +10,8 @@
                             <span class="input-group-text">
                                 ID Customer
                             </span>
-                            <input type="text" class="form-control" id="id_so" name="id_so" required>
-                            <button type="search" class="btn btn-primary">Select</button>
+                            <input type="text" class="form-control" id="id_customer" name="id_do" required>
+                            <button type="search" class="btn btn-primary" onclick="seachCustomer()">Search</button>
                         </div>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                                 <div class="col-md-6 my-2">
                                     <div class="form-group">
                                         <div class="input-group">
-                                        <span class="input-group-text w-flex">Nama</span>
-                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                        <span class="input-group-text w-flex">Nama Customer</span>
+                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" name="NamaCustomer" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                            <span class="input-group-text w-flex"> Alamat</span>
-                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Nomor Hp</span>
-                                        <input type="text" class="form-control" id="noHp" placeholder="No Hp" value="No Hp" readonly>
+                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="No Hp" value="No Hp" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -99,8 +99,8 @@
                     <div class="mb-3">
                         <div class="input-group">
                             <div class="input-group">
-                            <span for="id_suplier" class="input-group-text">ID Suplier</span>
-                                <input type="text" class="form-control" id="id_suplier" name="id_suplier" required>
+                                <span for="id_suplier" class="input-group-text">ID Suplier</span>
+                                <input type="text" class="form-control" id="id_suplier" name="id_suplier">
                                 <button type="search" class="btn btn-primary">Select</button>
                             </div>
                         </div>
@@ -233,25 +233,32 @@
     
 <script>
     // Script untuk mengambil informasi customer
-    document.getElementById('selectCustomer').addEventListener('click', function() {
-        var customerId = document.getElementById('id_so').value;
-        // Lakukan request AJAX ke URL yang telah Anda buat di routes/web.php
-        fetch('/get-customer-info/' + customerId)
+    function searchCustomer() {
+        var idCustomer = document.getElementById('id_customer').value;
+
+        if (idCustomer !== '') {
+            fetch('/admin-table/get-customer-infoJson', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify({
+                    id_customer: idCustomer,
+                }),
+            })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    document.getElementById('id_customer').value = data.customer.id;
-                    document.getElementById('namaCustomer').value = data.customer.name;
-                    document.getElementById('alamat').value = data.customer.address;
-                    document.getElementById('noHp').value = data.customer.phone;
-                    // Tambahkan informasi lainnya sesuai dengan kolom yang ada pada tabel customers
-                } else {
-                    alert(data.message);
-                }
+                // Autofill the customer information fields
+                document.getElementById('namaCustomer').value = data.nama;
+                document.getElementById('alamat').value = data.alamat;
+                document.getElementById('nomor_telepon').value = data.nomor_telepon;
+                document.getElementById('saldoPiutang').value = data.saldoPiutang;
             })
             .catch(error => {
                 console.error('Error:', error);
             });
-    });
+        }
+    }
 </script>
 @endsection
