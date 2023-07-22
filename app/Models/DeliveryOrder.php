@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class DeliveryOrder extends Model
 {
-    protected $fillable = ["id_do","id_customer","tanggal","jumlahKg","hargaPerKg","keterangan","status"];
-
+    protected $fillable = ["id_do","id_suplier","tanggal_pembelian","kandang","nama_supir","nomor_kendaraan","nomor_sim","hargaPerKg","total_ekor","total_kg","keterangan","status"];
     protected $table = 'deliveryorder';
 
-
-    public function customer()  {
-        return $this->belongsTo(Customer::class,'id_customer');
+    public function suplier()  {
+        return $this->belongsTo(Suplier::class,'id_suplier');
     }
-    use HasFactory;
+    public function salesOrder()  {
+        return $this->belongsTo(SalesOrder::class,'id_so');
+    }
+
+
 }

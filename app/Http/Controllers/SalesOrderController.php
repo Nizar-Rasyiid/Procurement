@@ -7,6 +7,8 @@ use App\Models\SalesOrder;
 use App\Models\Customer;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+
 class SalesOrderController extends Controller
 {
     /**
@@ -25,7 +27,30 @@ class SalesOrderController extends Controller
         return view('admin.Payment.SoPayment');
     }
 
+
+    public function downloadSalesOrder()
+    {
+        $salesOrderData = SalesOrder::all();
     
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="data_salesorder.csv"',
+        ];
+    
+        $callback = function () use ($salesOrderData) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, ['ID Penjualan', 'Tanggal', 'Status', 'Id_Customer', 'Harga Per Kg', 'Jumlah Kg', 'Keterangan']);
+    
+            foreach ($salesOrderData as $salesOrder) {
+                $status = $salesOrder->status == 0 ? 'Belum Lunas' : 'Lunas';
+                fputcsv($file, [$salesOrder->id_so, $salesOrder->tanggal, $status, $salesOrder->id_customer, $salesOrder->hargaPerKg, $salesOrder->jumlahKg, $salesOrder->keterangan]);
+            }
+    
+            fclose($file);
+        };
+    
+        return new StreamedResponse($callback, 200, $headers);
+    }
     public function getCustomerInfo(Request $request){
         $customerId = $request->input('id_customer');
         $customer = Customer::where('id_customer', $customerId)->first();
@@ -33,8 +58,7 @@ class SalesOrderController extends Controller
         return view('admin.Input.InputSo', compact('customer'));
 
     }
-    public function getCustomerInfoJson(Request $request)
-    {
+    public function getCustomerInfoJson(Request $request){
         $customerId = $request->input('id_customer');
         $customer = Customer::where('id_customer', $customerId)->first();
     
@@ -106,7 +130,12 @@ class SalesOrderController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $salesOrder = DB::table('salesorder')
+        ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+        ->select('salesorder.*', 'customer.nama as nama')
+        ->where('salesorder.id', $id)
+        ->first();
+        return view('admin.Details.SoDetail', compact('salesOrder'));
     }
 
     /**

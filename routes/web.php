@@ -70,13 +70,13 @@ Route::middleware('accept.user')->group(function () {
     Route::post('/admin-table/store-do',[DeliveryOrderController::class, 'store'])->name('storeDo');
     Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('paymentOrder');
     Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
-    Route::post('/admin-table/get-customer-info', [DeliveryOrderController::class, 'getCustomerInfo'])->name('getCustomerInfo');
-    Route::post('/admin-table/get-customer-infoJson', [DeliveryOrderController::class, 'getCustomerInfoJson'])->name('getCustomerInfoJson');
-    // Route::get('/admin-table/store-do/{id}', 'CustomerController@getCustomerAutoFill');
+    Route::post('/admin-table/get-suplier-infoJson', [DeliveryOrderController::class, 'getSuplierInfoJson'])->name('getSuplierInfoJson');
 
     //SO
     Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');
     Route::get('/admin-table/store-so',[SalesOrderController::class, 'halamanInput'])->name('inputSalesOrder');
+    Route::get('/admin-table/SO-table/download-so',  [SalesOrderController::class, 'downloadSalesOrder'])->name('downloadSalesOrder');
+    Route::get('/admin-table/SO-table/{id}',  [SalesOrderController::class, 'show'])->name('detailSo');
     Route::post('/admin-table/store-so',[SalesOrderController::class, 'store'])->name('storeSo');
     Route::post('/admin-table/get-customer-info', [SalesOrderController::class, 'getCustomerInfo'])->name('getCustomerInfo');
     Route::post('/admin-table/get-customer-infoJson', [SalesOrderController::class, 'getCustomerInfoJson'])->name('getCustomerInfoJson');

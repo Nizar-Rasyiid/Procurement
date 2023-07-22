@@ -15,5 +15,9 @@ class SalesOrder extends Model
     public function customer()  {
         return $this->belongsTo(Customer::class,'id_customer');
     }
+    
+    public function deliveryOrder()  {
+        return $this->belongsTo(DeliveryOrder::class,'id_do');
+    }
 
 }

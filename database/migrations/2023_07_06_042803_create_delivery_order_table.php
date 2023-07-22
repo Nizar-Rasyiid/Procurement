@@ -12,7 +12,19 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deliveryOrder', function (Blueprint $table) {
-            $table->id();
+            $table->increments('id');
+            $table->string('id_do');
+            $table->string('id_suplier');
+            $table->string('tanggal_pembelian');
+            $table->integer('kandang');
+            $table->string('nama_supir');
+            $table->string('nomor_kendaraan');
+            $table->string('nomor_sim');
+            $table->integer('hargaPerKg');
+            $table->integer('total_ekor');
+            $table->integer('total_kg');
+            $table->string('keterangan');
+            $table->boolean('status')->default(false);
             $table->timestamps();
         });
     }

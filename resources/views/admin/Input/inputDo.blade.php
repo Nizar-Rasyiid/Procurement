@@ -8,7 +8,7 @@
                     <div class="mb-3">
                         <div class="input-group">
                             <span class="input-group-text">
-                                ID Customer
+                                ID Penjualan
                             </span>
                             <input type="text" class="form-control" id="id_customer" name="id_do" required>
                             <button type="search" class="btn btn-primary" onclick="seachCustomer()">Search</button>
@@ -99,9 +99,9 @@
                     <div class="mb-3">
                         <div class="input-group">
                             <div class="input-group">
-                                <span for="id_suplier" class="input-group-text">ID Suplier</span>
-                                <input type="text" class="form-control" id="id_suplier" name="id_suplier">
-                                <button type="search" class="btn btn-primary">Select</button>
+                            <span for="id_suplier" class="input-group-text">ID Suplier</span>
+                                <input type="text" class="form-control" id="id_suplier" name="id_suplier" required>
+                                <button type="button" class="btn btn-primary" onclick="searchSuplier()">Search</button>
                             </div>
                         </div>
                     </div>
@@ -116,15 +116,15 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span for="namaSuplier" class="input-group-text">Suplier/Vendor</span>
-                                            <input type="text" class="form-control" id="namaSuplier" placeholder="PT.." value="PT..." readonly>
+                                            <input type="text" class="form-control" id="namaSuplier" name="namaSuplier" placeholder="PT.."  readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <span for="alamatSuplier" class="input-group-text">Alamat</span>
-                                            <input type="text" class="form-control" id="alamatSuplier" placeholder="Alamat" value="Alamat" readonly>
+                                            <span for="alamat_suplier" class="input-group-text">Alamat</span>
+                                            <input type="text" class="form-control" id="alamat_suplier" name="alamat_suplier" placeholder="Alamat"  readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -133,8 +133,8 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="input-group">
-                                         <span for="noHp" class="input-group-text">No Hp</span>
-                                            <input type="text" class="form-control" id="noHp" placeholder="noHp" value="noHp" readonly>
+                                         <span for="nomor_telepon" class="input-group-text">No Hp</span>
+                                            <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Nomor Telepon"  readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -231,34 +231,36 @@
         </form>
     </div>
     
-<script>
-    // Script untuk mengambil informasi customer
-    function searchCustomer() {
-        var idCustomer = document.getElementById('id_customer').value;
-
-        if (idCustomer !== '') {
-            fetch('/admin-table/get-customer-infoJson', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                },
-                body: JSON.stringify({
-                    id_customer: idCustomer,
-                }),
-            })
-            .then(response => response.json())
-            .then(data => {
-                // Autofill the customer information fields
-                document.getElementById('namaCustomer').value = data.nama;
-                document.getElementById('alamat').value = data.alamat;
-                document.getElementById('nomor_telepon').value = data.nomor_telepon;
-                document.getElementById('saldoPiutang').value = data.saldoPiutang;
-            })
-            .catch(error => {
-                console.error('Error:', error);
-            });
+    <script>
+        // Your existing JavaScript code for searchCustomer function
+        // ...
+    
+        function searchSuplier() {
+            var idSuplier = document.getElementById('id_suplier').value;
+    
+            if (idSuplier !== '') {
+                fetch('/admin-table/get-suplier-infoJson', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        id_suplier: idSuplier,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Autofill the customer information fields
+                    document.getElementById('namaSuplier').value = data.nama_suplier;
+                    document.getElementById('alamat_suplier').value = data.alamat;
+                    document.getElementById('nomor_telepon').value = data.nomor_telepon_suplier;
+                    document.getElementById('saldoPiutang').value = data.saldoPiutang;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
         }
-    }
-</script>
+    </script>
 @endsection

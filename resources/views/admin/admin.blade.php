@@ -35,6 +35,7 @@
 
   <link rel="shortcut icon" href="{{ asset('../assets/images/favicon.png') }} " />
   <link href="{{ asset('css/custom-pagination.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   @include('sweetalert::alert')
 </head>
 <body>
@@ -44,7 +45,7 @@
 		<nav class="sidebar">
       <div class="sidebar-header">
         <a href="#" class="sidebar-brand fw-bold">
-          MB<span class="fw-bold">U</span>
+          <img src="{{ asset('assets/images/logo3.png') }}" alt="Logo" width="150">
         </a>
         <div class="sidebar-toggler not-active">
           <span></span>
