@@ -25,7 +25,7 @@
                                     <div class="form-group border">
                                         <div class="input-group">
                                        <span class="input-group-text w-flex">ID Customer</span>
-                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="Id" readonly>
+                                        <input type="text" class="form-control" id="idCustomer" name="idCustomer" placeholder="ID Customer" value="Id" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                            <span class="input-group-text w-flex"> Alamat</span>
-                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Nomor Hp</span>
-                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="No Hp" value="No Hp" readonly>
+                                        <input type="text" class="form-control" id="nomorTelepon" name="nomorTelepon" placeholder="No Hp" value="No Hp" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Tanggal Penjualan</span>
-                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                        <input type="text" class="form-control" id="tanggal_so" name="tanggal_so" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
 
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                         <div class="input-group">
                             <div class="input-group">
                             <span for="id_suplier" class="input-group-text">ID Suplier</span>
-                                <input type="text" class="form-control" id="id_suplier" name="id_suplier" required>
+                                <input type="text" class="form-control" id="id_suplier" name="id_suplier">
                                 <button type="button" class="btn btn-primary" onclick="searchSuplier()">Search</button>
                             </div>
                         </div>
@@ -134,7 +134,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                          <span for="nomor_telepon" class="input-group-text">No Hp</span>
-                                            <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Nomor Telepon"  readonly>
+                                         <input type="text" class="form-control" id="nomor_telepon_suplier" name="nomor_telepon_suplier" placeholder="No Hp" value="No Hp" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -234,6 +234,7 @@
     <script>
         // Your existing JavaScript code for searchCustomer function
         // ...
+        
     
         function searchSuplier() {
             var idSuplier = document.getElementById('id_suplier').value;
@@ -254,8 +255,37 @@
                     // Autofill the customer information fields
                     document.getElementById('namaSuplier').value = data.nama_suplier;
                     document.getElementById('alamat_suplier').value = data.alamat;
-                    document.getElementById('nomor_telepon').value = data.nomor_telepon_suplier;
+                    document.getElementById('nomor_telepon_suplier').value = data.nomor_telepon_suplier;
                     document.getElementById('saldoPiutang').value = data.saldoPiutang;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+        function searchSalesOrder() {
+            var idSo = document.getElementById('id_so').value;
+    
+            if (idSo !== '') {
+                fetch('/admin-table/get-so-infoJson', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        id_so: idSo,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Autofill the customer information fields
+                    document.getElementById('idCustomer').value = data.id_customer;
+                    document.getElementById('namaCustomer').value = data.nama;
+                    document.getElementById('alamatCustomer').value = data.alamat;
+                    document.getElementById('nomorTelepon').value = data.nomor_telepon;
+                    document.getElementById('alamat').value = data.alamat;
+                    document.getElementById('tanggal_so').value = data.tanggal;
                 })
                 .catch(error => {
                     console.error('Error:', error);
