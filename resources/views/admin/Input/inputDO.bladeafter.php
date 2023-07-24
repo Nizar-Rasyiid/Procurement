@@ -260,5 +260,34 @@
             });
         }
     }
+    function searchSalesOrder() {
+            var idSo = document.getElementById('id_so').value;
+    
+            if (idSo !== '') {
+                fetch('/admin-table/get-so-infoJson', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        id_so: idSo,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Autofill the customer information fields
+                    document.getElementById('idCustomer').value = data.id_customer;
+                    document.getElementById('namaCustomer').value = data.nama;
+                    document.getElementById('alamatCustomer').value = data.alamat;
+                    document.getElementById('nomorTelepon').value = data.nomor_telepon;
+                    document.getElementById('alamat').value = data.alamat;
+                    document.getElementById('tanggal_so').value = data.tanggal;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
 </script>
 @endsection

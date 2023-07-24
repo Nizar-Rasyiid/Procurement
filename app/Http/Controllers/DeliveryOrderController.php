@@ -52,10 +52,10 @@ class DeliveryOrderController extends Controller
             return response()->json(['error' => 'Suplier not found'], 404);
         }
     }
-    
+
     public function getSoInfoJson(Request $request) {
         $SoId = $request->input('id_so');
-        $So = SalesOrder::where('id_so', $SoId)->first();
+        $So = Suplier::where('id_so', $SoId)->first();
     
         if ($So) {
             return response()->json($So); // Return the suplier data as JSON
@@ -63,6 +63,7 @@ class DeliveryOrderController extends Controller
             return response()->json(['error' => 'Sales Order not found'], 404);
         }
     }
+    
 
     public function store(Request $request)
     {
