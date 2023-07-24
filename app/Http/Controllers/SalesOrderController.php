@@ -14,9 +14,31 @@ class SalesOrderController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(){
-        $so = SalesOrder::all();
-        return view('admin.ViewList.tableSalesOrder',compact('so'));
+    public function index(Request $request)
+    {
+        $query = SalesOrder::query();
+    
+        // Filter berdasarkan ID Penjualan jika ada nilai pada input form
+        $idSo = $request->input('id_so');
+        if ($idSo) {
+            $query->where('id_so', 'LIKE', '%' . $idSo . '%');
+        }
+    
+        // Filter berdasarkan status jika ada nilai pada input form
+        $status = $request->input('status');
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+    
+        // Filter berdasarkan tanggal jika ada nilai pada input form
+        $tanggal = $request->input('tanggal');
+        if ($tanggal) {
+            $query->whereDate('tanggal', $tanggal);
+        }
+    
+        $so = $query->get();
+    
+        return view('admin.ViewList.tableSalesOrder', compact('so'));
     }
     public function halamanInput(Request $request)  {
         $customerId = $request->input('id_customer');
@@ -68,6 +90,7 @@ class SalesOrderController extends Controller
             return response()->json(['error' => 'Customer not found'], 404);
         }
     }
+
     
     
 

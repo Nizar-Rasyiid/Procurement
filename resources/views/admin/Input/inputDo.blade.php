@@ -10,8 +10,8 @@
                             <span class="input-group-text">
                                 ID Penjualan
                             </span>
-                            <input type="text" class="form-control" id="id_customer" name="id_do" required>
-                            <button type="search" class="btn btn-primary" onclick="seachCustomer()">Search</button>
+                            <input type="text" class="form-control" id="id_so" name="id_so" required>
+                            <button type="search" class="btn btn-primary"onclick="searchSo()">Select</button>
                         </div>
                     </div>
                 </div>
@@ -32,8 +32,8 @@
                                 <div class="col-md-6 my-2">
                                     <div class="form-group">
                                         <div class="input-group">
-                                        <span class="input-group-text w-flex">Nama Customer</span>
-                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" name="NamaCustomer" readonly>
+                                        <span class="input-group-text w-flex">Nama</span>
+                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                            <span class="input-group-text w-flex"> Alamat</span>
-                                            <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Tanggal Penjualan</span>
-                                        <input type="text" class="form-control" id="tanggal_so" name="tanggal_so" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
 
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Keterangan</span>
-                                        <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
+                                        <textarea type="text" class="form-control" id="keteranganSo"  readonly></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                             <span for="tanggal" class="input-group-text">
                                 Tanggal Pembelian
                              </span>
-                             <input type="date" class="form-control" id="tanggal" placeholder="Tanggal">
+                             <input type="date" class="form-control" id="tanggalSo" name="tanggalSo" placeholder="Tanggal">
                         </div>
                     </div>
                 </div>
@@ -134,12 +134,12 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                          <span for="nomor_telepon" class="input-group-text">No Hp</span>
-                                         <input type="text" class="form-control" id="nomor_telepon_suplier" name="nomor_telepon_suplier" placeholder="No Hp" value="No Hp" readonly>
+                                            <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Nomor Telepon"  readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group">
+                                    <div class="form-group" >
                                         <div class="input-group">
                                         <span for="saldoHutang" class="input-group-text">Saldo Hutang</span>
                                             <input type="text" class="form-control" id="saldoHutang" placeholder="Saldo Hutang" value="Saldo Hutang" readonly>
@@ -257,35 +257,6 @@
                     document.getElementById('alamat_suplier').value = data.alamat;
                     document.getElementById('nomor_telepon_suplier').value = data.nomor_telepon_suplier;
                     document.getElementById('saldoPiutang').value = data.saldoPiutang;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-        }
-        function searchSalesOrder() {
-            var idSo = document.getElementById('id_so').value;
-    
-            if (idSo !== '') {
-                fetch('/admin-table/get-so-infoJson', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        id_so: idSo,
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Autofill the customer information fields
-                    document.getElementById('idCustomer').value = data.id_customer;
-                    document.getElementById('namaCustomer').value = data.nama;
-                    document.getElementById('alamatCustomer').value = data.alamat;
-                    document.getElementById('nomorTelepon').value = data.nomor_telepon;
-                    document.getElementById('alamat').value = data.alamat;
-                    document.getElementById('tanggal_so').value = data.tanggal;
                 })
                 .catch(error => {
                     console.error('Error:', error);

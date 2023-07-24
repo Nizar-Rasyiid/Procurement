@@ -10,12 +10,12 @@
                     </div>
                     <div class="card-body">
                         <p>ID Transaksi: </p>
-                        <p>ID SO: </p>
-                        <p>ID DO: </p>
-                        <p>Tanggal SO: </p>
+                        <p>ID Penjualan: </p>
+                        <p>ID Pembelian: </p>
+                        <p>Tanggal Penjualan: </p>
                         <p>Nama Customer: </p>
                         <p>Suplier/Vendor: </p>
-                        <p>Tanggal DO: </p>
+                        <p>Tanggal Pembelian: </p>
                         <p>Status: </p>
                         <p>Keterangan: </p>
                         <p>Detail: </p>
@@ -25,7 +25,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Validation DO</h5>
+                        <h5>Data Validation Pembelian</h5>
                     </div>
                     <div class="card-body">
                         <p>Tanggal Validasi :</p>
@@ -45,15 +45,15 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Payment SO</h5>
+                        <h5>Data Payment Penjualan</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID SO : </p>
+                        <p>ID Penjualan : </p>
                         <p>ID Customer : </p>
                         <p>Nama Customer : </p>
                         <p>Alamat :  </p>
                         <p>No HP </p>
-                        <p>Tanggal SO : </p>
+                        <p>Tanggal Penjualan : </p>
                         <p>Jumlah KG : </p>
                         <p>Harga/lg : </p>
                         <p>Keterangan : </p>
@@ -63,12 +63,12 @@
             <div class="col-lg-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data SO</h5>
+                        <h5>Data Penjualan</h5>
                     </div>
                     <div class="card-body ">
                         <div class="row">
                             <div class="col-lg-2 border">
-                                <p>ID SO</p>
+                                <p>ID Penjualan</p>
                             </div>
                             <div class="col border">
                                 <p> Null</p>
