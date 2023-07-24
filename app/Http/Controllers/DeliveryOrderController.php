@@ -176,6 +176,15 @@ class DeliveryOrderController extends Controller
 
     }
 
+    public function show(string $id){
+        $deliveryOrder = DB::table('deliveryorder')
+        ->join('customer', 'deliveryorder.id_customer','=','customer.id_customer')
+        ->select('deliveryorder.*','customer.nama as nama')
+        ->where('deliveryorder.id', $id)
+        ->first();
+        return view('admin.Input.inputDo', compact('deliveryOrder'));
+    }
+
     /**
      * Show the form for editing the specified resource.
      */
