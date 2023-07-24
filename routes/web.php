@@ -70,6 +70,7 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('inputDeliveryOrder');
     Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
     Route::post('/admin-table/get-suplier-infoJson', [DeliveryOrderController::class, 'getSuplierInfoJson'])->name('getSuplierInfoJson');
+    Route::post('/admin-table/get-so-infoJson', [DeliveryOrderController::class, 'getSoInfoJson'])->name('getSoInfoJson');
 
     //SO
     Route::get('/admin-table/SO-table',[SalesOrderController::class, 'index'])->name('tableSalesOrder');

@@ -25,6 +25,10 @@ class CustomerController extends Controller
             'nama' => 'required',
             'nomor_telepon' => 'required',
             'alamat' => 'required',
+            'tipe_customer' => 'required',
+            'nomor_npwp' => 'required',
+            'npwp' => 'required',
+            'ktp' => 'required',
         ]);
         try {
             DB::beginTransaction();
@@ -45,6 +49,9 @@ class CustomerController extends Controller
         // Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan, misalnya:
         $customer->nama = $request->input('nama');
         $customer->alamat = $request->input('alamat');
+        $customer->nomor_telepon = $request->input('nomor_telepon');
+        $customer->tipe_customer = $request->input('tipe_customer');
+        $customer->nomor_telepon = $request->input('nomor_telepon');
         $customer->nomor_telepon = $request->input('nomor_telepon');
         // ... lanjutkan menyimpan data lainnya ...
 

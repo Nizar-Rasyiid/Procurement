@@ -7,8 +7,8 @@
             <div class="row">
                 <div class="col-md-6 my-1">
                     <div class="form-group">
-                        <label for="id_do">ID Penjualan</label>
-                        <input type="text" class="form-control border border-secondary" id="id_do" placeholder="ID Penjualan">
+                        <label for="id_so">ID Penjualan</label>
+                        <input type="text" class="form-control border border-secondary" id="id_so" placeholder="ID Penjualan">
                     </div>
                 </div>
                 <div class="col-md-6 my-1">

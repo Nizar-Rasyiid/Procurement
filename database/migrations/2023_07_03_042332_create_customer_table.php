@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('nama');
             $table->string('nomor_telepon');
             $table->string('alamat');
+            $table->string('tipe_customer');
+            $table->string('nomor_npwp');
+            $table->string('npwp');
+            $table->string('ktp');
             $table->timestamps();
         });
     }

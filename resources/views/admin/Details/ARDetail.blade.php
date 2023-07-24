@@ -11,7 +11,7 @@
                     <div class="card-body">
                         <p>ID AR : </p>
                         <p>Nama Customer : </p>
-                        <p>Tanggal Validation DO :  </p>
+                        <p>Tanggal Validation Pembelian :  </p>
                         <p>Total KG :  </p>
                         <p>Harga / KG : </p>
                         <p>Total Harga : </p>
@@ -24,7 +24,7 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Validation DO</h5>
+                        <h5>Data Validation Pembelian</h5>
                     </div>
                     <div class="card-body">
                         <p>Tanggal Validasi :</p>
@@ -44,15 +44,15 @@
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Payment SO</h5>
+                        <h5>Data Payment Penjualan</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID SO : </p>
+                        <p>ID Penjualan : </p>
                         <p>ID Customer : </p>
                         <p>Nama Customer : </p>
                         <p>Alamat :  </p>
                         <p>No HP </p>
-                        <p>Tanggal SO : </p>
+                        <p>Tanggal Penjualan : </p>
                         <p>Jumlah KG : </p>
                         <p>Harga/lg : </p>
                         <p>Keterangan : </p>
@@ -62,10 +62,10 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data SO</h5>
+                        <h5>Data Penjualan</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID SO :</p>
+                        <p>ID Penjualan :</p>
                         <p>Tanggal : </p>
                         <p>Status : </p>
                     </div>
@@ -84,9 +84,9 @@
             <div class="col">
                 <div class="card">
                     <div class="card-body">
-                        <h5>Data SO</h5>
+                        <h5>Data Penjualan</h5>
                                     <div class="row mt-3">
-                                        <p>id SO </p>
+                                        <p>id Penjualan </p>
                                         </div>
                                         <div class="row mt-2">
                                             <p>Tanggal :</p>
@@ -107,13 +107,13 @@
                             <div class="col-md-4">
                                 <div class="card">
                                     <div class="card-body">
-                                        <h5>Data Payment SO</h5>
-                                        <p class="mt-3">ID SO : </p>
+                                        <h5>Data Payment Penjualan</h5>
+                                        <p class="mt-3">ID Penjualan : </p>
                                         <p>ID Customer : </p>
                                         <p>Nama Customer : </p>
                                         <p>Alamat :  </p>
                                         <p>No HP </p>
-                                        <p>Tanggal SO : </p>
+                                        <p>Tanggal Penjualan : </p>
                                         <p>Jumlah KG : </p>
                                         <p>Harga/lg : </p>
                                         <p>Keterngan : </p>
@@ -124,12 +124,12 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <h5>AR Customer</h5>
-                                            <p class="mt-3">ID SO : </p>
+                                            <p class="mt-3">ID Penjualan : </p>
                                             <p>ID Customer : </p>
                                             <p>Nama Customer : </p>
                                             <p>Alamat :  </p>
                                             <p>No HP </p>
-                                            <p>Tanggal SO : </p>
+                                            <p>Tanggal Penjualan : </p>
                                             <p>Jumlah KG : </p>
                                             <p>Harga/lg : </p>
                                             <p>Keterngan : </p>

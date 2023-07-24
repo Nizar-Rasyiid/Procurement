@@ -92,7 +92,7 @@
             </div>
         </div>
     </div>
-    <button type="submit" class="btn btn-primary">Input SO</button>
+    <button type="submit" class="btn btn-primary">Input Penjualan</button>
 </form>
 
 </div>
