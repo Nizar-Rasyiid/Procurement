@@ -1,17 +1,17 @@
 @extends('admin.admin')
 @section('admin')
     <div class="page-content">
-        <form id="tableDOForm" action="{{ url('/admin-table/store-do')}}" method="POST" class="d-flex flex-column px-5 ">
+        <form action="{{ url('/admin-table/store-do')}}" id="inputDOForm" method="POST" class="d-flex flex-column px-5 ">
             @csrf
             <div class="row ">
                 <div class="col-12">
                     <div class="mb-3">
                         <div class="input-group">
                             <span class="input-group-text">
-                                ID Penjualan
+                                ID Customer
                             </span>
-                            <input type="text" class="form-control" id="id_so" name="id_so" required>
-                            <button type="search" class="btn btn-primary"onclick="searchSo()">Select</button>
+                            <input type="text" class="form-control" id="id_customer" name="id_so" required>
+                            <button type="search" class="btn btn-primary" onclick="seachCustomer()">Search</button>
                         </div>
                     </div>
                 </div>
@@ -25,15 +25,15 @@
                                     <div class="form-group border">
                                         <div class="input-group">
                                        <span class="input-group-text w-flex">ID Customer</span>
-                                        <input type="text" class="form-control" id="idCustomer" name="idCustomer" placeholder="ID Customer" value="Id" readonly>
+                                        <input type="text" class="form-control" id="id_customer" placeholder="ID Customer" value="Id" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6 my-2">
                                     <div class="form-group">
                                         <div class="input-group">
-                                        <span class="input-group-text w-flex">Nama</span>
-                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                        <span class="input-group-text w-flex">Nama Customer</span>
+                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" name="NamaCustomer" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                            <span class="input-group-text w-flex"> Alamat</span>
-                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                        <input type="text" class="form-control" id="alamat" name="alamat" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Nomor Hp</span>
-                                        <input type="text" class="form-control" id="nomorTelepon" name="nomorTelepon" placeholder="No Hp" value="No Hp" readonly>
+                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="No Hp" value="No Hp" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Keterangan</span>
-                                        <textarea type="text" class="form-control" id="keteranganSo"  readonly></textarea>
+                                        <textarea type="text" class="form-control" id="keterangan" placeholder="" value="" readonly></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                             <span for="tanggal" class="input-group-text">
                                 Tanggal Pembelian
                              </span>
-                             <input type="date" class="form-control" id="tanggalSo" name="tanggalSo" placeholder="Tanggal">
+                             <input type="date" class="form-control" id="tanggal" placeholder="Tanggal">
                         </div>
                     </div>
                 </div>
@@ -99,9 +99,9 @@
                     <div class="mb-3">
                         <div class="input-group">
                             <div class="input-group">
-                            <span for="id_suplier" class="input-group-text">ID Suplier</span>
+                                <span for="id_suplier" class="input-group-text">ID Suplier</span>
                                 <input type="text" class="form-control" id="id_suplier" name="id_suplier">
-                                <button type="button" class="btn btn-primary" onclick="searchSuplier()">Search</button>
+                                <button type="search" class="btn btn-primary">Select</button>
                             </div>
                         </div>
                     </div>
@@ -116,15 +116,15 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                             <span for="namaSuplier" class="input-group-text">Suplier/Vendor</span>
-                                            <input type="text" class="form-control" id="namaSuplier" name="namaSuplier" placeholder="PT.."  readonly>
+                                            <input type="text" class="form-control" id="namaSuplier" placeholder="PT.." value="PT..." readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="input-group">
-                                            <span for="alamat_suplier" class="input-group-text">Alamat</span>
-                                            <input type="text" class="form-control" id="alamat_suplier" name="alamat_suplier" placeholder="Alamat"  readonly>
+                                            <span for="alamatSuplier" class="input-group-text">Alamat</span>
+                                            <input type="text" class="form-control" id="alamatSuplier" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -133,13 +133,13 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <div class="input-group">
-                                         <span for="nomor_telepon" class="input-group-text">No Hp</span>
-                                            <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Nomor Telepon"  readonly>
+                                         <span for="noHp" class="input-group-text">No Hp</span>
+                                            <input type="text" class="form-control" id="noHp" placeholder="noHp" value="noHp" readonly>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group" >
+                                    <div class="form-group">
                                         <div class="input-group">
                                         <span for="saldoHutang" class="input-group-text">Saldo Hutang</span>
                                             <input type="text" class="form-control" id="saldoHutang" placeholder="Saldo Hutang" value="Saldo Hutang" readonly>
@@ -231,37 +231,34 @@
         </form>
     </div>
     
-    <script>
-        // Your existing JavaScript code for searchCustomer function
-        // ...
-        
-    
-        function searchSuplier() {
-            var idSuplier = document.getElementById('id_suplier').value;
-    
-            if (idSuplier !== '') {
-                fetch('/admin-table/get-suplier-infoJson', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    },
-                    body: JSON.stringify({
-                        id_suplier: idSuplier,
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    // Autofill the customer information fields
-                    document.getElementById('namaSuplier').value = data.nama_suplier;
-                    document.getElementById('alamat_suplier').value = data.alamat;
-                    document.getElementById('nomor_telepon_suplier').value = data.nomor_telepon_suplier;
-                    document.getElementById('saldoPiutang').value = data.saldoPiutang;
-                })
-                .catch(error => {
-                    console.error('Error:', error);
-                });
-            }
+<script>
+    // Script untuk mengambil informasi customer
+    function searchCustomer() {
+        var idCustomer = document.getElementById('id_customer').value;
+
+        if (idCustomer !== '') {
+            fetch('/admin-table/get-customer-infoJson', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                },
+                body: JSON.stringify({
+                    id_customer: idCustomer,
+                }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Autofill the customer information fields
+                document.getElementById('namaCustomer').value = data.nama;
+                document.getElementById('alamat').value = data.alamat;
+                document.getElementById('nomor_telepon').value = data.nomor_telepon;
+                document.getElementById('saldoPiutang').value = data.saldoPiutang;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
         }
-    </script>
+    }
+</script>
 @endsection
