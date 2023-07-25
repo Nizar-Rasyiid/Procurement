@@ -51,6 +51,7 @@
                 <th>ID Penjualan</th>
                 <th>Tanggal</th>
                 <th>Status</th>
+                <th>Tipe Pemesanan</th>
                 <th>Detail</th>
             </tr>
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
@@ -65,8 +66,9 @@
                         Belum Lunas
                       @else
                       Lunas
-                    @endif
+                    @endif  
                 </td>
+                <td>{{$item->order_type}}</td>
                 <td>
                     <a href="{{ route('detailSo', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
                 </td>
@@ -78,6 +80,7 @@
                 <th>ID Penjualan</th>
                 <th>Tanggal</th>
                 <th>Status</th>
+                <th>Tipe Pemesanan</th>
                 <th>Detail</th>
             </tr>
         </tfoot>
