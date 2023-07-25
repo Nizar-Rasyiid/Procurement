@@ -26,7 +26,24 @@
                     <input type="text" class="form-control border border-secondary" id="alamat" name="alamat" required>
                   </div>
                 </div>
-                
+                <div class="form-group mt-3">
+                  <div class="input-group">
+                      <span class="input-group-text">Nomor NPWP</span>
+                      <input type="number" class="form-control border border-secondary" id="nomor_npwp" name="nomor_npwp" required>
+                  </div>
+              </div>
+              <div class="form-group mt-3">
+                  <div class="input-group">
+                      <span class="input-group-text">Foto NPWP</span>
+                      <input type="file" class="form-control border border-secondary" id="npwp" name="npwp" accept=".pdf, .jpg, .jpeg, .png" required>
+                  </div>
+              </div>
+              <div class="form-group mt-3">
+                  <div class="input-group">
+                      <span class="input-group-text">Foto KTP</span>
+                      <input type="file" class="form-control border border-secondary" id="ktp" name="ktp" accept=".pdf, .jpg, .jpeg, .png" required>
+                  </div>
+              </div>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>

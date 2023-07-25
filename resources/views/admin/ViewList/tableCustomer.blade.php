@@ -40,6 +40,8 @@
                 <th>Nomor Telepon</th>                
                 <th>Detail</th>
                 <th>Download</th>
+                <th>Tipe Customer</th>
+                <th>Nomor NPWP</th>
             </tr>
         </thead>
         <tbody>
@@ -49,6 +51,8 @@
                 <td>{{$item->nama}}</td>
                 <td>{{$item->alamat}}</td>
                 <td>{{$item->nomor_telepon}}</td>
+                <td>{{$item->tipe_customer}}</td>
+                <td>{{$item->nomor_npwp}}</td>
                 <td>
                     <button class="btn btn-success text-white btn-sm">Detail</button>
                 </td>
@@ -66,6 +70,8 @@
                 <th>Nomor Telepon</th>                
                 <th>Detail</th>
                 <th>Download</th>
+                <th>Tipe Customer</th>
+                <th>Nomor NPWP</th>
             </tr>
         </tfoot>
     </table>

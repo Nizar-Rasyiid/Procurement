@@ -58,7 +58,6 @@
                             <input type="number" class="form-control border border-secondary" id="nomor_npwp" name="nomor_npwp" required>
                         </div>
                     </div>
-                
                     <div class="form-group mt-3">
                         <div class="input-group">
                             <span class="input-group-text">Foto NPWP</span>

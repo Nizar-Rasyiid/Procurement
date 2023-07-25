@@ -25,7 +25,7 @@ class CustomerController extends Controller
             'nama' => 'required',
             'nomor_telepon' => 'required',
             'alamat' => 'required',
-            'tipe_customer' => 'required',
+            'tipe_customer' => 'required|array',
             'nomor_npwp' => 'required',
             'npwp' => 'required',
             'ktp' => 'required',
@@ -46,15 +46,18 @@ class CustomerController extends Controller
         $customer = new Customer();
         $customer->id_customer = $id;
 
+        //Array to custytpe
+        $tipeCustomer = implode(',', $request->input('tipe_customer'));
+
         // Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan, misalnya:
         $customer->nama = $request->input('nama');
         $customer->alamat = $request->input('alamat');
         $customer->nomor_telepon = $request->input('nomor_telepon');
-        $customer->tipe_customer = $request->input('tipe_customer');
-        $customer->nomor_telepon = $request->input('nomor_telepon');
-        $customer->nomor_telepon = $request->input('nomor_telepon');
-        // ... lanjutkan menyimpan data lainnya ...
-
+        $customer->tipe_customer = $tipeCustomer;
+        $customer->nomor_npwp = $request->input('nomor_npwp');
+        $customer->npwp = $request->input('npwp');
+        $customer->ktp = $request->input('ktp');
+        
         // Simpan data customer
         $customer->save();
             DB::commit();
