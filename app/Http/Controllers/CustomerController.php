@@ -48,11 +48,12 @@ class CustomerController extends Controller
 
         // Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan, misalnya:
         $customer->nama = $request->input('nama');
+        $customer->nomor_telepon = $request->input('nomor_telepon');
         $customer->alamat = $request->input('alamat');
-        $customer->nomor_telepon = $request->input('nomor_telepon');
         $customer->tipe_customer = $request->input('tipe_customer');
-        $customer->nomor_telepon = $request->input('nomor_telepon');
-        $customer->nomor_telepon = $request->input('nomor_telepon');
+        $customer->nomor_npwp = $request->input('nomor_npwp');
+        $customer->npwp = $request->input('npwp');
+        $customer->ktp = $request->input('ktp');
         // ... lanjutkan menyimpan data lainnya ...
 
         // Simpan data customer

@@ -52,13 +52,36 @@ class DeliveryOrderController extends Controller
             return response()->json(['error' => 'Suplier not found'], 404);
         }
     }
+    public function show(Request $request){
+        $deliveryOrder = DB::table('deliveryorder')
+        ->join('customer', 'deliveryorder.id_customer','=','customer.id_customer')
+        ->join('salesorder','deliveryorder.id_so','=','salesorder.id_so')
+        ->select(
+            'deliveryorder.*',
+            'customer.nama as nama_customer',
+            'customer.alamat as alamat_customer',
+            'customer.nomor_telepon as nomor_telepon',
+            'salesorder.tanggal as tanggal',
+            'salesorder.keterangan as keterangan'
+        );
+        return view('admin.Input.inputDo', compact('deliveryOrder'));
+    }
 
     public function getSoInfoJson(Request $request) {
         $SoId = $request->input('id_so');
-        $So = Suplier::where('id_so', $SoId)->first();
+        $So = SalesOrder::where('id_so', $SoId)->first();
+        $deliveryOrder = DB::table('deliveryorder')
+        ->join('customer', 'deliveryorder.id_customer','=','customer.id_customer')
+        ->select(
+            'deliveryorder.*',
+            'customer.nama as nama_customer',
+            'customer.alamat as alamat_customer',
+            'customer.nomor_telepon as nomor_telepon',
+        );
     
         if ($So) {
-            return response()->json($So); // Return the suplier data as JSON
+            // return response()->json($So); // Return the suplier data as JSON
+            return response()->json($So);
         } else {
             return response()->json(['error' => 'Sales Order not found'], 404);
         }
@@ -175,15 +198,6 @@ class DeliveryOrderController extends Controller
         $customer = Customer::where('id_customer', $customerId)->first();
         return view('admin.Input.InputDo', compact('customer'));
 
-    }
-
-    public function show(string $id){
-        $deliveryOrder = DB::table('deliveryorder')
-        ->join('customer', 'deliveryorder.id_customer','=','customer.id_customer')
-        ->select('deliveryorder.*','customer.nama as nama')
-        ->where('deliveryorder.id', $id)
-        ->first();
-        return view('admin.Input.inputDo', compact('deliveryOrder'));
     }
 
     /**

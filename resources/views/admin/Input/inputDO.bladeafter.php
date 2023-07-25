@@ -11,7 +11,7 @@
                                 ID Customer
                             </span>
                             <input type="text" class="form-control" id="id_customer" name="id_so" required>
-                            <button type="search" class="btn btn-primary" onclick="seachCustomer()">Search</button>
+                            <button type="search" class="btn btn-primary" onclick="searchSalesOrder()">Search</button>
                         </div>
                     </div>
                 </div>
@@ -278,10 +278,10 @@
                 .then(data => {
                     // Autofill the customer information fields
                     document.getElementById('idCustomer').value = data.id_customer;
-                    document.getElementById('namaCustomer').value = data.nama;
-                    document.getElementById('alamatCustomer').value = data.alamat;
-                    document.getElementById('nomorTelepon').value = data.nomor_telepon;
-                    document.getElementById('alamat').value = data.alamat;
+                    // document.getElementById('namaCustomer').value = data.nama;
+                    // document.getElementById('alamatCustomer').value = data.alamat;
+                    // document.getElementById('nomorTelepon').value = data.nomor_telepon;
+                    // document.getElementById('alamat').value = data.alamat;
                     document.getElementById('tanggal_so').value = data.tanggal;
                 })
                 .catch(error => {

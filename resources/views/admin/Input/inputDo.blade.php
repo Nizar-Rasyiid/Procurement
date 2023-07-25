@@ -11,7 +11,7 @@
                                 ID Penjualan
                             </span>
                             <input type="text" class="form-control" id="id_so" name="id_so" required>
-                            <button type="search" class="btn btn-primary"onclick="searchSo()">Select</button>
+                            <button type="button" class="btn btn-primary"onclick="searchSalesOrder()">Select</button>
                         </div>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Nama</span>
-                                        <input type="text" class="form-control" id="namaCustomer" placeholder="Nama" value="Nama" readonly>
+                                        <input type="text" class="form-control" id="nama_customer" name="nama_customer" placeholder="Nama" value="Nama" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                            <span class="input-group-text w-flex"> Alamat</span>
-                                        <input type="text" class="form-control" id="alamat" placeholder="Alamat" value="Alamat" readonly>
+                                        <input type="text" class="form-control" id="alamat_customer" name="alamat_customer" placeholder="Alamat" value="Alamat" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -49,7 +49,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Nomor Hp</span>
-                                        <input type="text" class="form-control" id="nomorTelepon" name="nomorTelepon" placeholder="No Hp" value="No Hp" readonly>
+                                        <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="No Hp" value="No Hp" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Tanggal Penjualan</span>
-                                        <input type="text" class="form-control" id="tanggalSO" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
+                                        <input type="text" class="form-control" id="tanggal_so" name="tanggal_so" placeholder="dd/mm/yy" value="dd/mm/yy" readonly>
 
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                         <span class="input-group-text w-flex">Keterangan</span>
-                                        <textarea type="text" class="form-control" id="keteranganSo"  readonly></textarea>
+                                        <textarea type="text" class="form-control" id="keterangan_customer" name="keterangan_customer"  readonly></textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -101,7 +101,7 @@
                             <div class="input-group">
                             <span for="id_suplier" class="input-group-text">ID Suplier</span>
                                 <input type="text" class="form-control" id="id_suplier" name="id_suplier">
-                                <button type="button" class="btn btn-primary" onclick="searchSuplier()">Search</button>
+                                <button type="button" class="btn btn-primary" onclick="searchSuplier()" required>Search</button>
                             </div>
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                                     <div class="form-group">
                                         <div class="input-group">
                                          <span for="nomor_telepon" class="input-group-text">No Hp</span>
-                                            <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Nomor Telepon"  readonly>
+                                            <input type="text" class="form-control" id="nomor_telepon_suplier" name="nomor_telepon_suplier" placeholder="Nomor Telepon"  readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -153,11 +153,7 @@
             </div>
 
             <div class="card">
-                <div class="row mx-3 mt-3 mb-0">
-                    <div class="col-12">
-                        <label for="Data DO" class="form-label">Input Data</label>
-                    </div>
-                </div>
+                <span for="Data DO" class="input-group-text">Input Data</span>
                 <div class="card-body my-3">
                     
                     <div class="row">
@@ -226,6 +222,33 @@
                     </div>
                 </div>
             </div>
+            <div class="card mt-4">
+                <div class="row">
+                    <div class="col">
+                        <span class="input-group-text">KOMPONEN OPERASIONAL</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span for="keterangan" class="input-group-text">Uang Jalan</span>
+                                        <input type="text" class="form-control border border-secondary" id="uang_jalan" placeholder="Rp">                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span for="keterangan" class="input-group-text">Uang Tangkap</span>
+                                        <input type="text" class="form-control border border-secondary" id="uang_tangkap" placeholder="Rp">                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <button type="submit" class="btn btn-primary mt-3">Input DO</button>
         </form>
@@ -257,6 +280,35 @@
                     document.getElementById('alamat_suplier').value = data.alamat;
                     document.getElementById('nomor_telepon_suplier').value = data.nomor_telepon_suplier;
                     document.getElementById('saldoPiutang').value = data.saldoPiutang;
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+            }
+        }
+        function searchSalesOrder() {
+            var idSo = document.getElementById('id_so').value;
+    
+            if (idSo !== '') {
+                fetch('/admin-table/get-so-infoJson', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    },
+                    body: JSON.stringify({
+                        id_so: idSo,
+                    }),
+                })
+                .then(response => response.json())
+                .then(data => {
+                    // Autofill the customer information fields
+                    document.getElementById('idCustomer').value = data.id_customer;
+                    document.getElementById('nama_customer').value = data.nama ;
+                    document.getElementById('alamat_customer').value = data.alamat;
+                    document.getElementById('nomor_telepon').value = data.nomor_telepon;
+                    document.getElementById('tanggal_so').value = data.tanggal;
+                    document.getElementById('keterangan_customer').value = data.keterangan;
                 })
                 .catch(error => {
                     console.error('Error:', error);
