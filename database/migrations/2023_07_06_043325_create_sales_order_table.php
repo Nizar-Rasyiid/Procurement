@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('jumlahKg');
             $table->integer('hargaPerKg');
             $table->string('keterangan');
+            $table->string('order_type');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

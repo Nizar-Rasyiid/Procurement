@@ -42,6 +42,7 @@
                 <th>Nama Suplier/Vendor</th>
                 <th>Alamat</th>
                 <th>Nomor Telepon Suplier/Vendor</th>
+                <th>Nomor NPWP</th>
                 <th>Detail</th>
                 <th>Download</th>
             </tr>
@@ -54,6 +55,7 @@
                 <td>{{$item->nama_suplier}}</td>
                 <td>{{$item->alamat}}</td>
                 <td>{{$item->nomor_telepon_suplier}}</td>
+                <td>{{$item->nomor_npwp}}</td>
                 <td><button class="btn btn-success">Detail</button></td>
                 <td><button class="btn btn-danger">Download</button></td>
 
@@ -66,6 +68,7 @@
                 <th>Nama PT</th>
                 <th>Alamat</th>
                 <th>Nomor Telepon PT</th>
+                <th>Nomor NPWP</th>
                 <th>Detail</th>
                 <th>Download</th>
             </tr>

@@ -113,6 +113,7 @@ class SalesOrderController extends Controller
             'jumlahKg' => 'required',
             'hargaPerKg' => 'required',
             'keterangan' => 'required',
+            'order_type' => 'required',
         ]);
         try {
             DB::beginTransaction();
@@ -136,6 +137,7 @@ class SalesOrderController extends Controller
         $salesOrder->jumlahKg = $request->input('jumlahKg');
         $salesOrder->hargaPerKg = $request->input('hargaPerKg');
         $salesOrder->keterangan = $request->input('keterangan');
+        $salesOrder->order_type = $request->input('order_type');
 
         // Simpan data so
         $salesOrder->save();

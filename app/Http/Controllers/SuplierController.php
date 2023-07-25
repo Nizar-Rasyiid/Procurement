@@ -40,6 +40,9 @@ class SuplierController extends Controller
             'nama_suplier' => 'required',
             'nomor_telepon_suplier' => 'required',
             'alamat' => 'required',
+            'nomor_npwp' => 'required',
+            'npwp' => 'required',
+            'ktp' => 'required',
         ]);
         try {
             DB::beginTransaction();
@@ -59,6 +62,9 @@ class SuplierController extends Controller
             $suplier->id_suplier = $id;
             $suplier->nama_suplier = $request->input('nama_suplier');
             $suplier->alamat = $request->input('alamat');
+            $suplier->nomor_npwp = $request->input('nomor_npwp');
+            $suplier->npwp = $request->input('npwp');
+            $suplier->ktp = $request->input('ktp');
             $suplier->nomor_telepon_suplier = $request->input('nomor_telepon_suplier');
             $suplier->save();
             DB::commit();

@@ -55,6 +55,23 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="input-group">
+                        <div class="input-group-prepend">
+                            <label class="input-group-text" for="inputGroupSelect01">Pilih Tipe Pemesanan</label>
+                        </div>
+                        <select class="custom-select w-75 border border-secondary text-white" style="background-color: #060c17" id="inputGroupSelect01" name="order_type">
+                            <option selected disabled>Pilih</option>
+                            <option value="Stock">Stock</option>
+                            <option value="Pembelian">Pembelian</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <div class="mb-3">
+                    <div class="input-group">
                     <span for="tanggal" class="input-group-text w-flex">Tanggal</span>
                     <input type="date" class="form-control border border-secondary" id="tanggal" name="tanggal" placeholder="Tanggal">
                 </div>

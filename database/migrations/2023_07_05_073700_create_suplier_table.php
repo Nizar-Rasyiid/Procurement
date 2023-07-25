@@ -17,6 +17,9 @@ return new class extends Migration
             $table->string('nama_suplier');
             $table->string('nomor_telepon_suplier');
             $table->string('alamat');
+            $table->string('nomor_npwp');
+            $table->string('npwp');
+            $table->string('ktp');
             $table->timestamps();
         });
     }
