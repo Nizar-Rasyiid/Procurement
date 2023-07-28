@@ -7,15 +7,39 @@ use App\Models\DeliveryOrder;
 use App\Models\SalesOrder;
 use App\Models\Customer;
 use App\Models\Suplier;
+use Validator;
+use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class DeliveryOrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index() {
-        return view('admin.ViewList.tableDeliveryOrder');
+    public function index(Request $request) {
+        $query = DeliveryOrder::query();
+    
+        // Filter berdasarkan ID Penjualan jika ada nilai pada input form
+        $idDo = $request->input('id_do');
+        if ($idDo) {
+            $query->where('id_do', 'LIKE', '%' . $idDo . '%');
+        }
+    
+        // Filter berdasarkan status jika ada nilai pada input form
+        $status = $request->input('status');
+        if ($status !== null) {
+            $query->where('status', $status);
+        }
+    
+        // Filter berdasarkan tanggal jika ada nilai pada input form
+        $tanggal = $request->input('tanggal_pembelian');
+        if ($tanggal) {
+            $query->whereDate('tanggal_pembelian', $tanggal);
+        }
+    
+        $do = $query->get();
+        return view('admin.ViewList.tableDeliveryOrder', compact('do'));
     }
 
     public function halamanInput(Request $request) {
@@ -54,33 +78,23 @@ class DeliveryOrderController extends Controller
     }
     public function show(Request $request){
         $deliveryOrder = DB::table('deliveryorder')
-        ->join('customer', 'deliveryorder.id_customer','=','customer.id_customer')
-        ->join('salesorder','deliveryorder.id_so','=','salesorder.id_so')
-        ->select(
-            'deliveryorder.*',
-            'customer.nama as nama_customer',
-            'customer.alamat as alamat_customer',
-            'customer.nomor_telepon as nomor_telepon',
-            'salesorder.tanggal as tanggal',
-            'salesorder.keterangan as keterangan'
-        );
-        return view('admin.Input.inputDo', compact('deliveryOrder'));
+        ->join('customer', 'deliveryorder.id_customer', '=', 'customer.id_customer')
+        ->join('salesorder', 'deliveryorder.id_so','=','salesorder.id_so')
+        ->select('deliveryorder.*', 'customer.nama as nama');
+        // return $deliveryOrder;
+        return view('admin.Input.inputDO');
     }
 
-    public function getSoInfoJson(Request $request) {
+    public function getSoInfoJson(Request $request)
+    {
         $SoId = $request->input('id_so');
-        $So = SalesOrder::where('id_so', $SoId)->first();
-        $deliveryOrder = DB::table('deliveryorder')
-        ->join('customer', 'deliveryorder.id_customer','=','customer.id_customer')
-        ->select(
-            'deliveryorder.*',
-            'customer.nama as nama_customer',
-            'customer.alamat as alamat_customer',
-            'customer.nomor_telepon as nomor_telepon',
-        );
-    
+
+        $So = SalesOrder::select('salesorder.*', 'customer.nama', 'customer.alamat', 'customer.nomor_telepon')
+            ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+            ->where('salesorder.id_so', $SoId)
+            ->first();
+
         if ($So) {
-            // return response()->json($So); // Return the suplier data as JSON
             return response()->json($So);
         } else {
             return response()->json(['error' => 'Sales Order not found'], 404);
@@ -102,6 +116,10 @@ class DeliveryOrderController extends Controller
             'total_ekor' => 'required',
             'total_kg' => 'required',
             'keterangan' => 'required',
+            'uang_jalan' => 'required',
+            'uang_tangkap' => 'required',
+            'solar' => 'required',
+            'etoll' => 'required',
         ]);
         try{
             DB::beginTransaction();
@@ -109,7 +127,7 @@ class DeliveryOrderController extends Controller
         $lastDO = DeliveryOrder::latest()->first();
 
         $lastIdNumber = $lastDO ? intval(substr($lastDO->id_do, 5)) : 0;
-        $newIdNumber->$lastIdNumber + 1;
+        $newIdNumber = $lastIdNumber + 1;
 
         $id = 'DO-'. str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
 
@@ -121,17 +139,21 @@ class DeliveryOrderController extends Controller
         $deliveryOrder->id_suplier = $request->input('id_suplier');
         $deliveryOrder->tanggal_pembelian = $request->input('tanggal_pembelian');
         $deliveryOrder->kandang = $request->input('kandang');
-        $deliveryOrder->nama_supir = $request->input('nama_input');
+        $deliveryOrder->nama_supir = $request->input('nama_supir');
         $deliveryOrder->nomor_kendaraan = $request->input('nomor_kendaraan');
         $deliveryOrder->nomor_sim = $request->input('nomor_sim');
         $deliveryOrder->hargaPerKg = $request->input('hargaPerKg');
         $deliveryOrder->total_ekor = $request->input('total_ekor');
         $deliveryOrder->total_kg = $request->input('total_kg');
-        $deliveryOrder->keteranga = $request->input('keterangan');
+        $deliveryOrder->keterangan = $request->input('keterangan');
+        $deliveryOrder->uang_jalan = $request->input('uang_jalan');
+        $deliveryOrder->uang_tangkap = $request->input('uang_tangkap');
+        $deliveryOrder->solar = $request->input('solar');
+        $deliveryOrder->etoll = $request->input('etoll');
 
         $deliveryOrder->save();
             DB::commit();
-            return redirect()->route('tableDeliveryOrder')->with('success', 'Berhasil Menambahkan SO');
+            return redirect()->route('tableDeliveryOrder')->with('success', 'Berhasil Menambahkan DO');
         } catch (\Exception $e) {
             dd($e);
             DB::rollback();

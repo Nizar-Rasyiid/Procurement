@@ -92,12 +92,13 @@
         </div>
         <div class="row mt-3 mb-0">
             <div class="col-12">
-                <label for="Data Validasi" class="form-label">Data Validasi</label>
+                
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card my-1">
+                <label for="Data Validasi" class="input-group-text">Data Validasi</label>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-3">
@@ -189,12 +190,13 @@
         </div>
         <div class="row mt-3 mb-0">
             <div class="col-12">
-                <label for="Data Payment" class="form-label">Data Payment</label>
+                
             </div>
         </div>
         <div class="row">
             <div class="col-12">
                 <div class="card my-1">
+                <label for="Data Payment" class="input-group-text">Data Payment</label>
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-6">
@@ -224,8 +226,8 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <div class="mb-3">
-                    <label for="keterangan" class="form-label">Keterangan</label>
+                <div class="mb-3 mt-3">
+                    <label for="keterangan" class="input-group-text">Keterangan</label>
                     <textarea class="form-control" id="keterangan" rows="3"></textarea>
                 </div>
             </div>
