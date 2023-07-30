@@ -13,5 +13,8 @@ class Customer extends Model
     public function salesOrders(){
         return $this->hasMany(SalesOrder::class,'id_customer');
     }
+    public function deliveryOrders(){
+        return $this->hasMany(DeliveryOrder::class,'id_customer');
+    }
 
 }

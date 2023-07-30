@@ -53,16 +53,33 @@ class DeliveryOrderController extends Controller
         }
     }
     
-    public function getSoInfoJson(Request $request) {
-        $SoId = $request->input('id_so');
-        $So = SalesOrder::where('id_so', $SoId)->first();
+    // public function getSoInfoJson(Request $request) {
+
+    //     $SoId = $request->input('id_so');
+    //     $So = SalesOrder::where('id_so', $SoId)->first();
     
-        if ($So) {
-            return response()->json($So); // Return the suplier data as JSON
-        } else {
-            return response()->json(['error' => 'Sales Order not found'], 404);
-        }
+    //     if ($So) {
+    //         return response()->json($So); // Return the suplier data as JSON
+    //     } else {
+    //         return response()->json(['error' => 'Sales Order not found'], 404);
+    //     }
+    // }
+    public function getSoInfoJson(Request $request)
+{
+    $SoId = $request->input('id_so');
+
+    $So = SalesOrder::select('salesorder.*', 'customer.nama', 'customer.alamat', 'customer.nomor_telepon')
+        ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+        ->where('salesorder.id_so', $SoId)
+        ->first();
+
+    if ($So) {
+        return response()->json($So);
+    } else {
+        return response()->json(['error' => 'Sales Order not found'], 404);
     }
+}
+
 
     public function store(Request $request)
     {
