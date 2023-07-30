@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('deliveryOrder', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('id_do');
+            $table->string('id_so');
+            $table->string('id_customer');
             $table->string('id_suplier');
             $table->string('tanggal_pembelian');
             $table->integer('kandang');
@@ -24,6 +25,10 @@ return new class extends Migration
             $table->integer('total_ekor');
             $table->integer('total_kg');
             $table->string('keterangan');
+            $table->integer('uang_jalan');
+            $table->integer('uang_tangkap');
+            $table->integer('solar');
+            $table->integer('etoll');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

@@ -96,15 +96,11 @@
         </div>
         <div class="row">
             <div class="col-12">
-                <label for="Data Payment" class="form-label">Data Payment</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-12">
-                <div class="card mt-0 mb-3">
+                <div class="card mt-3 mb-3">
+                <label for="Data Payment" class="input-group-text">Data Payment</label>
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <label class="input-group-text" for="Harga Total">Harga Total</label>
@@ -112,7 +108,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-md-3">
                                 <div class="form-group">
                                     <div class="input-group">
                                         <label class="input-group-text" for="TotalBayar">Total Bayar</label>
@@ -120,14 +116,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <div class="input-group">
-                                        <label class="input-group-text" for="buktiBayarSO">Bukti Bayar SO</label>
-                                        <input type="file" class="custom-file-input" id="buktiBayarSO" name="buktiBayarSO">
-                                        <label class="custom-file-label" for="buktiBayarSO">
-                                            <i class="fas fa-upload"></i> 
-                                        </label>
+                                        <label class="input-group-text" for="buktiBayarSO">Bukti Bayar Penjualan</label>
+                                        <input type="file" class="custom-file-input mt-2" id="buktiBayarSO" name="buktiBayarSO">
                                     </div>
                                 </div>
                             </div>

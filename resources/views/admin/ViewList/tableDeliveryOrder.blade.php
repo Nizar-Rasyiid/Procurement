@@ -50,14 +50,20 @@
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
         <tbody>
-            {{-- @foreach ($customer as $item)
+            @foreach ($do as $item)
             <tr>
-                <td>{{$item->id_customer}}</td>
-                <td>{{$item->nama}}</td>
-                <td>{{$item->alamat}}</td>
+                <td>{{$item->id_do}}</td>
+                <td>{{$item->tanggal_pembelian}}</td>
+                <td>
+                    @if ($item->status == 0)
+                        Belum Lunas
+                    @else
+                      Lunas
+                    @endif  
+                </td>
                 <td>{{$item->nomor_telepon}}</td>
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
         <tfoot>
             <tr>

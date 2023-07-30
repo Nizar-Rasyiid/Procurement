@@ -1,7 +1,7 @@
 @extends('admin.admin')
 @section('admin')
 <div class="page-content">
-    <form action="{{ url('/admin-table/storeSuplier') }}" method="POST" class="d-flex flex-column px-5">
+    <form action="{{ url('/admin-table/store-do') }}" method="POST" class="d-flex flex-column px-5">
         @csrf
         <div class="row">
             <div class="col-12">
@@ -87,7 +87,7 @@
                 <div class="mb-3">
                     <div class="input-group">
                         <span for="tanggalSo" class="input-group-text">Tanggal Pembelian</span>
-                        <input type="date" class="form-control" id="tanggalSo" name="tanggalSo" placeholder="Tanggal">
+                        <input type="date" class="form-control" id="tanggal_pembelian" name="tanggal_pembelian" placeholder="Tanggal">
                     </div>
                 </div>
             </div>
@@ -163,7 +163,7 @@
                         <div class="mb-3">
                             <div class="input-group w-flex">
                                 <span for="Kandang" class="input-group-text">Kandang</span>
-                                <input type="text" class="form-control border border-secondary" id="Kandang" placeholder="Kandang">
+                                <input type="text" class="form-control border border-secondary" id="Kandang" name="kandang" placeholder="Kandang">
                             </div>
                         </div>
                     </div>
@@ -171,7 +171,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="No Kendaraan" class="input-group-text">No Kendaraan</span>
-                                <input type="text" class="form-control border border-secondary" id="No Kendaraan" placeholder="No Kendaraan">
+                                <input type="text" class="form-control border border-secondary" id="nomor_kendaraan" name="nomor_kendaraan" placeholder="Nomor Kendaraan">
                             </div>
                         </div>
                     </div>
@@ -181,7 +181,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="Nama Supir" class="input-group-text">Nama Supir</span>
-                                <input type="text" class="form-control border border-secondary" id="Nama Supir" placeholder="Nama Supir">
+                                <input type="text" class="form-control border border-secondary" id="nama_supir" name="nama_supir" placeholder="Nama Supir">
                             </div>
                         </div>
                     </div>
@@ -189,7 +189,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="No SIM" class="input-group-text">No SIM</span>
-                                <input type="text" class="form-control border border-secondary" id="No SIM" placeholder="No SIM">
+                                <input type="text" class="form-control border border-secondary" id="nomor-sim" name="nomor_sim" placeholder="No SIM">
                             </div>
                         </div>
                     </div>
@@ -199,7 +199,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="Total Ekor" class="input-group-text">Total Ekor</span>
-                                <input type="text" class="form-control border border-secondary" id="Total Ekor" placeholder="Total Ekor">
+                                <input type="text" class="form-control border border-secondary" id="total_ekor" name="total_ekor" placeholder="Total Ekor">
                             </div>
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="Total Kg" class="input-group-text">Total Kg</span>
-                                <input type="text" class="form-control border border-secondary" id="Total Kg" placeholder="Total Kg">
+                                <input type="text" class="form-control border border-secondary" id="total_kg" name="total_kg" placeholder="Total Kg">
                             </div>
                         </div>
                     </div>
@@ -217,7 +217,7 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="Harga/Kg" class="input-group-text">Harga/Kg</span>
-                                <input type="text" class="form-control border border-secondary" id="Harga/Kg" placeholder="Harga/Kg">
+                                <input type="text" class="form-control border border-secondary" id="hargaPerKg" name="hargaPerKg" placeholder="Harga/Kg">
                             </div>
                         </div>
                     </div>
@@ -225,14 +225,58 @@
                         <div class="mb-3">
                             <div class="input-group">
                                 <span for="keterangan" class="input-group-text">Keterangan</span>
-                                <textarea class="form-control border border-secondary" id="keterangan" rows="3"></textarea>
+                                <textarea class="form-control border border-secondary" id="keterangan" name="keterangan" rows="3"></textarea>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
+        <div class="card mt-4">
+                <div class="row">
+                    <div class="col">
+                        <span class="input-group-text">KOMPONEN OPERASIONAL</span>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span for="uang jalan" class="input-group-text">Uang Jalan</span>
+                                        <input type="number" class="form-control border border-secondary" id="uang_jalan" name="uang_jalan" placeholder="Rp">                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span for="uang tangkap" class="input-group-text">Uang Tangkap</span>
+                                        <input type="number" class="form-control border border-secondary" id="uang_tangkap" name="uang_tangkap" placeholder="Rp">                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span for="solar" class="input-group-text">Solar</span>
+                                        <input type="number" class="form-control border border-secondary" id="solar" name="solar" placeholder="Rp">                    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="input-group">
+                                        <span for="etoll" class="input-group-text">Etoll</span>
+                                        <input type="number" class="form-control border border-secondary" id="etoll" name="etoll" placeholder="Rp">                    
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         <button type="submit" class="btn btn-primary mt-3">Input DO</button>
     </form>
 </div>

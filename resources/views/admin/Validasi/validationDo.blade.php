@@ -5,7 +5,7 @@
             @csrf
             <div class="row my-1">
                 <div class="col-12">
-                    <span>Data Pembelian</span>
+                    
                 </div>
             </div>
             <div class="row">
@@ -22,6 +22,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card my-1">
+                        <span class="input-group-text">Data Pembelian</span>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-3">
@@ -83,80 +84,80 @@
                     </div>
                 </div>
             </div>
-            <div class="row my-3">
-                <div class="col-12">
-                    <label for="Data Verifikasi" class="form-label">Data Verifikasi</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="tanggal" class="">
-                            <i class="fas fa-calendar-alt" style="color: white;"></i> Tanggal Verifikasi
-                        </span>
-                        <input type="date" class="form-control border border-secondary" id="tanggal" placeholder="Tanggal">
+            <div class="card mt-4">
+            <span for="Data Verifikasi" class="input-group-text">Data Verifikasi</span>
+                <div class="card-body">
+                    <div class="row mt-2">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="tanggal" class="">
+                                    <i class="fas fa-calendar-alt" style="color: white;"></i> Tanggal Verifikasi
+                                </span>
+                                <input type="date" class="form-control border border-secondary" id="tanggal" placeholder="Tanggal">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Total Kg Tiba" class="">Total Kg Tiba</span>
+                                <input type="text" class="form-control border border-secondary" id="Total Kg Tiba" placeholder="Total Kg Tiba">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Total Kg Tiba" class="">Total Kg Tiba</span>
-                        <input type="text" class="form-control border border-secondary" id="Total Kg Tiba" placeholder="Total Kg Tiba">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Gp" class="">Gp</span>
+                                <input type="text" class="form-control border border-secondary" id="Gp" placeholder="Gp">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Ekor" class="">Ekor</span>
+                                <input type="text" class="form-control border border-secondary" id="Ekor" placeholder="Ekor">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Gp" class="">Gp</span>
-                        <input type="text" class="form-control border border-secondary" id="Gp" placeholder="Gp">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Kg" class="">Kg</span>
+                                <input type="text" class="form-control border border-secondary" id="Kg" placeholder="Kg">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Susut %" class="">Susut %</span>
+                                <input type="text" class="form-control border border-secondary" id="Susut %" placeholder="Susut %">
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Ekor" class="">Ekor</span>
-                        <input type="text" class="form-control border border-secondary" id="Ekor" placeholder="Ekor">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Mati Susulan" class="">Mati Susulan</span>
+                                <input type="text" class="form-control border border-secondary" id="Mati Susulan" placeholder="Mati Susulan">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Total Final Kg" class="">Total Final Kg</span>
+                                <input type="text" class="form-control border border-secondary" id="Total Final Kg" placeholder="Total Final Kg">
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Kg" class="">Kg</span>
-                        <input type="text" class="form-control border border-secondary" id="Kg" placeholder="Kg">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Susut %" class="">Susut %</span>
-                        <input type="text" class="form-control border border-secondary" id="Susut %" placeholder="Susut %">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Mati Susulan" class="">Mati Susulan</span>
-                        <input type="text" class="form-control border border-secondary" id="Mati Susulan" placeholder="Mati Susulan">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Total Final Kg" class="">Total Final Kg</span>
-                        <input type="text" class="form-control border border-secondary" id="Total Final Kg" placeholder="Total Final Kg">
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="Tonase Akhir" class=" ">Tonase Akhir</span>
-                        <input type="text" class="form-control border border-secondary h-" id="Tonase Akhir" placeholder="Tonase Akhir">
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="mb-3">
-                        <span for="keterangan" class="w-25">Keterangan</span>
-                        <textarea class="form-control border border-secondary h-25" id="keterangan" rows="3"></textarea>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="Tonase Akhir" class=" ">Tonase Akhir</span>
+                                <input type="text" class="form-control border border-secondary h-" id="Tonase Akhir" placeholder="Tonase Akhir">
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="mb-3">
+                                <span for="keterangan" class="w-25">Keterangan</span>
+                                <textarea class="form-control border border-secondary h-25" id="keterangan" rows="3"></textarea>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
