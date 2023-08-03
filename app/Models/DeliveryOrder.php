@@ -13,6 +13,9 @@ class DeliveryOrder extends Model
     public function suplier()  {
         return $this->belongsTo(Suplier::class,'id_suplier');
     }
+    public function customer()  {
+        return $this->belongsTo(Suplier::class,'id_customer');
+    }
     public function salesOrder()  {
         return $this->belongsTo(SalesOrder::class,'id_so');
     }
