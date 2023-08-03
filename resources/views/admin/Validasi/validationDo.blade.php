@@ -84,6 +84,7 @@
                     </div>
                 </div>
             </div>
+            
             <div class="card mt-4">
             <span for="Data Verifikasi" class="input-group-text">Data Verifikasi</span>
                 <div class="card-body">

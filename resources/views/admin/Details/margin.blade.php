@@ -9,14 +9,15 @@
                         <h5>Data Penjualan</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID AP : </p>
+                        <p>ID Penjualan : </p>
+                        <p>ID Customer : </p>
                         <p>Nama Customer : </p>
-                        <p>Tanggal Validation Pembelian :  </p>
-                        <p>Total KG :  </p>
-                        <p>Harga / KG : </p>
-                        <p>Total Harga : </p>
-                        <p>Total Bayar : </p>
-                        <p>Sisa : </p>
+                        <p>Nomor Hp : </p>
+                        <p>Alamat : </p>
+                        <p>Tipe Pemesanan : </p>
+                        <p>Tanggal : </p>
+                        <p>Jumlah (Kg) : </p>
+                        <p>Harga/Kg : </p>
                         <p>Keterangan : </p>
                     </div>
                 </div>
@@ -24,18 +25,20 @@
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Validation Pembelian</h5>
+                        <h5>Data Pembelian</h5>
                     </div>
                     <div class="card-body">
-                        <p>Tanggal Validasi :</p>
-                        <p>Total KG Tiba : </p>
-                        <p>GP :</p>
-                        <p>Ekor :</p>
-                        <p>KG :</p>
-                        <p>Susut % :</p>
-                        <p>Mati Susulan :</p>
-                        <p>Total Final KG : </p>
-                        <p>Tonase Akhir : </p>
+                        <p>ID Pembelian : </p>
+                        <p>ID Supplier </p>
+                        <p>Nomor Hp : </p>
+                        <p>Kandang </p>
+                        <p>Nomor Kendaraan : </p>
+                        <p>Nama Supir : </p>
+                        <p>Nomor Sim : </p>
+                        <p>Total Ekor : </p>
+                        <p>Total Kg :  </p>
+                        <p>Harga/Kg : </p>
+                        <p>Keterangan : </p>
                     </div>
                 </div>
             </div>
@@ -47,15 +50,16 @@
                         <h5>Data Payment Penjualan</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID Penjualan : </p>
-                        <p>ID Customer : </p>
-                        <p>Nama Customer : </p>
+                        <p>ID Penjualan : {{$margin->id_so}}</p>
+                        <p>ID Customer : {{$margin->id_customer}}</p>
+                        <p>Nama Customer : {{$margin.nama}}</p>
                         <p>Alamat :  </p>
                         <p>No HP </p>
-                        <p>Tanggal Penjualan : </p>
-                        <p>Jumlah KG : </p>
-                        <p>Harga/lg : </p>
-                        <p>Keterangan : </p>
+                        <p>Order Type : {{$margin.order_type}}</p>
+                        <p>Tanggal Penjualan : {{$margin.tanggal}}</p>
+                        <p>Jumlah KG : {{$margin.jumlahKg}}</p>
+                        <p>Harga/lg : {{$margin.hargaPerKg}}</p>
+                        <p>Keterangan : {{$margin.keterangan}}</p>
                     </div>
                 </div>
             </div>
@@ -87,7 +91,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-6">
-                                <p>ID Transaksi : </p>
+                                <p>ID margin : </p>
                                 <p>ID Penjualan : </p>
                                 <p>Tanggal : </p>
                                 <p>Customer :  </p>

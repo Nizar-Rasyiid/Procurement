@@ -7,6 +7,7 @@ use App\Http\Controllers\SuplierController;
 use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\SalesOrderController;
+use App\Http\Controllers\PaymentOrderController;
 use App\Http\Controllers\APController;
 use App\Http\Controllers\APSuplierController;
 use App\Http\Controllers\ARController;
@@ -63,12 +64,15 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/transaksi-table',[TransaksiController::class, 'index'])->name('tableTransaksi');
     Route::get('/admin-table/transaksi-table/1',[TransaksiController::class, 'detailTransaksi'])->name('detailTransaksi');
     
+    //Payment Order
     
+    Route::get('/admin-table/payment-do', [PaymentOrderController::class, 'index'])->name('index');
+    Route::post('/admin-table/payment-do', [PaymentOrderController::class, 'store'])->name('store');
+    Route::post('/admin-table/get-do-infoJson', [PaymentOrderController::class, 'getDoInfoJson'])->name('getDoInfoJson');
     //DO
     Route::get('/admin-table/DO-table',[DeliveryOrderController::class, 'index'])->name('tableDeliveryOrder');
     Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'show'])->name('inputDeliveryDo');
     Route::post('/admin-table/store-do',[DeliveryOrderController::class, 'store'])->name('storeDo');
-    Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('paymentOrder');
     Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
     Route::post('/admin-table/get-suplier-infoJson', [DeliveryOrderController::class, 'getSuplierInfoJson'])->name('getSuplierInfoJson');
     Route::post('/admin-table/get-so-infoJson', [DeliveryOrderController::class, 'getSoInfoJson'])->name('getSoInfoJson');
@@ -103,7 +107,7 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'DetailAP'])->name('DetailAP');
     
     //Margin
-    Route::get('/admin-table/margin-detail/1',[TransaksiController::class, 'margin'])->name('margin');
+    Route::get('/admin-table/margin-detail/{id}',[TransaksiController::class, 'margin'])->name('margin');
     Route::get('/admin-table/margin-table',[TransaksiController::class, 'marginTable'])->name('tableMargin');
     
     

@@ -149,11 +149,36 @@
                 </div>
             </div>
         </div>
-
         <div class="card">
+        <div class="row mx-3 mt-3 mb-0">
+                <div class="col-12">
+                    <label for="Data DO" class="form-label">ORDER TYPE</label>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="inputGroupSelect01">Pilih Tipe Pemesanan</label>
+                                </div>
+                                <select class="custom-select w-75 border border-secondary text-white" style="background-color: #060c17" id="inputGroupSelect01" name="order_type">
+                                    <option selected disabled>Pilih</option>
+                                    <option value="Stock">Stock</option>
+                                    <option value="Pembelian">Pembelian</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card mt-4">
             <div class="row mx-3 mt-3 mb-0">
                 <div class="col-12">
-                    <label for="Data DO" class="form-label">Input Data</label>
+                    <label for="Data DO" class="form-label">INPUT DATA</label>
                 </div>
             </div>
             <div class="card-body my-3">
