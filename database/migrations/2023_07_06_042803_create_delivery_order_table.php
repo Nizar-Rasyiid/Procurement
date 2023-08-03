@@ -28,6 +28,7 @@ return new class extends Migration
             $table->integer('uang_jalan');
             $table->integer('uang_tangkap');
             $table->integer('solar');
+            $table->string('order_type');
             $table->integer('etoll');
             $table->boolean('status')->default(false);
             $table->timestamps();
