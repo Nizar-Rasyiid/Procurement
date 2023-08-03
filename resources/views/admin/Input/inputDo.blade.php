@@ -25,7 +25,7 @@
                                 <div class="form-group border">
                                     <div class="input-group">
                                         <span class="input-group-text w-flex">ID Customer</span>
-                                        <input type="text" class="form-control" id="idCustomer" name="idCustomer" placeholder="ID Customer" value="Id" readonly>
+                                        <input type="text" class="form-control" id="idCustomer" name="id_customer" placeholder="ID Customer" value="Id" readonly>
                                     </div>
                                 </div>
                             </div>
@@ -333,8 +333,8 @@
         .then(data => {
             // Autofill the SO information fields
             document.getElementById('idCustomer').value = data.id_customer;
-                document.getElementById('alamat_customer').value = data.alamat;
-                document.getElementById('noHp').value = data.nomor_telepon;
+            document.getElementById('alamat_customer').value = data.alamat;
+            document.getElementById('noHp').value = data.nomor_telepon;
             document.getElementById('tanggal').value = data.tanggal;
             document.getElementById('keterangan_so').value = data.keterangan;
             document.getElementById('namaCustomer').value = data.nama;

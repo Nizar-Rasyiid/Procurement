@@ -93,7 +93,7 @@
                                 <p>Customer :  </p>
                                 <p>ID Pembelian </p>
                                 <p>Tanggal : </p>
-                                <p>Suplier/VenPembelianr : </p>
+                                <p>Suplier/Vendor : </p>
                                 <p>Harga Beli per Kg : </p>
                                 <p>Total Harga Beli  : </p>
                                 <p>Harga Jual per Kg  : </p>

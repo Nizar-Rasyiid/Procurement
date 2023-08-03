@@ -50,8 +50,7 @@ class SalesOrderController extends Controller
     }
 
 
-    public function downloadSalesOrder()
-    {
+    public function downloadSalesOrder(){
         $salesOrderData = SalesOrder::all();
     
         $headers = [

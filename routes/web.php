@@ -13,6 +13,8 @@ use App\Http\Controllers\ARController;
 use App\Http\Controllers\ARSuplierController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PaymentSoController;
+use App\Http\Controllers\VerifikasiController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -69,7 +71,6 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/store-do',[DeliveryOrderController::class, 'show'])->name('inputDeliveryDo');
     Route::post('/admin-table/store-do',[DeliveryOrderController::class, 'store'])->name('storeDo');
     Route::get('/admin-table/payment-do',[DeliveryOrderController::class, 'paymentDO'])->name('paymentOrder');
-    Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
     Route::post('/admin-table/get-suplier-infoJson', [DeliveryOrderController::class, 'getSuplierInfoJson'])->name('getSuplierInfoJson');
     Route::post('/admin-table/get-so-infoJson', [DeliveryOrderController::class, 'getSoInfoJson'])->name('getSoInfoJson');
 
@@ -82,8 +83,16 @@ Route::middleware('accept.user')->group(function () {
     Route::post('/admin-table/get-customer-info', [SalesOrderController::class, 'getCustomerInfo'])->name('getCustomerInfo');
     Route::post('/admin-table/get-customer-infoJson', [SalesOrderController::class, 'getCustomerInfoJson'])->name('getCustomerInfoJson');
     
-    //payment
-    Route::get('/admin-table/payment-so',[SalesOrderController::class, 'paymentSO'])->name('paymentSo');
+    //paymentSo
+    Route::get('/admin-table/payment-so',[PaymentSoController::class, 'index'])->name('paymentSo');
+    Route::post('/admin-table/store-payment-so',[PaymentSoController::class, 'store'])->name('storePayment');
+    Route::post('/admin-table/get-verifikasi',[PaymentSoController::class, 'getVerifikasiJson'])->name('verifikasiJson');
+
+
+
+
+
+
     Route::get('/admin-table/payment-ar-supplier',[ARSuplierController::class, 'PaymentARSupplier'])->name('PaymentARSupplier');
     Route::get('/admin-table/payment-ar-customer',[ARController::class, 'PaymentARCustomer'])->name('PaymentARCustomer');
     Route::get('/admin-table/payment-ap-supplier',[APSuplierController::class, 'PaymentAPSupplier'])->name('PaymentAPSupplier');
@@ -110,6 +119,11 @@ Route::middleware('accept.user')->group(function () {
     //Accept
     Route::post('users/{user}/accept',[UserController::class,'accept'])->name('users.accept');
     Route::get('/users-table', [UserController::class,'index'])->name('userTable');
+
+    //Varifikasi
+    Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
+    Route::post('/admin-table/store-verifikasi',[VerifikasiController::class, 'store'])->name('verifikasiStore');
+    Route::post('/admin-table/get-do-json',[VerifikasiController::class, 'getDoJson'])->name('DoJson');
     
     
 });

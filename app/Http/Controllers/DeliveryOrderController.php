@@ -133,7 +133,6 @@ class DeliveryOrderController extends Controller
         $deliveryOrder = new DeliveryOrder();
         $deliveryOrder->id_do = $id;
 
-
         $deliveryOrder->id_so = $request->input('id_so');
         $deliveryOrder->id_suplier = $request->input('id_suplier');
         $deliveryOrder->tanggal_pembelian = $request->input('tanggal_pembelian');
