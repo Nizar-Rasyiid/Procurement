@@ -23,5 +23,8 @@ class SalesOrder extends Model
     public function paymentSo()  {
         return $this->belongsTo(PaymentSo::class,'id_so');
     }
+    public function verifPembelian(){
+        return $this->belongsTo(VerifPembelian::class, 'id_verif');
+    }
 
 }

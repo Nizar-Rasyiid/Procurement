@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('verifpembelian', function (Blueprint $table) {
             $table->id();
+            $table->string("id_verif");
             $table->string("id_do");
             $table->string("tanggal");
             $table->integer("total_kg_tiba");

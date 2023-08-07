@@ -19,5 +19,8 @@ class Transaksi extends Model
     public function deliveryOrder()  {
         return $this->belongsTo(DeliveryOrder::class,'id_do');
     }
+    public function verifPembelian(){
+        return $this->belongsTo(VerifPembelian::class, 'id_verif');
+    }
 }
 

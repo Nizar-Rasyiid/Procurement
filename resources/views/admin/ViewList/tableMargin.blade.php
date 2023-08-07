@@ -90,12 +90,13 @@
             <tr>
                 <th>ID Transaksi</th>
                 <th>ID Penjualan</th>
+                <th>Nama Customer</th>
                 <th>ID Pembelian</th>
+                <th>Nama Supplier</th>
                 <th>Tanggal Penjualan</th>
                 <th>Tanggal Pembelian</th>
-                <th>Customer</th>
-                <th>Suplier/Vendor</th>
-                <th>Harga Penjualan Pembelian</th>
+                <th>Harga Penjualan</th>
+                <th>Harga Pembelian</th>
                 <th>Margin Harian</th>
                 <th>Keterangan</th>
                 <th>Detail</th>
@@ -104,28 +105,39 @@
             {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
         <tbody>
-            {{-- @foreach ($customer as $item)
+            @foreach ($margin as $item)
             <tr>
-                <td>{{$item->id_customer}}</td>
+                <td>id transaksi</td>
+                <td>{{$item->id_so}}</td>
                 <td>{{$item->nama}}</td>
-                <td>{{$item->alamat}}</td>
-                <td>{{$item->nomor_telepon}}</td>
+                <td>{{$item->id_do}}</td>
+                <td>{{$item->nama_suplier}}</td>
+                <td>{{$item->tanggal_penjualan}}</td>
+                <td>{{$item->tanggal_pembelian}}</td>
+                <td>{{$item->hargaPerKgJual}}</td>
+                <td>{{$item->hargaPerKgBeli}}</td>
+                <td>{{$item->gp + $item->normal - $item->total_kg * $item->hargaPerKgBeli}}</td>
+                <td>{{$item->keterangan}}</td>
+                <td>
+                <a href="{{ route('margin', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
+                </td>
             </tr>
-            @endforeach --}}
+            @endforeach
         </tbody>
         <tfoot>
             <tr>
-                <th>ID Transaksi</th>
+            <th>ID Transaksi</th>
                 <th>ID Penjualan</th>
+                <th>Nama Customer</th>
                 <th>ID Pembelian</th>
+                <th>Nama Supplier</th>
                 <th>Tanggal Penjualan</th>
                 <th>Tanggal Pembelian</th>
-                <th>Customer</th>
-                <th>Suplier/Vendor</th>
-                <th>Harga Penjualan Pembelian</th>
+                <th>Harga Penjualan</th>
+                <th>Harga Pembelian</th>
                 <th>Margin Harian</th>
                 <th>Keterangan</th>
-                <th>Detail</th> 
+                <th>Detail</th>
                 <th>Download</th>
             </tr>
         </tfoot>
