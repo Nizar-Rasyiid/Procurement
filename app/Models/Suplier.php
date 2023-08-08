@@ -15,4 +15,7 @@ class Suplier extends Model
     public function deliveryOrder(){
         return $this->hasMany(DeliveryOrder::class,'id_suplier');
     }
+    public function transaksi(){
+        return $this->hasMany(Transaksi::class,'id_suplier');
+    }
 }

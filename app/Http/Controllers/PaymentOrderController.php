@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Events\CreateTransaksiEvent;
+
 
 class PaymentOrderController extends Controller
 {
@@ -36,13 +38,13 @@ class PaymentOrderController extends Controller
 
         $lastOrder = PaymentOrder::latest()->first();
 
-        $lastIdNumber = $lastOrder ? intval(substr($lastOrder->id_order, 5)) : 0;
+        $lastIdNumber = $lastOrder ? intval(substr($lastOrder->id_payment_order, 5)) : 0;
         $newIdNumber = $lastIdNumber + 1;
 
-        $id = 'PD-'. str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
+        $id = 'PAYORD-'. str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
 
         $paymentOrder = new PaymentOrder();
-        $paymentOrder->id_order = $id;
+        $paymentOrder->id_payment_order = $id;
 
 
         $paymentOrder->id_do = $request->input('id_do');

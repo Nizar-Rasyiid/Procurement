@@ -22,5 +22,8 @@ class DeliveryOrder extends Model
     public function verifikasi()  {
         return $this->belongsTo(Verifikasi::class,'id_do');
     }
+    public function transaksi()  {
+        return $this->belongsTo(Transaksi::class,'id_do');
+    }
 
 }

@@ -20,6 +20,9 @@ class TransaksiController extends Controller
     {
         return view('admin.ViewList.tableTransaksi');
     }
+
+
+    
     public function margin(string $id)
     {
         $margin = DB::table('transaksi')

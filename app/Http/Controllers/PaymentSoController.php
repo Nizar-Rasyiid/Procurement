@@ -9,6 +9,8 @@ use App\Models\Verifikasi;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
+use App\Events\PaymentSoEvent;
+
 class PaymentSoController extends Controller
 {
     /**
@@ -94,6 +96,7 @@ class PaymentSoController extends Controller
         // Simpan data so
         $paymentSo->save();
             DB::commit();
+            event(new PaymentSoEvent($paymentSo));
             return redirect()->route('tableSalesOrder')->with('success', 'Berhasil Menambahkan So');
         } catch (\Exception $e) {
             dd($e);

@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('payment_order', function (Blueprint $table) {
             $table->id();
-            $table->string("id_order");
+            $table->string("id_payment_order");
+            $table->string("id_do");
             $table->integer("harga_total");     
             $table->integer("total_bayar");
             $table->string("bukti_bayar");
