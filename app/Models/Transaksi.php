@@ -7,19 +7,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class Transaksi extends Model
 {
-    protected $fillable = [
-                            // 'id_transaksi'
-                            // ,'id_do'
-                            'id_so'
-                            // ,'id_payment_so'
-                            // ,'id_payment_do'
+    protected $fillable = ['id_transaksi'
+                            ,'id_do'
+                            ,'id_so'
+                            ,'id_payment_so'
+                            ,'id_payment_do'
                             ,'id_verifikasi'
-                            // ,'id_supplier'
-                            // ,'id_customer'
-                            // ,'tanggal_do'
-                            // ,'tanggal_so'
-                            // ,'customer'
-                            // ,'suplier'
+                            ,'id_supplier'
+                            ,'id_customer'
+                            ,'tanggal_do'
+                            ,'tanggal_so'
+                            ,'customer'
+                            ,'suplier'
                             ,'status'];
     protected $table = 'transaksi';
 

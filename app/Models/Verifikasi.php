@@ -9,6 +9,7 @@ class Verifikasi extends Model
 {
     protected $fillable = [
                 'id_verifikasi',
+                'id_so',
                 'id_do',
                 'tanggal_verifikasi',
                 'gp',

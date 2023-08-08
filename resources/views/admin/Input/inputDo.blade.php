@@ -166,7 +166,7 @@
                                 <select class="custom-select w-75 border border-secondary text-white" style="background-color: #060c17" id="inputGroupSelect01" name="order_type">
                                     <option selected disabled>Pilih</option>
                                     <option value="Stock">Stock</option>
-                                    <option value="Pembelian">Pembelian</option>
+                                    <option value="Kirim">Kirim</option>
                                 </select>
                             </div>
                         </div>

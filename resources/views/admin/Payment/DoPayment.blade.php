@@ -7,7 +7,7 @@
             <div class="col-12">
                 <div class="mb-3">
                     <div class="input-group">
-                    <span for="id_do" class="input-group-text">ID Pemesanan</span>
+                    <span for="id_do" class="input-group-text">ID Pembelian</span>
                         <input type="text" class="form-control" id="id_do" name="id_do" required>
                         <button type="button" class="btn btn-primary" onclick="searchDo()">Select</button>
                     </div>

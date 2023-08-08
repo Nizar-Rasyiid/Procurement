@@ -8,6 +8,7 @@ use App\Http\Controllers\TransaksiController;
 use App\Http\Controllers\DeliveryOrderController;
 use App\Http\Controllers\SalesOrderController;
 use App\Http\Controllers\APController;
+use App\Http\Controllers\MarginController;
 use App\Http\Controllers\APSuplierController;
 use App\Http\Controllers\ARController;
 use App\Http\Controllers\ARSuplierController;
@@ -95,9 +96,7 @@ Route::middleware('accept.user')->group(function () {
 
 
 
-
-
-
+    
     Route::get('/admin-table/payment-ar-supplier',[ARSuplierController::class, 'PaymentARSupplier'])->name('PaymentARSupplier');
     Route::get('/admin-table/payment-ar-customer',[ARController::class, 'PaymentARCustomer'])->name('PaymentARCustomer');
     Route::get('/admin-table/payment-ap-supplier',[APSuplierController::class, 'PaymentAPSupplier'])->name('PaymentAPSupplier');
@@ -117,8 +116,8 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'DetailAP'])->name('DetailAP');
     
     //Margin
-    Route::get('/admin-table/margin-detail/1',[TransaksiController::class, 'margin'])->name('margin');
-    Route::get('/admin-table/margin-table',[TransaksiController::class, 'marginTable'])->name('tableMargin');
+    Route::get('/admin-table/margin-detail/{id}',[MarginController::class, 'margin'])->name('margin');
+    Route::get('/admin-table/margin-table',[MarginController::class, 'marginTable'])->name('tableMargin');
     
     
     //Accept

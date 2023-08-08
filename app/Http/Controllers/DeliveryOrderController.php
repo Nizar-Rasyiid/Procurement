@@ -119,6 +119,7 @@ class DeliveryOrderController extends Controller
             'uang_tangkap' => 'required',
             'solar' => 'required',
             'etoll' => 'required',
+            'order_type' => 'required',
         ]);
         try{
             DB::beginTransaction();
@@ -148,6 +149,7 @@ class DeliveryOrderController extends Controller
         $deliveryOrder->uang_tangkap = $request->input('uang_tangkap');
         $deliveryOrder->solar = $request->input('solar');
         $deliveryOrder->etoll = $request->input('etoll');
+        $deliveryOrder->order_type = $request->input('order_type');
 
         $deliveryOrder->save();
             DB::commit();
