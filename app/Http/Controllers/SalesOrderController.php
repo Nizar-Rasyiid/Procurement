@@ -41,17 +41,49 @@ class SalesOrderController extends Controller
         return view('admin.ViewList.tableSalesOrder', compact('so'));
     }
     public function halamanInput(Request $request)  {
-        $customerId = $request->input('id_customer');
-        $customer = Customer::where('id', $customerId)->first();
-        return view('admin.Input.InputSo',compact('customer'));
+        $customers = Customer::select('customer.id_customer', 'customer.nama','customer.alamat','customer.nomor_telepon')
+        ->leftJoin('salesorder', 'customer.id_customer', '=', 'salesorder.id_customer')
+        ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
+        ->groupBy('customer.id_customer', 'customer.nama','customer.alamat','customer.nomor_telepon')
+        ->selectRaw('SUM(payment_so.hutang_customer) AS total_hutang')
+        ->get();
+    
+    return view('admin.Input.InputSo', ['customers' => $customers]);
+    
     }
     public function paymentSO()  {
         return view('admin.Payment.SoPayment');
     }
 
 
-    public function downloadSalesOrder(){
-        $salesOrderData = SalesOrder::all();
+    public function downloadSalesOrder()
+    {
+        $salesOrderData = DB::table('salesorder')
+            ->select(
+                'salesorder.*', 
+                'customer.nama as nama',
+                'verifikasi.id_verifikasi as id_verifikasi',
+                'verifikasi.tanggal_verifikasi',
+                'verifikasi.gp',
+                'verifikasi.gp_rp',
+                'verifikasi.ekor',
+                'verifikasi.kg_susut',
+                'verifikasi.susut',
+                'verifikasi.kg',
+                'verifikasi.normal',
+                'verifikasi.mati_susulan',
+                'verifikasi.tonase_akhir',
+                'verifikasi.total_kg_tiba',
+                'payment_so.id_payment_so',
+                'payment_so.harga_total',
+                'payment_so.jumlah_bayar',
+                'payment_so.bukti_bayar_penjualan'
+            )
+            ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+            ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
+            ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+            ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
+            ->get();
     
         $headers = [
             'Content-Type' => 'text/csv',
@@ -60,11 +92,61 @@ class SalesOrderController extends Controller
     
         $callback = function () use ($salesOrderData) {
             $file = fopen('php://output', 'w');
-            fputcsv($file, ['ID Penjualan', 'Tanggal', 'Status', 'Id_Customer', 'Harga Per Kg', 'Jumlah Kg', 'Keterangan']);
+            fputcsv($file, [
+                'ID Penjualan', 
+                'Tanggal', 
+                'Status', 
+                'Id_Customer', 
+                'Nama Customer', 
+                'Harga Per Kg', 
+                'Jumlah Kg', 
+                'Keterangan', 
+                'ID Verifikasi', 
+                'Tanggal Verifikasi', 
+                'GP', 
+                'GP RP', 
+                'Ekor', 
+                'Kg Susut', 
+                'Susut', 
+                'Kg', 
+                'Normal', 
+                'Mati Susulan', 
+                'Tonase Akhir', 
+                'Total Kg Tiba', 
+                'ID Payment SO', 
+                'Harga Total', 
+                'Jumlah Bayar', 
+                'Bukti Bayar Penjualan'
+            ]);
     
             foreach ($salesOrderData as $salesOrder) {
                 $status = $salesOrder->status == 0 ? 'Belum Lunas' : 'Lunas';
-                fputcsv($file, [$salesOrder->id_so, $salesOrder->tanggal, $status, $salesOrder->id_customer, $salesOrder->hargaPerKg, $salesOrder->jumlahKg, $salesOrder->keterangan]);
+                fputcsv($file, [
+                    $salesOrder->id_so,
+                    $salesOrder->tanggal,
+                    $status,
+                    $salesOrder->id_customer,
+                    $salesOrder->nama,
+                    $salesOrder->hargaPerKg,
+                    $salesOrder->jumlahKg,
+                    $salesOrder->keterangan,
+                    $salesOrder->id_verifikasi,
+                    $salesOrder->tanggal_verifikasi,
+                    $salesOrder->gp,
+                    $salesOrder->gp_rp,
+                    $salesOrder->ekor,
+                    $salesOrder->kg_susut,
+                    $salesOrder->susut,
+                    $salesOrder->kg,
+                    $salesOrder->normal,
+                    $salesOrder->mati_susulan,
+                    $salesOrder->tonase_akhir,
+                    $salesOrder->total_kg_tiba,
+                    $salesOrder->id_payment_so,
+                    $salesOrder->harga_total,
+                    $salesOrder->jumlah_bayar,
+                    $salesOrder->bukti_bayar_penjualan
+                ]);
             }
     
             fclose($file);
@@ -79,16 +161,22 @@ class SalesOrderController extends Controller
         return view('admin.Input.InputSo', compact('customer'));
 
     }
-    public function getCustomerInfoJson(Request $request){
-        $customerId = $request->input('id_customer');
-        $customer = Customer::where('id_customer', $customerId)->first();
-    
-        if ($customer) {
-            return response()->json($customer); // Return the customer data as JSON
-        } else {
-            return response()->json(['error' => 'Customer not found'], 404);
+        public function getCustomerInfoJson(Request $request){
+            $customerId = $request->input('id_customer');
+            $customer = Customer::select('customer.*')
+            ->leftJoin('salesorder', 'customer.id_customer', '=', 'salesorder.id_customer')
+            ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
+            ->where('customer.id_customer', $customerId)
+            ->groupBy('customer.id_customer', 'customer.nama')
+            ->selectRaw('SUM(payment_so.hutang_customer) AS total_hutang')
+            ->first();
+        
+            if ($customer) {
+                return response()->json($customer); // Return the customer data as JSON
+            } else {
+                return response()->json(['error' => 'Customer not found'], 404);
+            }
         }
-    }
 
     
     
@@ -156,12 +244,38 @@ class SalesOrderController extends Controller
     {
         $salesOrder = DB::table('salesorder')
         ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
-        ->select('salesorder.*', 'customer.nama as nama')
+        ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
+        ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+        ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
+        ->select(
+            'salesorder.*', 
+            'customer.nama as nama',
+            'verifikasi.id_verifikasi as id_verifikasi',
+            'verifikasi.tanggal_verifikasi',
+            'verifikasi.gp',
+            'verifikasi.gp_rp',
+            'verifikasi.ekor',
+            'verifikasi.kg_susut',
+            'verifikasi.susut',
+            'verifikasi.kg',
+            'verifikasi.normal',
+            'verifikasi.mati_susulan',
+            'verifikasi.tonase_akhir',
+            'verifikasi.total_kg_tiba',
+            'payment_so.id_payment_so',
+            'payment_so.harga_total',
+            'payment_so.jumlah_bayar',
+            'payment_so.bukti_bayar_penjualan'
+        )
         ->where('salesorder.id', $id)
         ->first();
+    
+    return view('admin.Details.SoDetail', compact('salesOrder'));
+    
+            dd($salesOrder);
         return view('admin.Details.SoDetail', compact('salesOrder'));
     }
-
+    
     /**
      * Show the form for editing the specified resource.
      */

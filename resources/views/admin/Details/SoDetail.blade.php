@@ -12,31 +12,35 @@
                         <p>ID Penjualan : {{$salesOrder -> id_so}} </p>
                         <p>ID Customer : {{$salesOrder -> id_customer}} </p>
                         <p>Nama Customer : {{ $salesOrder->nama }}</p>
-                        <p>Tanggal Validation Pembelian : {{$salesOrder -> tanggal}} </p>
-                        <p>Total KG :  </p>
+                        <p>Tanggal Input Penjualan : {{$salesOrder -> tanggal}} </p>
+                        <p>Jumlah KG : {{$salesOrder -> jumlahKg}} </p>
                         <p>Harga / KG : {{$salesOrder -> hargaPerKg}}</p>
-                        <p>Total Harga : </p>
-                        <p>Total Bayar : </p>
-                        <p>Sisa : </p>
                         <p>Keterangan : {{$salesOrder -> keterangan}} </p>
+                        <p>Status : @if ($salesOrder -> status == 1)
+                                            Lunas
+                                        @else
+                                            Belum Lunas
+                                        @endif 
+                        </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Validation Pembelian</h5>
+                        <h5>Data Verifikasi</h5>
                     </div>
                     <div class="card-body">
-                        <p>Tanggal Validasi :</p>
-                        <p>Total KG Tiba : </p>
-                        <p>GP :</p>
-                        <p>Ekor :</p>
-                        <p>KG :</p>
-                        <p>Susut % :</p>
-                        <p>Mati Susulan :</p>
-                        <p>Total Final KG : </p>
-                        <p>Tonase Akhir : </p>
+                        <p>Id Verifikasi : {{$salesOrder -> id_verifikasi}} </p>
+                        <p>Tanggal Verifikasi :{{$salesOrder -> tanggal_verifikasi}}</p>
+                        <p>Total KG Tiba : {{$salesOrder -> normal}}</p>
+                        <p>GP : {{$salesOrder -> gp}}</p>
+                        <p>GP(RP) :{{$salesOrder -> gp_rp}}</p>
+                        <p>Ekor : {{$salesOrder -> ekor}}</p>
+                        <p>KG Susut : {{$salesOrder -> kg_susut}}</p>
+                        <p>Susut % : {{$salesOrder -> susut}}</p>
+                        <p>Mati Susulan :{{$salesOrder -> mati_susulan}} </p>
+                        <p>Tonase Akhir :{{$salesOrder -> tonase_akhir}} </p>
                     </div>
                 </div>
             </div>
@@ -48,20 +52,18 @@
                         <h5>Data Payment Penjualan</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID Penjualan : </p>
-                        <p>ID Customer : </p>
-                        <p>Nama Customer : </p>
-                        <p>Alamat :  </p>
-                        <p>No HP </p>
-                        <p>Tanggal Penjualan : </p>
-                        <p>Jumlah KG : </p>
-                        <p>Harga/lg : </p>
-                        <p>Keterangan : </p>
+                        <p>ID Penjualan : {{$salesOrder -> id_payment_so}}  </p>
+                        <p>Tanggal Verifikasi :  {{$salesOrder -> tanggal_verifikasi}}</p>
+                        <p>Harga Total :{{$salesOrder -> harga_total}} </p>
+                        <p>Jumlah Bayar : {{$salesOrder -> jumlah_bayar}} </p>
+                        <div style="max-width: 100%; text-align: center;">
+                            <img src="{{ asset('buktiPembayaranSo/'.$salesOrder->bukti_bayar_penjualan) }}" alt="Bukti Pembayaran" style="max-height: 230px; max-width: 100%; display: inline-block;">
+                        </div>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
-                <div class="card">
+                {{-- <div class="card">
                     <div class="card-header">
                         <h5>Data Penjualan</h5>
                     </div>
@@ -91,8 +93,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="card mt-2">
+                </div> --}}
+                {{-- <div class="card mt-2">
                     <div class="card-header">
                         <h5>AP Actual</h5>
                     </div>
@@ -106,7 +108,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

@@ -6,18 +6,34 @@ use Illuminate\Http\Request;
 use App\Models\Customer;
 use Illuminate\Support\Facades\DB;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-
+use Illuminate\Support\Facades\Artisan;
 class CustomerController extends Controller
 {
     public  function index(){
-      $customer = Customer::all();
-      return view('admin.ViewList.tableCustomer',compact('customer'));
+      $customers = Customer::all();
+       Artisan::call('route:clear');
+       //Melihat Hutang
+//        SELECT
+//     c.id_customer,
+//     c.nama,
+//     SUM(ps.hutang_customer) AS total_hutang
+// FROM
+//     customer c
+// LEFT JOIN
+//     salesorder so ON c.id_customer = so.id_customer
+// LEFT JOIN
+//     payment_so ps ON so.id_so = ps.id_so
+// GROUP BY
+//     c.id_customer, c.nama;
+
+      return view('admin.ViewList.tableCustomer',compact('customers'));
     }
     public function ambil(){
         $customer = Customer::all();
         return view('admin.payment.paymentSalesOrder', ["customer"=>$customer]);
     }
     public function halamanStoreCustomer()  {
+        
       return view('admin.Input.customerStore');
     }
     public function storeCustomer(Request $request) {

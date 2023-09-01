@@ -16,7 +16,8 @@ return new class extends Migration
             $table->string('id_payment_so');
             $table->string('id_so');
             $table->string('id_verifikasi');
-            $table->integer('jumlah_bayar');
+            $table->bigInteger('harga_total');
+            $table->bigInteger('jumlah_bayar');
             $table->string('bukti_bayar_penjualan');
             $table->string('keterangan');
             $table->timestamps();

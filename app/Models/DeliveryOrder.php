@@ -16,14 +16,22 @@ class DeliveryOrder extends Model
     public function customer()  {
         return $this->belongsTo(Suplier::class,'id_customer');
     }
-    public function salesOrder()  {
-        return $this->belongsTo(SalesOrder::class,'id_so');
+    public function salesOrder()
+    {
+        return $this->belongsTo(SalesOrder::class, 'id_so', 'id_so');
     }
-    public function verifikasi()  {
-        return $this->belongsTo(Verifikasi::class,'id_verif');
+
+    public function verifikasi()
+    {
+        return $this->hasOne(Verifikasi::class, 'id_do', 'id_do');
     }
     public function transaksi()  {
         return $this->belongsTo(Transaksi::class,'id_do');
     }
+    public function paymentOrders()
+    {
+        return $this->hasMany(PaymentOrder::class, 'id_do');
+    }
+    
 
 }

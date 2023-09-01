@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('mati_susulan');
             $table->float('tonase_akhir');
             $table->float('total_kg_tiba');
-            $table->integer('ekor');
+            $table->integer('ekor')->nullable();
             $table->float('susut');
             $table->float('kg_susut');
             $table->integer('gp_normal');

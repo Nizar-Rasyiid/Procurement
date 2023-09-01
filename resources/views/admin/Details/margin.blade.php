@@ -3,9 +3,9 @@
 <?php
 $harga_total_beli = $margin->total_kg * $margin->hargaPerKgBeli;
 $gp_total = $margin->gp * $margin->gp_rp;
-$margin_kg = $margin->hargaPerKgBeli - $margin->hargaPerKgJual;
-$penjualan_akhir = $margin->gp + $margin->normal;
+$margin_kg = $margin->hargaPerKgJual - $margin->hargaPerKgBeli;
 $normal = $margin->hargaPerKgJual * $margin->tonase_akhir;
+$penjualan_akhir = $gp_total + $normal;
 $margin_harian = $penjualan_akhir - $harga_total_beli;
 $total_operational = $margin->uang_jalan + $margin->uang_tangkap + $margin->solar + $margin->etoll;
 $laba = $margin_harian - $total_operational;
@@ -68,7 +68,14 @@ $laba = $margin_harian - $total_operational;
                 </div>
             </div>
         </div>
-        <!-- <div class="row">
+     
+    </div>
+</div>
+@endsection
+
+
+
+   <!-- <div class="row">
             <div class="col-md-5">
                 <div class="card">
                     <div class="card-header">
@@ -187,6 +194,3 @@ $laba = $margin_harian - $total_operational;
                 </div>
             </div>
         </div> -->
-    </div>
-</div>
-@endsection

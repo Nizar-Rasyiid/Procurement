@@ -10,6 +10,7 @@ use App\Models\Customer;
 use App\Models\Verifikasi;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 class VerifikasiController extends Controller
 {
@@ -18,7 +19,8 @@ class VerifikasiController extends Controller
      */
     public function index()
     {
-        //
+        $verifikasi = Verifikasi::get();
+        return view('admin.Validasi.verificationTable',compact('verifikasi'));
     }
 
     /**
@@ -42,7 +44,7 @@ class VerifikasiController extends Controller
             'mati_susulan' => 'required',
             'tonase_akhir' => 'required',
             'total_kg_tiba' => 'required',
-            'ekor' => 'required',
+            'ekor' => 'nullable',
             'susut' => 'required',
             'normal' => 'required',
             'gp_normal' => 'required',
@@ -74,7 +76,12 @@ class VerifikasiController extends Controller
         $verifikasi->mati_susulan = $request->input('mati_susulan');
         $verifikasi->tonase_akhir = $request->input('tonase_akhir');
         $verifikasi->total_kg_tiba = $request->input('total_kg_tiba');
-        $verifikasi->ekor = $request->input('ekor');
+        if ($request->has('ekor')) {
+            $verifikasi->ekor = $request->input('ekor');
+        } else {
+            // Atur nilai kolom 'ekor' ke null atau nilai default jika dibutuhkan
+            $verifikasi->ekor = null; // atau $verifikasi->ekor = 'default value';
+        }
         $verifikasi->susut = $request->input('susut');
         $verifikasi->normal = $request->input('normal');
         $verifikasi->gp_normal = $request->input('gp_normal');
@@ -85,7 +92,7 @@ class VerifikasiController extends Controller
         // Simpan data so
         $verifikasi->save();
             DB::commit();
-            return redirect()->route('tableSalesOrder')->with('success', 'Berhasil Menambahkan So');
+            return redirect()->route('tableVerifikasi')->with('success', 'Berhasil Menambahkan So');
         } catch (\Exception $e) {
             dd($e);
             DB::rollback();
@@ -109,7 +116,35 @@ class VerifikasiController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $verifikasi = DB::table('verifikasi')
+        // ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+        // ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
+        // ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+        // ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
+        ->select(
+            'verifikasi.*', 
+            // 'customer.nama as nama',
+            'verifikasi.id_verifikasi as id_verifikasi',
+            'verifikasi.tanggal_verifikasi',
+            'verifikasi.gp',
+            'verifikasi.gp_rp',
+            'verifikasi.ekor',
+            'verifikasi.kg_susut',
+            'verifikasi.susut',
+            'verifikasi.kg',
+            'verifikasi.normal',
+            'verifikasi.mati_susulan',
+            'verifikasi.tonase_akhir',
+            'verifikasi.total_kg_tiba',
+            // 'payment_so.id_payment_so',
+            // 'payment_so.harga_total',
+            // 'payment_so.jumlah_bayar',
+            // 'payment_so.bukti_bayar_penjualan'
+        )
+        ->where('verifikasi.id', $id)
+        ->first();
+    
+    return view('admin.Details.VerifikasiDetail', compact('verifikasi'));
     }
 
     /**
@@ -134,5 +169,68 @@ class VerifikasiController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+    public function downloadVerifikasi(){
+        $verifikasi = DB::table('verifikasi')
+        ->select(
+            'id_verifikasi',
+            'id_do',
+            'tanggal_verifikasi',
+            'gp',
+            'mati_susulan',
+            'tonase_akhir',
+            'ekor',
+            'susut',
+            'kg_susut',
+            'gp_normal',
+            'gp_rp',
+            'normal',
+            'keterangan'
+        )->get();
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename="verifikasi.csv"',
+        ];
+
+        $callback = function () use ($verifikasi) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, [
+                'ID Verifikasi',
+                'ID Pembelian',
+                'Tanggal Verifikasi',
+                'GP',
+                'Mati Susulan',
+                'Tonase Akhir',
+                'Ekor',
+                'Susut',
+                'KG Susut',
+                'GP Normal',
+                'GP Rp',
+                'Normal',
+                'keterangan',
+            ]);
+
+            foreach ($verifikasi as $verif) {
+                fputcsv($file, [
+                    $verif->id_verifikasi,
+                    $verif->id_do,
+                    $verif->tanggal_verifikasi,
+                    $verif->gp,
+                    $verif->mati_susulan,
+                    $verif->tonase_akhir,
+                    $verif->ekor,
+                    $verif->susut,
+                    $verif->kg_susut,
+                    $verif->gp_normal,
+                    $verif->gp_rp,
+                    $verif->normal,
+                    $verif->keterangan,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return new StreamedResponse($callback, 200, $headers);
     }
 }

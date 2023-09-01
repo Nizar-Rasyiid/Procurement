@@ -1,6 +1,7 @@
 @extends('admin.admin')
 @section('admin')
 <div class="page-content">
+    
     <form id="inputSoForm" action="{{ url('/admin-table/store-so') }}" method="POST" class="px-5 d-flex flex-column">
         @csrf
         <div class="row">
@@ -8,11 +9,49 @@
                 <div class="mb-3">
                     <div class="input-group">
                         <span class="input-group-text">ID Customer</span>
-                        <input type="text" class="form-control border border-secondary" id="id_customer" name="id_customer" required>
-                        <button type="button" class="btn btn-primary" onclick="searchCustomer()">Search</button>
+                        <input type="text" class="form-control border border-secondary" id="id_customer" name="id_customer" data-bs-toggle="modal" data-bs-target="#customerModal" required readonly>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#customerModal">Search</button>
+                    </div>
+                </div>
+
+
+                
+            </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="customerModal" tabindex="-1" aria-labelledby="customerModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="customerModalLabel">Pilih Id Customer</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="list-group" id="customerList">
+                                <!-- Customer items will be added here -->
+                                @foreach ($customers as $cust)
+                                <li class="list-group-item customer-item table-hover btn my-2"
+                                data-id="{{ $cust->id_customer }}"
+                                data-nama="{{ $cust->nama }}"
+                                data-alamat="{{ $cust->alamat }}"
+                                data-nomor-telepon="{{ $cust->nomor_telepon }}"
+                                data-saldo-piutang="{{ $cust->total_hutang }}"
+                            >
+                                ID: Customer {{ $cust->id_customer }} <br> Nama: {{ $cust->nama }}
+                            </li>
+                            
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            
+                      
         </div>
         <div class="row mb-3">
             <div class="col-12">
@@ -71,7 +110,7 @@
                 <div class="mb-3">
                     <div class="input-group">
                         <span for="tanggal" class="input-group-text w-flex">Tanggal</span>
-                        <input type="date" class="form-control border border-secondary" id="tanggal" name="tanggal" placeholder="Tanggal">
+                        <input type="date" class="form-control border border-secondary" id="tanggal" name="tanggal" placeholder="Tanggal" required>
                     </div>
                 </div>
             </div>
@@ -101,7 +140,7 @@
                 <div class="mb-3">
                     <div class="input-group">
                         <span for="keterangan" class="input-group-text w-flex">Keterangan</span>
-                        <textarea class="form-control border border-secondary" id="keterangan" name="keterangan" rows="3"></textarea>
+                        <textarea class="form-control border border-secondary" id="keterangan" name="keterangan" rows="3" required></textarea>
                     </div>
                 </div>
             </div>
@@ -111,8 +150,33 @@
 </div>
 
 <script>
-    // Your existing JavaScript code for searchCustomer function
-    // ...
+
+document.addEventListener("DOMContentLoaded", function() {
+        const customerList = document.getElementById("customerList");
+        const idCustomerInput = document.getElementById("id_customer");
+        const namaCustomerInput = document.getElementById("namaCustomer");
+        const alamatInput = document.getElementById("alamat");
+        const nomorTeleponInput = document.getElementById("nomor_telepon");
+        const saldoPiutangInput = document.getElementById("saldoPiutang");
+
+        customerList.addEventListener("click", function(event) {
+            const listItem = event.target;
+            const id = listItem.getAttribute("data-id");
+            const nama = listItem.getAttribute("data-nama");
+            const alamat = listItem.getAttribute("data-alamat");
+            const nomorTelepon = listItem.getAttribute("data-nomor-telepon");
+            const saldoPiutang = listItem.getAttribute("data-saldo-piutang");
+
+            idCustomerInput.value = id;
+            namaCustomerInput.value = nama;
+            alamatInput.value = alamat;
+            nomorTeleponInput.value = nomorTelepon;
+            saldoPiutangInput.value = saldoPiutang;
+
+            $('#customerModal').modal('hide'); // Close the modal
+        });
+    });
+
 
     function searchCustomer() {
         var idCustomer = document.getElementById('id_customer').value;

@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string("id_payment_order");
             $table->string("id_do");
-            $table->integer("harga_total");     
-            $table->integer("total_bayar");
+            $table->bigInteger("harga_total");     
+            $table->bigInteger("total_bayar");
             $table->string("bukti_bayar");
             $table->timestamps();
         });
