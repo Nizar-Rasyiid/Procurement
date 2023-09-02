@@ -128,6 +128,7 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/validate-do',[DeliveryOrderController::class, 'validateDO'])->name('validateDeliveryOrder');
     Route::post('/admin-table/store-verifikasi',[VerifikasiController::class, 'store'])->name('verifikasiStore');
     Route::post('/admin-table/get-do-json',[VerifikasiController::class, 'getDoJson'])->name('DoJson');
+    Route::get('/admin-table/verif-detail/{id}',[VerifikasiController::class, 'index'])->name('index');
     
     
 });

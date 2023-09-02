@@ -38,7 +38,7 @@ class SalesOrderController extends Controller
     
         $so = $query->get();
     
-        return view('admin.ViewList.tableSalesOrder', compact('so'));
+        return view('admin.ViewList.tableSalesOrder',['so'=>$so,]);   
     }
     public function halamanInput(Request $request)  {
         $customerId = $request->input('id_customer');

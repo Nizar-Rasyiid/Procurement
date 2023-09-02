@@ -18,7 +18,31 @@ class TransaksiController extends Controller
      */
     public function index()
     {
-        return view('admin.ViewList.tableTransaksi');
+        $transaksi = DeliveryOrder::select('deliveryorder.*',
+            'deliveryorder.hargaPerKg as hargaPerKgBeli',
+            'deliveryorder.uang_jalan as uang_tangkap',
+            'deliveryorder.uang_tangkap as uang_tangkap',
+            'deliveryorder.solar as solar',
+            'deliveryorder.etoll as etoll',
+            'customer.nama as nama',
+            'customer.nomor_telepon as nomor_telepon',
+            'customer.alamat as alamat',
+            'salesorder.tanggal as tanggal_penjualan',
+            'salesorder.jumlahKg as jumlahKgJual',
+            'salesorder.hargaPerKg as hargaPerKgJual',
+            'verifikasi.gp_rp as gp_rp',
+            'verifikasi.gp as gp',
+            'verifikasi.tonase_akhir as tonase_akhir',
+            'verifikasi.normal as normal',
+            'suplier.nama_suplier as nama_suplier'
+            // 'verifikasi.gp_rp as gp_rp'
+            )
+        ->join('customer','deliveryorder.id_do','=','deliveryorder.id_do')
+        ->join('salesorder','salesorder.id_so','=','salesorder.id_so')
+        ->join('verifikasi','verifikasi.id_do','=','deliveryorder.id_do')
+        ->join('suplier','deliveryorder.id_do','=','deliveryorder.id_do')
+        ->get();
+        return view('admin.ViewList.tableTransaksi', compact('transaksi'));
     }
     
     public function detailTransaksi()

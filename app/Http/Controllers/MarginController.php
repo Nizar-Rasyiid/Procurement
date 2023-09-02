@@ -53,6 +53,9 @@ class MarginController extends Controller
     /**
      * Show the form for creating a new resource.
      */
+    public function viewListMargin(){
+        
+    }
     public function marginTable()
     {
         $margin = DeliveryOrder::select('deliveryorder.*',
@@ -67,16 +70,11 @@ class MarginController extends Controller
             'salesorder.tanggal as tanggal_penjualan',
             'salesorder.jumlahKg as jumlahKgJual',
             'salesorder.hargaPerKg as hargaPerKgJual',
-            'verifikasi.gp_rp as gp_rp',
-            'verifikasi.gp as gp',
-            'verifikasi.tonase_akhir as tonase_akhir',
-            'verifikasi.normal as normal',
             'suplier.nama_suplier as nama_suplier'
             // 'verifikasi.gp_rp as gp_rp'
             )
         ->join('customer','deliveryorder.id_do','=','deliveryorder.id_do')
         ->join('salesorder','salesorder.id_so','=','salesorder.id_so')
-        ->join('verifikasi','verifikasi.id_do','=','deliveryorder.id_do')
         ->join('suplier','deliveryorder.id_do','=','deliveryorder.id_do')
         ->get();
         return view('admin.ViewList.tableMargin', compact('margin'));

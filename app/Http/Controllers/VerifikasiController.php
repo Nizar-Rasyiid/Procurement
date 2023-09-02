@@ -16,9 +16,10 @@ class VerifikasiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(string $id)
     {
-        //
+        $data = Verifikasi::where('id', $id)->first();
+        return view("admin.Details.verif");
     }
 
     /**

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\SalesOrder;
 use App\Models\PaymentSo;
 use App\Models\Verifikasi;
+use App\Models\Transaksi;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -70,6 +71,7 @@ class PaymentSoController extends Controller
         ]);
         try {
             DB::beginTransaction();
+        
            // Mengambil ID terakhir dari database
         $lastPaymentSo = PaymentSo::latest()->first();
 
@@ -83,6 +85,7 @@ class PaymentSoController extends Controller
         // Simpan data baru dengan ID yang sudah di-generate
         $paymentSo = new PaymentSo();
         $paymentSo->id_payment_so = $id;
+
 
         // Lanjutkan menyimpan data lainnya sesuai dengan kebutuhan
         $paymentSo->id_so = $request->input('id_so');

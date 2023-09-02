@@ -48,29 +48,32 @@
                                 <div class="text-center">
                                     <h1 class="h4 text-gray-900 mb-4">Welcome Back!</h1>
                                 </div>
-                                <form method="POST" action="{{ route('loginProses') }}">
+                                <form method="POST" action="{{ route('login') }}">
                                     <div class="form-group">
                                         <input id="email" type="email" class="form-control form-control-user" name="email" required placeholder="Enter Email Address.">
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>Nigga</strong>
-                                                </span>
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group mt-2">
                                         <input id="password" type="password" class="form-control form-control-user" name="password" required placeholder="Password">
+                                        @error('password')
                                             <span class="invalid-feedback" role="alert">
-                                                <strong>Nigga</strong>
+                                                <strong>{{ $message }}</strong>
                                             </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <div class="custom-control custom-checkbox small">
                                             <input class="custom-control-input" type="checkbox" name="remember" id="customCheck">
 
-                                            <label class="custom-control-label mt-2" for="customCheck">Remember
-                                                Me</label>
+                                            <label class="custom-control-label mt-2" for="customCheck">{{ __('Remember Me') }}</label>
                                         </div>
                                     </div>
                                     <button class="btn btn-primary btn-user btn-block">
-                                        Login
+                                        {{ __('Login') }}
                                     </button>
                                     <!-- {{-- <hr>
                                     <a href="index.html" class="btn btn-google btn-user btn-block">

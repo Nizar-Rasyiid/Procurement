@@ -106,22 +106,22 @@
         </thead>
         <tbody>
             @foreach ($margin as $item)
-            <tr>
-                <td>id transaksi</td>
-                <td>{{$item->id_so}}</td>
-                <td>{{$item->nama}}</td>
-                <td>{{$item->id_do}}</td>
-                <td>{{$item->nama_suplier}}</td>
-                <td>{{$item->tanggal_penjualan}}</td>
-                <td>{{$item->tanggal_pembelian}}</td>
-                <td>{{$item->hargaPerKgJual}}</td>
-                <td>{{$item->hargaPerKgBeli}}</td>
-                <td>{{$item->gp + $item->normal - $item->total_kg * $item->hargaPerKgBeli}}</td>
-                <td>{{$item->keterangan}}</td>
-                <td>
-                <a href="{{ route('margin', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
-                </td>
-            </tr>
+                    <tr id="result">
+                        <td>id transaksi</td>
+                        <td>{{$item->id_so}}</td>
+                        <td>{{$item->nama}}</td>
+                        <td>{{$item->id_do}}</td>
+                        <td>{{$item->nama_suplier}}</td>
+                        <td>{{$item->tanggal_penjualan}}</td>
+                        <td>{{$item->tanggal_pembelian}}</td>
+                        <td>{{$item->hargaPerKgJual}}</td>
+                        <td>{{$item->hargaPerKgBeli}}</td>
+                        <td>{{$item->gp + $item->normal - $item->total_kg * $item->hargaPerKgBeli}}</td>
+                        <td>{{$item->keterangan}}</td>
+                        <td>
+                        <a href="{{ route('margin', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
+                        </td>
+                    </tr>
             @endforeach
         </tbody>
         <tfoot>
@@ -143,4 +143,19 @@
         </tfoot>
     </table>
 </div>
+<script>
+    const id = '1,2,3,4,5';
+    fetch(`/get-data/${id}`)
+        .then(response => response.json())
+        .then(data=> {
+            const resultElement = document.getElementById('result');
+            resultElement.innerHTML = '';
+
+            data.foreach(item=>{
+                const resultItem = document.createElement('tr');
+                resultItem.textContent = `ID: ${item.id_so}, Name: ${item.nama}, Status: ${item.id_do}`;
+                resultElement.appendChild(resultItem);
+            });
+        });
+</script>
 @endsection

@@ -126,7 +126,7 @@
             </a>
           </li>
           <li class="nav-item">
-            <a href="{{url('/admin-table/margin-detail/1')}}" class="nav-link">
+            <a href="{{url('/admin-table/margin-detail/')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">Margin</span>
             </a>
