@@ -58,10 +58,11 @@ class MarginController extends Controller
     }
     public function marginTable()
     {
-        $margin = DeliveryOrder::select('deliveryorder.*',
+        $margin = DB::table('deliveryorder')
+        ->select(
+            'deliveryorder.*',
             'deliveryorder.hargaPerKg as hargaPerKgBeli',
             'deliveryorder.uang_jalan as uang_tangkap',
-            'deliveryorder.uang_tangkap as uang_tangkap',
             'deliveryorder.solar as solar',
             'deliveryorder.etoll as etoll',
             'customer.nama as nama',
@@ -71,14 +72,16 @@ class MarginController extends Controller
             'salesorder.jumlahKg as jumlahKgJual',
             'salesorder.hargaPerKg as hargaPerKgJual',
             'suplier.nama_suplier as nama_suplier'
-            // 'verifikasi.gp_rp as gp_rp'
-            )
-        ->join('customer','deliveryorder.id_do','=','deliveryorder.id_do')
-        ->join('salesorder','salesorder.id_so','=','salesorder.id_so')
-        ->join('suplier','deliveryorder.id_do','=','deliveryorder.id_do')
-        ->get();
+        )
+        ->join('salesorder', 'deliveryorder.id_so', '=', 'salesorder.id_so')
+        ->join('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+        ->join('suplier', 'deliveryorder.id_suplier', '=', 'suplier.id_suplier')
+        ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+        ->get();    
+    
         return view('admin.ViewList.tableMargin', compact('margin'));
     }
+
 
     /**
      * Store a newly created resource in storage.

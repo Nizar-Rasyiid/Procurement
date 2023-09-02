@@ -13,7 +13,19 @@ class APSuplierController extends Controller
      */
     public function index()
     {
-        return view("admin.ViewList.tableAPSuplier");
+       $Ap = DB::table('payment_order')
+        ->select(
+            'payment_order.*',
+            'deliveryorder.total_kg as total_kg',
+            'deliveryorder.hargaPerKg as harga_kg',
+            'deliveryorder.tanggal_pembelian as tanggal_pembelian',
+            'deliveryorder.keterangan as keterangan',
+            'deliveryorder.status as status_pembelian',
+            DB::raw('deliveryorder.total_kg * deliveryorder.hargaPerKg as total_harga_do')
+        )
+        ->join('deliveryorder', 'payment_order.id_do', '=', 'deliveryorder.id_do')
+        ->get();
+        return view("admin.ViewList.tableAPSuplier",compact('Ap'));
     }
 
     public function PaymentAPSupplier(){

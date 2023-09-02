@@ -41,14 +41,15 @@
                             <div class="card p-2 w-75 border border-secondary d-flex align-items-center">
                                 <div class="row">
                                     <div class="form-check form-check-inline col">
-                                        <input type="checkbox" class="form-check-input" id="kredit" name="tipe_customer[]" value="Kredit" required>
+                                        <input type="checkbox" class="form-check-input" id="kredit" name="tipe_customer[]" value="Kredit">
                                         <label class="form-check-label" for="kredit">Kredit</label>
                                     </div>
                                     <div class="form-check form-check-inline col">
-                                        <input type="checkbox" class="form-check-input" id="revisi" name="tipe_customer[]" value="Revisi" required>
+                                        <input type="checkbox" class="form-check-input" id="revisi" name="tipe_customer[]" value="Revisi">
                                         <label class="form-check-label" for="revisi">Revisi</label>
                                     </div>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>

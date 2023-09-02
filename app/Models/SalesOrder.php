@@ -17,14 +17,21 @@ class SalesOrder extends Model
     }
     
     public function deliveryOrder()  {
-        return $this->belongsTo(DeliveryOrder::class,'id_do');
+        return $this->hasOne(DeliveryOrder::class,'id_so','id_so');
     }
 
-    public function paymentSo()  {
-        return $this->belongsTo(PaymentSo::class,'id_so');
-    }
-    public function verifPembelian(){
-        return $this->belongsTo(VerifPembelian::class, 'id_verif');
+    // public function paymentSo()  {
+    //     return $this->belongsTo(PaymentSo::class,'id_so');
+    // }
+    public function verifikasi()
+    {
+        return $this->hasOne(Verifikasi::class, 'id_do', 'id_so');
     }
 
+    // Definisi relasi dengan PaymentSo
+    public function paymentSo()
+    {
+        return $this->hasOne(PaymentSo::class, 'id_so', 'id_so');
+    }
+    
 }

@@ -46,17 +46,15 @@ class SuplierController extends Controller
         ]);
         try {
             DB::beginTransaction();
-
-            // Mengambil ID terakhir dari database
             $lastSuplier = Suplier::latest()->first();
-            
+
             // Mendapatkan angka dari ID terakhir dan menambahkannya dengan 1
-            $lastIdNumber = $lastSuplier ? intval(substr($lastSuplier->id_suplier, 4)) : 0;
+            $lastIdNumber = $lastSuplier ? intval(substr($lastSuplier->id_suplier, 5)) : 0;
             $newIdNumber = $lastIdNumber + 1;
-            
-            // Menghasilkan ID dengan format "SUP-xxxxxx"
+    
+            // Menghasilkan ID dengan format "CUST-xxxxxx"
             $id = 'SUP-' . str_pad($newIdNumber, 6, '0', STR_PAD_LEFT);
-            
+    
             // Simpan data baru dengan ID yang sudah di-generate
             $suplier = new Suplier();
             $suplier->id_suplier = $id;

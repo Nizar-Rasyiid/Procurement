@@ -1,5 +1,4 @@
 @extends('admin.admin')
-
 @section('admin')
 <div class="page-content">
     <table id="example" class="table table-striped" style="width:100%">

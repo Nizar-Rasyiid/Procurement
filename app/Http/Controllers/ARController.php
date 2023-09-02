@@ -4,17 +4,31 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\AR;
+use App\Models\PaymentOrder;
 use Illuminate\Support\Facades\DB;
 
-class ARController extends Controller
+class ARController extends Controller   
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ar = AR::all();
-        return view("admin.ViewList.tableAR", compact('ar'));
+        $ar = DB::table('payment_so')
+        ->select(
+            'payment_so.*',
+            'deliveryorder.total_kg as total_kg',
+            'deliveryorder.hargaPerKg as harga_kg',
+            'deliveryorder.tanggal_pembelian as tanggal_pembelian',
+            'deliveryorder.keterangan as keterangan',
+            'deliveryorder.status as status_pembelian',
+            DB::raw('deliveryorder.total_kg * deliveryorder.hargaPerKg as total_harga_do')
+        )
+        ->join('deliveryorder', 'payment_so.id_so', '=', 'deliveryorder.id_so')
+        ->get();
+    
+    return view('admin.ViewList.tableAR', compact('ar'));
+    
     }
 
     public function PaymentARCustomer(){

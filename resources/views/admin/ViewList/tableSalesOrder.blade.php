@@ -8,19 +8,32 @@
                 <div class="col-md-6 my-1">
                     <div class="form-group">
                         <label for="id_so">ID Penjualan</label>
-                        <input name="id_so" type="text" class="form-control border border-secondary" id="id_so" placeholder="ID Penjualan">
+                        <div class="input-group">
+                            <input type="text" class="form-control border border-secondary" id="id_so" placeholder="ID Penjualan">
+                            <button id="applyFilterIdSo" class="btn btn-primary btn-sm">Apply</button>   
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6 my-1">
-                    <label for="Status">Status</label>
-                    <input type="text" name="status" class="form-control border border-secondary" id="status" placeholder="Status">
+                    <label for="status">Status</label>
+                    <div class="input-group">
+                        <select class="form-control border border-secondary" id="status">
+                            <option value="">-- Pilih Status --</option>
+                            <option value="lunas">Lunas</option>
+                            <option value="belum lunas">Belum Lunas</option>
+                        </select>
+                        <button id="applyFilterStatus" class="btn btn-primary btn-sm">Apply</button>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 my-1">
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
-                        <input type="text" name="tanggal" class="form-control border border-secondary" id="tanggal" placeholder="tanggal">
+                        <div class="input-group">
+                            <input type="date" class="form-control border border-secondary" id="tanggal" placeholder="Tanggal">
+                            <button id="applyFilterTanggal" class="btn btn-primary btn-sm">Apply</button>
+                        </div>
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -32,6 +45,7 @@
                                 <span class="input-group-text">to</span>
                             </div>
                             <input type="date" class="form-control border border-secondary" id="end_date">
+                            <button id="applyFilterRangeTanggal" class="btn btn-primary btn-sm">Apply</button>
                         </div>
                     </div>
                 </div>
@@ -41,6 +55,9 @@
                     <a href="{{ route('downloadSalesOrder') }}" class="btn btn-danger btn-sm">
                         <i class="fas fa-file-csv"></i> Download CSV
                     </a>    
+                    <button id="resetFilter" class="btn btn-secondary btn-sm">
+                        Reset Filter
+                    </button>
                 </div>
                 <div class="col text-end mt-3">
                     <button type="button" id="apply-filter" class="btn btn-danger btn-sm">Filter</button>
@@ -57,18 +74,17 @@
                 <th>Tipe Pemesanan</th>
                 <th>Detail</th>
             </tr>
-            {{-- <a href="{{url('/admin-table/storeCustomer')}}" class="btn btn-success btn-sm text-white">Tambah Admin</a> --}}
         </thead>
         <tbody>
             @foreach ($so as $item)
             <tr>
                 <td>{{$item->id_so}}</td>
-                <td>{{$item->tanggal}}</td>
+                <td>{{ \Carbon\Carbon::parse($item->tanggal)->format('m-d-Y') }}</td>
                 <td>
                     @if ($item->status == 0)
                         Belum Lunas
-                      @else
-                      Lunas
+                    @else
+                        Lunas
                     @endif  
                 </td>
                 <td>{{$item->order_type}}</td>
@@ -90,54 +106,139 @@
     </table>
 </div>
 <script>
-    <script>
-    document.getElementById('applyFilter').addEventListener('click', function() {
-        const id_so = document.getElementById('id_so').value;
-        const status = document.getElementById('status').value;
-        const tanggal = document.getElementById('tanggal').value;
+    document.addEventListener("DOMContentLoaded", function () {
+        const applyFilterIdSoButton = document.getElementById("applyFilterIdSo");
+        const applyFilterStatusButton = document.getElementById("applyFilterStatus");
+        const applyFilterTanggalButton = document.getElementById("applyFilterTanggal");
+        const applyFilterRangeTanggalButton = document.getElementById("applyFilterRangeTanggal");
 
-        // Make an AJAX request to a Laravel route passing the filter criteria
-        fetch(`/index?
-            id_so= ${id_so}
-            &status= ${status}
-            &tanggal= ${tanggal}`)
-            .then(response => response.json())
-            .then(data => {
-                // Update the DOM with the filtered data
-                const filteredResults = document.getElementById('filtered-data');
-                filteredResults.innerHTML = '';
+        const resetFilterButton = document.getElementById("resetFilter");
 
-                data.forEach(item => {
-                    const resultItem = document.createElement('div');
-                    resultItem.textContent = `id_so: ${item.id_so}, Status: ${item.status}, Tanggal: ${item.tanggal}`;
-                    filteredResults.appendChild(resultItem);
-                });
-            });
+        const filterIdSoInput = document.getElementById("id_so");
+        const filterStatusInput = document.getElementById("status");
+        const filterTanggalInput = document.getElementById("tanggal");
+
+        applyFilterIdSoButton.addEventListener("click", function () {
+            applyFilter(filterIdSoInput, "id_so");
+        });
+
+        applyFilterStatusButton.addEventListener("click", function () {
+            applyFilterStatus();
+        });
+
+        applyFilterTanggalButton.addEventListener("click", function () {
+            applyFilterTanggal();
+        });
+
+        applyFilterRangeTanggalButton.addEventListener("click", function () {
+            applyRangeFilter(filterTanggalInput, "tanggal");
+        });
+
+        resetFilterButton.addEventListener("click", function () {
+            resetFilter();
+        });
+
+        function applyFilterStatus() {
+            const filterStatusSelect = document.getElementById("status");
+            const selectedValue = filterStatusSelect.value.toLowerCase();
+
+            const rows = document.querySelectorAll("#example tbody tr");
+            for (let row of rows) {
+                const cellValue = row.cells[2].textContent.trim().toLowerCase();
+
+                if (selectedValue === "" || selectedValue === "semua" || cellValue === selectedValue) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function applyFilter(filterInput, filterType) {
+            const filterValue = filterInput.value.toLowerCase();
+
+            const rows = document.querySelectorAll("#example tbody tr");
+            for (let row of rows) {
+                const cellValue = row.cells[filterType === "id_so" ? 0 :
+                                    filterType === "status" ? 2 :
+                                    filterType === "tanggal" ? 1 :
+                                    3
+                                ].textContent.trim().toLowerCase();
+
+                if (filterMatches(cellValue, filterValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function applyFilterTanggal() {
+            const filterValue = filterTanggalInput.value;
+
+            const rows = document.querySelectorAll("#example tbody tr");
+            for (let row of rows) {
+                const cellValueText = row.cells[1].textContent.trim();
+                const cellValueDate = new Date(cellValueText);
+
+                if (filterMatchesDate(cellValueDate, filterValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function applyRangeFilter(filterInput, filterType) {
+            const startValue = new Date(document.getElementById("start_date").value);
+            const endValue = new Date(document.getElementById("end_date").value);
+
+            endValue.setHours(23, 59, 59, 999);
+
+            const rows = document.querySelectorAll("#example tbody tr");
+            for (let row of rows) {
+                const cellValue = new Date(row.cells[filterType === "id_so" ? 0 :
+                                    filterType === "status" ? 2 :
+                                    filterType === "tanggal" ? 1 :
+                                    3
+                                ].textContent.trim());
+
+                if (filterInRange(cellValue, startValue, endValue)) {
+                    row.style.display = "";
+                } else {
+                    row.style.display = "none";
+                }
+            }
+        }
+
+        function resetFilter() {
+            const rows = document.querySelectorAll("#example tbody tr");
+            for (let row of rows) {
+                row.style.display = "";
+            }
+        }
+
+        function filterMatches(cellValue, filterValue) {
+            return cellValue.includes(filterValue);
+        }
+
+        function filterMatchesDate(cellValue, filterValue) {
+            const cellDate = new Date(cellValue);
+            const filterDate = new Date(filterValue);
+
+            return cellDate.toDateString() === filterDate.toDateString();
+        }
+
+        function filterInRange(cellValue, startValue, endValue) {
+            const cellDate = new Date(cellValue);
+            const startDate = new Date(startValue);
+            const endDate = new Date(endValue);
+
+            startDate.setHours(0, 0, 0, 0);
+            endDate.setHours(0, 0, 0, 0);
+
+            return cellDate >= startDate && cellDate <= endDate;
+        }
     });
-
-    // jQuery('.do-filter').click(function (e) {
-    //     e.preventDefault();
-
-    //     jQuery.post('/index', {
-    //         _token: window.csrf_token,
-    //         id_so: jQuery('input[name="id_so"]').val(),
-    //         status: jQuery('input[name="status"]').val(),
-    //         tanggal: jQuery('input[name="tanggal"]').val()
-    //     }, function (item) {
-    //         var $tableBody = jQuery('#filtered-data tbody');
-    //         $tableBody.html('');
-            
-    //         jQuery.each(item, function (i) {
-    //             $tableBody.append(
-    //                 '<tr>' +
-    //                     '<td>' + item[i].id_so + '</td>' +
-    //                     '<td>' + item[i].status + '</td>' +
-    //                     '<td>' + item[i].tanggal + '</td>' +
-    //                 '</tr>'
-    //             ); 
-    //         });
-    //     }, 'json');
-    // })
 </script>
-
 @endsection

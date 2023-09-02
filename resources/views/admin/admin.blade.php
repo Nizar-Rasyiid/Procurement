@@ -35,9 +35,10 @@
 	<link rel="stylesheet" href="{{ asset('../assets/css/demo2/style.css') }} ">
   <!-- End layout styles -->
 
-  <link rel="shortcut icon" href="{{ asset('../assets/images/favicon.png') }} " />
+  <link rel="shortcut icon" href="{{ asset('assets/images/logo3.png') }} " />
   <link href="{{ asset('css/custom-pagination.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   @include('sweetalert::alert')
 </head>
 <body>
@@ -45,7 +46,8 @@
 	<div class="main-wrapper">
 
 		<!-- partial:partials/_sidebar.html -->
-		<nav class="sidebar">
+    @if (Auth::user()->name == "Admin")
+    <nav class="sidebar">
       <div class="sidebar-header">
         <a href="#" class="sidebar-brand fw-bold">
           <img src="{{ asset('assets/images/logo3.png') }}" alt="Logo" width="150">
@@ -65,6 +67,14 @@
               <span class="link-title">Dashboard</span>
             </a>
           </li>
+          <li class="nav-item nav-category">User</li>
+          <li class="nav-item">
+            <a href="{{url('/users-table')}}" class="nav-link">
+              <i class="link-icon" data-feather="inbox"></i>
+              <span class="link-title">Tabel User</span>
+            </a>
+          </li>
+        </li>
           <li class="nav-item nav-category">Penjualan</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/store-so')}}" class="nav-link">
@@ -117,18 +127,18 @@
             <span class="link-title">Verifikasi</span>
           </a>
         </li>
+        <li class="nav-item">
+          <a href="{{url('/admin-table/verifikasi-table')}}" class="nav-link">
+            <i class="link-icon" data-feather="box"></i>
+            <span class="link-title">Tabel Verifikasi</span>
+          </a>
+        </li>
 
         <li class="nav-item nav-category">Transaction</li>
           <li class="nav-item">
             <a href="{{url('/admin-table/transaksi-table')}}" class="nav-link">
               <i class="link-icon" data-feather="layout"></i>
               <span class="link-title">List Transaction</span>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a href="{{url('/admin-table/margin-detail/')}}" class="nav-link">
-              <i class="link-icon" data-feather="layout"></i>
-              <span class="link-title">Margin</span>
             </a>
           </li>
           <li class="nav-item">
@@ -217,6 +227,181 @@
         </ul>
       </div>
     </nav>
+        @else
+        <nav class="sidebar">
+          <div class="sidebar-header">
+            <a href="#" class="sidebar-brand fw-bold">
+              <img src="{{ asset('assets/images/logo3.png') }}" alt="Logo" width="150">
+            </a>
+            <div class="sidebar-toggler not-active">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+          <div class="sidebar-body">
+            <ul class="nav">
+              <li class="nav-item nav-category">Main</li>
+              <li class="nav-item">
+                <a href="{{url('/home')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Dashboard</span>
+                </a>
+              </li>
+              <li class="nav-item nav-category">Penjualan</li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/store-so')}}" class="nav-link">
+                  <i class="link-icon" data-feather="inbox"></i>
+                  <span class="link-title">Input Penjualan</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/SO-table')}}" class="nav-link">
+                  <i class="link-icon" data-feather="layout"></i>
+                  <span class="link-title">View List Penjualan</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/payment-so')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Payment Penjualan</span>
+                </a>
+                </li>
+              <li class="nav-item nav-category">Pembelian</li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/store-do')}}" class="nav-link">
+                  <i class="link-icon" data-feather="inbox"></i>
+                  <span class="link-title">Input Pembelian</span>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{{url('/admin-table/DO-table')}}" class="nav-link">
+                  <i class="link-icon" data-feather="layout"></i>
+                  <span class="link-title">View List Pembelian</span>
+                </a>
+                </li>
+                
+                {{-- <li class="nav-item">
+                <a href="{{url('/')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Update Pembelian</span>
+                </a>
+              </li> --}}
+              <li class="nav-item">
+                <a href="{{url('/admin-table/payment-do')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Payment Order</span>
+                </a>
+              </li>
+            <li class="nav-item nav-category">Verifikasi</li>
+            <li class="nav-item">
+              <a href="{{url('/admin-table/validate-do')}}" class="nav-link">
+                <i class="link-icon" data-feather="box"></i>
+                <span class="link-title">Verifikasi</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{url('/admin-table/verifikasi-table')}}" class="nav-link">
+                <i class="link-icon" data-feather="box"></i>
+                <span class="link-title">Tabel Verifikasi</span>
+              </a>
+            </li>
+    
+            <li class="nav-item nav-category">Transaction</li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/transaksi-table')}}" class="nav-link">
+                  <i class="link-icon" data-feather="layout"></i>
+                  <span class="link-title">List Transaction</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/margin-table')}}" class="nav-link">
+                  <i class="link-icon" data-feather="layout"></i>
+                  <span class="link-title">View List Margin</span>
+                </a>
+              </li>
+            </li>
+              <li class="nav-item nav-category">AR</li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/ar-table-customer')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">AR Customer</span>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
+                <a href="{{url('/admin-table/ar-table-supplier')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">AR Suplier</span>
+                </a> 
+              </li> --}}
+              {{-- <li class="nav-item">
+                <a href="{{url('/admin-table/payment-ar-customer')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Payment AR Customer</span>
+                </a> 
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/payment-ar-supplier')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Payment AR Suplier</span>
+                </a> 
+              </li> --}}
+              <li class="nav-item nav-category">AP</li>
+              {{-- <li class="nav-item">
+                <a href="{{url('/admin-table/ap-table-customer')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">AP Customer</span>
+                </a>
+              </li> --}}
+              <li class="nav-item">
+                <a href="{{url('/admin-table/ap-table-supplier')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">AP Suplier</span>
+                </a>
+              </li>
+              {{-- <li class="nav-item">
+                <a href="{{url('/admin-table/payment-ap-customer')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Payment AP Customer</span>
+                </a
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/payment-ap-supplier')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Payment AP Suplier</span>
+                </a>
+              </li> --}}
+              <li class="nav-item nav-category">Customer</li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/storeCustomer')}}" class="nav-link">
+                  <i class="link-icon" data-feather="inbox"></i>
+                  <span class="link-title">Input Customer</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/customer-table')}}" class="nav-link">
+                  <i class="link-icon" data-feather="layout"></i>
+                  <span class="link-title">View List Customer</span>
+                </a>
+              </li>
+              <li class="nav-item nav-category">Suplier</li>
+              <li class="nav-item">
+                <a href="{{url('/admin-table/storeSuplier')}}" class="nav-link">
+                  <i class="link-icon" data-feather="box"></i>
+                  <span class="link-title">Input Suplier</span>
+                </a>
+              </li>
+                <li class="nav-item">
+                <a href="{{url('/admin-table/suplier-table')}}" class="nav-link">
+                  <i class="link-icon" data-feather="layout"></i>
+                  <span class="link-title">View List Suplier</span>
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+    @endif
+
 		<!-- partial -->
 	
 		<div class="page-wrapper">
@@ -227,14 +412,14 @@
 					<i data-feather="menu"></i>
 				</a>
 				<div class="navbar-content">
-					<form class="search-form">
+					{{-- <form class="search-form">
 						<div class="input-group">
               <div class="input-group-text">
                 <i data-feather="search"></i>
               </div>
 							<input type="text" class="form-control" id="navbarForm" placeholder="Search here...">
 						</div>
-					</form>
+					</form> --}}
 					<ul class="navbar-nav">
 						{{-- <li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -477,7 +662,7 @@
       @yield('admin')
 			<!-- partial:partials/_footer.html -->
 			<footer class="footer d-flex flex-column flex-md-row align-items-center justify-content-between px-4 py-3 border-top small">
-				<p class="text-muted mb-1 mb-md-0">MBU <a href="https://www.nobleui.com" target="_blank">Corporate</a>.</p>
+				<p class="text-muted mb-1 mb-md-0">Galus <a href="https://www.nobleui.com" target="_blank">Corporate</a>.</p>
 			</footer>
 			<!-- partial -->
 		
@@ -516,7 +701,7 @@ Contact: nobleui123@gmail.com
 Purchase: https://1.envato.market/nobleui_admin
 License: For each use you must have a valid license purchased only from above link in order to legally use the theme for your project.
 -->
-<html lang="en">
+{{-- <html lang="en">
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -612,6 +797,91 @@ License: For each use you must have a valid license purchased only from above li
         <!-- Custom js for this page -->
         <!-- End custom js for this page -->
     </body>
-</html>
+</html> --}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="description" content="Responsive HTML Admin Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="NobleUI">
+	<meta name="keywords" content="nobleui, bootstrap, bootstrap 5, bootstrap5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<title>Admin Panel</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+  <!-- End fonts -->
+
+	<!-- core:css -->
+	<link rel="stylesheet" href="{{ asset('../assets/vendors/core/core.css') }}  ">
+	<!-- endinject -->
+
+	<!-- Plugin css for this page -->
+	<link rel="stylesheet" href="{{ asset('../assets/vendors/flatpickr/flatpickr.min.css') }} ">
+	<!-- End plugin css for this page -->
+
+	<!-- inject:css -->
+	<link rel="stylesheet" href="{{ asset(' ../assets/fonts/feather-font/css/iconfont.css') }}">
+	<link rel="stylesheet" href="{{ asset('../assets/vendors/flag-icon-css/css/flag-icon.min.css') }} ">
+	<!-- endinject -->
+
+  <!-- Layout styles -->  
+	<link rel="stylesheet" href="{{ asset('../assets/css/demo2/style.css') }} ">
+  <!-- End layout styles -->
+
+  <link rel="shortcut icon" href="{{ asset('../assets/images/favicon.png') }} " />
+</head>
+<body>
+    <div class="row justify-content-center">
+
+        <div class="col-lg-6">
+            <div class="card o-hidden border-0 shadow-lg my-5">
+                <div class="card-body p-0">
+                    <!-- Nested Row within Card Body -->
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10">
+                            <div class="p-5">
+                                <div class="text-center">
+                                    <h1 class="h4 text-gray-900 mb-4">Welcome To MBU APP</h1>
+                                </div>
+    
+                                <div class="d-flex justify-content-between">
+                                    <a class="small"{{route('login')}}>Login</a>
+                                    <a href="{{'/register'}}" class="small">Registrasi</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+	<!-- core:js -->
+	<script src=" {{asset('../assets/vendors/core/core.js')}} "></script>
+	<!-- endinject -->
+
+	<!-- Plugin js for this page -->
+  <script src="{{asset(' ../assets/vendors/flatpickr/flatpickr.min.js')}}"></script>
+  <script src="{{asset('../assets/vendors/apexcharts/apexcharts.min.js')}} "></script>
+	<!-- End plugin js for this page -->
+
+	<!-- inject:js -->
+	<script src="{{asset('../assets/vendors/feather-icons/feather.min.js')}} "></script>
+	<script src="{{asset('../assets/js/template.js')}} "></script>
+	<!-- endinject -->
+
+	<!-- Custom js for this page -->
+  <script src="{{asset('../assets/js/dashboard-dark.js')}} "></script>
+	<!-- End custom js for this page -->
+
+</body>
+</html>    
+
 
 @endguest  

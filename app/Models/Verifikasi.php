@@ -31,7 +31,12 @@ class Verifikasi extends Model
     public function paymentSo()  {
         return  $this -> belongsTo(PaymentSo::class,'id_verifikasi');
      }
-     public function deliveryOrder()  {
-        return  $this -> belongsTo(DeliveryOrder::class,'id_do');
+     public function deliveryOrder()
+     {
+         return $this->belongsTo(DeliveryOrder::class, 'id_do', 'id_do');
+     }
+     public function salesOrder()
+     {
+         return $this->belongsTo(SalesOrder::class, 'id_do', 'id_so');
      }
 }
