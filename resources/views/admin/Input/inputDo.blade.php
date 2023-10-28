@@ -158,7 +158,8 @@
                                 data-nama="{{ $sup->nama_suplier }}"
                                 data-alamat="{{ $sup->alamat }}"
                                 data-nom="{{ $sup->nomor_telepon_suplier }}"
-                                data-saldo-piutang="{{ $sup->saldoPiutang }}"
+                                data-saldo-hutang="{{ $sup->total_hutang }}"
+                                data-saldo="{{ $sup->total_saldo }}"
                             >
                                 ID Suplier: {{ $sup->id_suplier }} <br> Nama: {{ $sup->nama_suplier }}
                             </li>
@@ -210,6 +211,14 @@
                                         <span for="saldoHutang" class="input-group-text">Saldo Hutang</span>
                                         <input type="text" class="form-control" id="saldoHutang" placeholder="Saldo Hutang" value="Saldo Hutang" readonly>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <span for="saldo" class="input-group-text">Saldo Galus</span>
+                                    <input type="text" class="form-control" id="saldo" placeholder="Saldo Galus" value="Saldo Galus" readonly>
                                 </div>
                             </div>
                         </div>
@@ -384,6 +393,7 @@
     const alamatSuplierInput = document.getElementById("alamat_suplier");
     const nomorTeleponSuplierInput = document.getElementById("nom");
     const saldoHutangInput = document.getElementById("saldoHutang");
+    const saldoInput = document.getElementById("saldo");
 
     suplierList.addEventListener("click", function(event) {
         const listSup = event.target.closest(".suplier-item");
@@ -392,13 +402,15 @@
             const namaSuplier = listSup.getAttribute("data-nama");
             const alamatSuplier = listSup.getAttribute("data-alamat");
             const nomorTeleponSuplier = listSup.getAttribute("data-nom");
-            const saldoPiutang = listSup.getAttribute("data-saldo-piutang");
+            const saldoHutang = listSup.getAttribute("data-saldo-hutang");
+            const saldo = listSup.getAttribute("data-saldo");
 
             idSuplierInput.value = idSuplier;
             namaSuplierInput.value = namaSuplier;
             alamatSuplierInput.value = alamatSuplier;
             nomorTeleponSuplierInput.value = nomorTeleponSuplier;
-            saldoHutangInput.value = saldoPiutang;
+            saldoHutangInput.value = saldoHutang;
+            saldoInput.value = saldo;
 
             $('#suplierModal').modal('hide'); // Close the modal
         }

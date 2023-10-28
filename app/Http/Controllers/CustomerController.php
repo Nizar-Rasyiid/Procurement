@@ -43,8 +43,8 @@ class CustomerController extends Controller
             'alamat' => 'required',
             'tipe_customer' => 'required|array',
             'nomor_npwp' => 'required',
-            'npwp' => 'required',
-            'ktp' => 'required',
+            'npwp' => 'nullable',
+            'ktp' => 'nullable',
         ]);
         try {
             DB::beginTransaction();
@@ -74,6 +74,14 @@ class CustomerController extends Controller
         $customer->nomor_npwp = $request->input('nomor_npwp');
         $customer->npwp = $request->input('npwp');
         $customer->ktp = $request->input('ktp');
+        if ($request->hasFile('ktp')) {
+            $request->file('ktp')->move('ktpCustomer/',$request->file('ktp')->getClientOriginalName());
+            $customer->ktp = $request->file('ktp')->getClientOriginalName();
+        }
+        if ($request->hasFile('npwp')) {
+            $request->file('npwp')->move('npwpCustomer/',$request->file('npwp')->getClientOriginalName());
+            $customer->npwp = $request->file('npwp')->getClientOriginalName();
+        }
         
         // Simpan data customer
         $customer->save();
@@ -85,7 +93,13 @@ class CustomerController extends Controller
         }
     }
 
-
+        public function detail(string $id)  {
+            $customer = DB::table('customer')
+                        ->select('customer.*')
+                        ->where('customer.id',$id)
+                        ->first();
+            return view('admin.Details.customerDetail',compact('customer'));
+        }
 
         public function deleteCustomer(Request $request) {
           if (in_array($request->method(), ['POST', 'PUT', 'PATCH'])

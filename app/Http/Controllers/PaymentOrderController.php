@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\DeliveryOrder;
+use App\Models\SalesOrder;
 use App\Models\PaymentOrder;
 use Illuminate\Http\Request;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
@@ -35,8 +36,7 @@ class PaymentOrderController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $request->validate([
             'id_do' => 'required',
             'harga_total' => 'required',
@@ -71,25 +71,97 @@ class PaymentOrderController extends Controller
             }
             $paymentOrder->save();
             
-            // Update status Delivery Order
             $deliveryOrder = DeliveryOrder::where('id_do', $request->input('id_do'))->first();
-            $totalPembayaran = PaymentOrder::where('id_do', $request->input('id_do'))->sum('total_bayar'); // Menghitung total pembayaran saat ini
+            $totalPembayaran = PaymentOrder::where('id_do', $request->input('id_do'))->sum('total_bayar');
+            // Menghitung total pembayaran saat ini
             $hargaTotal = $paymentOrder->harga_total;
-            
-            // Cek apakah total pembayaran sudah mencukupi harga total
+    
             $statusBaru = $totalPembayaran >= $hargaTotal;
-            
-            $paymentOrder->hutang = $hargaTotal - $totalPembayaran;
+            $debt = max(0, $hargaTotal - $totalPembayaran);
+            $paymentOrder->hutang = $debt;
+            if ($totalPembayaran > $hargaTotal) {
+                $kelebihanPembayaran = $totalPembayaran - $hargaTotal;
+                // Simpan ke kolom saldo
+                $saldoGalus = $kelebihanPembayaran;
+            } else {
+                $kelebihanPembayaran = 0;
+                $saldoGalus = 0;
+            }
+            $paymentOrder->saldo_galus = $saldoGalus;
             $paymentOrder->save();
-            
+
             $deliveryOrder->status = $statusBaru;
-            $deliveryOrder->save();
-            DB::commit();
-            return redirect()->route('tableDeliveryOrder')->with('success', 'Berhasil Menambahkan PD');
+            // dd($statusBaru,"Hutang",$paymentOrder->hutang,"DEbt",$debt,"Total Pembayaran",$totalPembayaran,"Total Bayar",$paymentOrder->total_bayar,"saldo",$saldoGalus);
+            $deliveryOrder->save();           
+            if ($saldoGalus > 0) {
+                // Dapatkan id_customer dari SO terbaru
+                $idSuplier = DeliveryOrder::where('id_do', $request->input('id_do'))->value('id_suplier');
             
+                // Selama masih ada saldoGalus dan ada hutang tertua
+                while ($saldoGalus > 0) {
+                    // Cari SO tertua yang belum lunas dan memiliki id_suplier yang sama
+                    $hutangTertua = DB::table('payment_order')
+                        ->select('payment_order.*')
+                        ->where('payment_order.id_do', '!=', $request->input('id_do'))
+                        ->where('payment_order.hutang', '>', 0)
+                        ->whereIn('payment_order.id_do', function ($query) use ($idSuplier) {
+                            $query->select('deliveryorder.id_do')
+                                ->from('deliveryorder')
+                                ->where('deliveryorder.id_suplier', '=', $idSuplier);
+                        })
+                        ->orderBy('payment_order.created_at', 'DESC')
+                        ->limit(1)
+                        ->first();
+            
+                    if (!$hutangTertua) {
+                        // Jika tidak ada hutang tertua, keluar dari perulangan
+                        break;
+                    }
+            
+                    // Jika ada sisa pembayaran, gunakan untuk melunasi hutang tertua
+                    if ($saldoGalus >= $hutangTertua->hutang) {
+                        // Lunasi hutang pelanggan untuk SO tertua
+                        $selisih = $saldoGalus - $hutangTertua->hutang;
+                        $hutangTertua->hutang = max(0, $hutangTertua->hutang - $saldoGalus);
+                    
+                        // Simpan perubahan pada $hutangTertua menggunakan Query Builder
+                        DB::table('payment_order')
+                            ->where('id_payment_order', $hutangTertua->id_payment_order)
+                            ->update(['hutang' => $hutangTertua->hutang]);
+                    
+                        // Update saldo_galus pada payment_order saat ini dengan selisih
+                        DB::table('payment_order')
+                            ->where('id_payment_order', $paymentOrder->id_payment_order)
+                            ->update(['saldo_galus' => $selisih]);
+                    }
+                    //  else {
+                    //     // Bagian sisa pembayaran digunakan untuk melunasi SO tertua
+                    //     $hutangTertua->hutang -= $saldoGalus;
+                    //     $saldoGalus = max(0, $saldoGalus - $hutangTertua->hutang);
+            
+                    //     // Simpan perubahan pada $hutangTertua menggunakan Query Builder
+                    //     DB::table('payment_order')
+                    //         ->where('id_payment_order', $hutangTertua->id_payment_order)
+                    //         ->update(['hutang' => $hutangTertua->hutang]);
+            
+                    //     // Update saldo_galus pada payment_order saat ini dengan sisa pembayaran
+                    //     DB::table('payment_order')
+                    //         ->where('id_payment_order', $paymentOrder->id_payment_order)
+                    //         ->update(['saldo_galus' => $saldoGalus]);
+                    // }
+            
+                    $idDoSebelumnya = $hutangTertua->id_do; // Ambil ID SO sebelumnya dari pembayaran hutang
+                    if ($idDoSebelumnya) {
+                        DB::update("UPDATE deliveryorder SET status = 1 WHERE id_do = ?", [$idDoSebelumnya]);
+                    }
+                }
+            }
+            
+        DB::commit();
+        return redirect()->route('tableDeliveryOrder')->with('success', 'Berhasil Menambahkan PD');
         } catch (\Exception $e) {
             DB::rollback();
-            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Customer: ' . $e->getMessage());
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Payment: ' . $e->getMessage());
         }
     }
     

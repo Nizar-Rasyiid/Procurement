@@ -24,8 +24,15 @@ class DeliveryOrderController extends Controller
     }
 
     public function halamanInput(Request $request) {
-        $customerId = $request->input('id_customer');
-        $customer = Customer::where('id', $customerId)->first();
+        $suplier = DB::table('suplier')
+        ->select('suplier.id_suplier', 'suplier.nama_suplier', 'suplier.alamat', 'suplier.nomor_telepon_suplier')
+        ->leftJoin('deliveryorder', 'suplier.id_suplier', '=', 'deliveryorder.id_suplier')
+        ->leftJoin('payment_order', 'deliveryorder.id_do', '=', 'payment_order.id_do')
+        ->groupBy('suplier.id_suplier', 'suplier.nama_suplier', 'suplier.alamat', 'suplier.nomor_telepon_suplier')
+        ->selectRaw('SUM(payment_order.hutang) AS total_hutang')
+        ->selectRaw('SUM(payment_order.saldo_galus) AS total_saldo')
+        ->get();
+    
 
         return view('admin.Input.InputDo');
     }
@@ -38,7 +45,6 @@ class DeliveryOrderController extends Controller
         $deliveryOrder = DeliveryOrder::select('deliveryorder.*')
             ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
             ->whereNull('verifikasi.id_verifikasi') // Hanya ambil yang belum memiliki DO
-            ->where('deliveryorder.status', 1) // Hanya ambil yang memiliki status 1
             ->get();
         return view('admin.Validasi.validationDo', compact('deliveryOrder'));
     }
@@ -68,13 +74,16 @@ class DeliveryOrderController extends Controller
     }
     public function detail(string $id)  {
         $deliveryOrder = DB::table('deliveryorder')
-        ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do' )
-        ->leftJoin('payment_order', 'deliveryorder.id_do', '=', 'payment_order.id_do' )
-        ->leftJoin('salesorder','deliveryorder.id_so', '=', 'salesorder.id_so' )
-        ->leftJoin('suplier','deliveryorder.id_suplier', '=', 'suplier.id_suplier' )
-        ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer' )
+        ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+        ->leftJoin('salesorder', 'deliveryorder.id_so', '=', 'salesorder.id_so')
+        ->leftJoin('suplier', 'deliveryorder.id_suplier', '=', 'suplier.id_suplier')
+        ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+        ->join('payment_order', function ($join) {
+            $join->on('deliveryorder.id_do', '=', 'payment_order.id_do')
+                 ->where('payment_order.created_at', '=', DB::raw("(SELECT MAX(created_at) FROM payment_order WHERE id_do = deliveryorder.id_do)"));
+        })
         ->select(
-            'deliveryorder.*', 
+            'deliveryorder.*',
             'customer.nama as nama',
             'customer.id_customer as id_customer',
             'suplier.id_suplier as id_suplier',
@@ -93,11 +102,13 @@ class DeliveryOrderController extends Controller
             'verifikasi.total_kg_tiba',
             'payment_order.id_payment_order',
             'payment_order.harga_total',
-            'payment_order.total_bayar',
-            'payment_order.bukti_bayar'
+            'payment_order.bukti_bayar',
+            DB::raw("(SELECT SUM(total_bayar) FROM payment_order WHERE id_do = deliveryorder.id_do) AS total_bayar")
         )
         ->where('deliveryorder.id', $id)
         ->first();
+    
+    
             
     return view('admin.Details.doDetail', compact('deliveryOrder'));
 
@@ -107,12 +118,18 @@ class DeliveryOrderController extends Controller
         ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
         ->whereNull('deliveryorder.id_do') // Hanya ambil yang belum memiliki DO
         ->get();
-        $supliers = Suplier::all();
+        $supliers = DB::table('suplier')
+        ->select('suplier.id_suplier', 'suplier.nama_suplier', 'suplier.alamat', 'suplier.nomor_telepon_suplier')
+        ->leftJoin('deliveryorder', 'suplier.id_suplier', '=', 'deliveryorder.id_suplier')
+        ->leftJoin('payment_order', 'deliveryorder.id_do', '=', 'payment_order.id_do')
+        ->groupBy('suplier.id_suplier', 'suplier.nama_suplier', 'suplier.alamat', 'suplier.nomor_telepon_suplier')
+        ->selectRaw('SUM(payment_order.hutang) AS total_hutang')
+        ->selectRaw('SUM(payment_order.saldo_galus) AS total_saldo')
+        ->get();
         // return $deliveryOrder;
         return view('admin.Input.inputDo',compact('salesOrder','supliers'));
     }
-    public function getSoInfoJson(Request $request)
-    {
+    public function getSoInfoJson(Request $request){
         $SoId = $request->input('id_so');
     
         $So = SalesOrder::select('salesorder.*', 'customer.nama', 'customer.alamat', 'customer.nomor_telepon')
@@ -190,134 +207,133 @@ class DeliveryOrderController extends Controller
     } 
 
 
-    public function downloadDeliveryOrder(){
-        $deliveryOrderData = DB::table('deliveryorder')
-            ->select(
-                'deliveryorder.*',
-                'customer.nama as nama_customer',
-                'customer.id_customer as id_customer',
-                'suplier.id_suplier as id_suplier',
-                'suplier.nama_suplier as nama_suplier',
-                'verifikasi.id_verifikasi as id_verifikasi',
-                'verifikasi.tanggal_verifikasi',
-                'verifikasi.gp',
-                'verifikasi.gp_rp',
-                'verifikasi.ekor',
-                'verifikasi.kg_susut',
-                'verifikasi.susut',
-                'verifikasi.kg',
-                'verifikasi.normal',
-                'verifikasi.mati_susulan',
-                'verifikasi.tonase_akhir',
-                'verifikasi.total_kg_tiba',
-                'payment_order.id_payment_order',
-                'payment_order.harga_total',
-                'payment_order.total_bayar',
-                'payment_order.bukti_bayar'
-            )
-            ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
-            ->leftJoin('payment_order', 'deliveryorder.id_do', '=', 'payment_order.id_do')
-            ->leftJoin('salesorder', 'deliveryorder.id_so', '=', 'salesorder.id_so')
-            ->leftJoin('suplier', 'deliveryorder.id_suplier', '=', 'suplier.id_suplier')
-            ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
-            ->get();
+        public function downloadDeliveryOrder(){
+            $deliveryOrderData = DB::table('deliveryorder')
+                ->select(
+                    'deliveryorder.*',
+                    'customer.nama as nama_customer',
+                    'customer.id_customer as id_customer',
+                    'suplier.id_suplier as id_suplier',
+                    'suplier.nama_suplier as nama_suplier',
+                    'verifikasi.id_verifikasi as id_verifikasi',
+                    'verifikasi.tanggal_verifikasi',
+                    'verifikasi.gp',
+                    'verifikasi.gp_rp',
+                    'verifikasi.ekor',
+                    'verifikasi.kg_susut',
+                    'verifikasi.susut',
+                    'verifikasi.kg',
+                    'verifikasi.normal',
+                    'verifikasi.mati_susulan',
+                    'verifikasi.tonase_akhir',
+                    'verifikasi.total_kg_tiba',
+                    'payment_order.id_payment_order',
+                    'payment_order.harga_total',
+                    'payment_order.total_bayar',
+                    'payment_order.bukti_bayar'
+                )
+                ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+                ->leftJoin('payment_order', 'deliveryorder.id_do', '=', 'payment_order.id_do')
+                ->leftJoin('salesorder', 'deliveryorder.id_so', '=', 'salesorder.id_so')
+                ->leftJoin('suplier', 'deliveryorder.id_suplier', '=', 'suplier.id_suplier')
+                ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
+                ->get();
+            $headers = [
+                'Content-Type' => 'text/csv',
+                'Content-Disposition' => 'attachment; filename="data_deliveryorder.csv"',
+            ];
 
-        $headers = [
-            'Content-Type' => 'text/csv',
-            'Content-Disposition' => 'attachment; filename="data_deliveryorder.csv"',
-        ];
-
-        $callback = function () use ($deliveryOrderData) {
-            $file = fopen('php://output', 'w');
-            fputcsv($file, [
-                'ID Penjualan',
-                'Id Customer',
-                'Nama Customer',
-                'Id Suplier',
-                'Nama Suplier',
-                'Tanggal Pembelian',
-                'Kandang',
-                'Nama Supir',
-                'Nomor Kendaraan',
-                'Nomor SIM',
-                'Harga Per KG',
-                'Total Ekor',
-                'Total KG',
-                'Uang Jalan',
-                'Uang Tangkap',
-                'Solar',
-                'Etoll',
-                'Order Type',
-                'Status',
-                'Keterangan',
-                'Harga Total',
-                'ID Verifikasi',
-                'Tanggal Verifikasi',
-                'GP',
-                'GP RP',
-                'Ekor Verifikasi',
-                'KG Susut',
-                'Susut',
-                'KG Verifikasi',
-                'Normal',
-                'Mati Susulan',
-                'Tonase Akhir',
-                'Total KG Tiba',
-                'ID Pembayaran',
-                'Harga Total Pembayaran',
-                'Total Bayar',
-                'Bukti Pembayaran'
-            ]);
-
-            foreach ($deliveryOrderData as $do) {
-                $status = $do->status == 0 ? 'Belum Lunas' : 'Lunas';
-                $buktiBayar = asset('buktiPembayaranDo/'.$do->bukti_bayar); 
+            $callback = function () use ($deliveryOrderData) {
+                $file = fopen('php://output', 'w');
                 fputcsv($file, [
-                    $do->id_do,
-                    $do->id_customer,
-                    $do->nama_customer,
-                    $do->id_suplier,
-                    $do->nama_suplier,
-                    $do->tanggal_pembelian,
-                    $do->kandang,
-                    $do->nama_supir,
-                    $do->nomor_kendaraan,
-                    $do->nomor_sim,
-                    $do->hargaPerKg,
-                    $do->total_ekor,
-                    $do->total_kg,
-                    $do->uang_jalan,
-                    $do->uang_tangkap,
-                    $do->solar,
-                    $do->etoll,
-                    $do->order_type,
-                    $status,
-                    $do->keterangan,
-                    $do->harga_total,
-                    $do->id_verifikasi,
-                    $do->tanggal_verifikasi,
-                    $do->gp,
-                    $do->gp_rp,
-                    $do->ekor,
-                    $do->kg_susut,
-                    $do->susut,
-                    $do->kg,
-                    $do->normal,
-                    $do->mati_susulan,
-                    $do->tonase_akhir,
-                    $do->total_kg_tiba,
-                    $do->id_payment_order,
-                    $do->harga_total,
-                    $do->total_bayar,
-                    $buktiBayar,
+                    'ID Penjualan',
+                    'Id Customer',
+                    'Nama Customer',
+                    'Id Suplier',
+                    'Nama Suplier',
+                    'Tanggal Pembelian',
+                    'Kandang',
+                    'Nama Supir',
+                    'Nomor Kendaraan',
+                    'Nomor SIM',
+                    'Harga Per KG',
+                    'Total Ekor',
+                    'Total KG',
+                    'Uang Jalan',
+                    'Uang Tangkap',
+                    'Solar',
+                    'Etoll',
+                    'Order Type',
+                    'Status',
+                    'Keterangan',
+                    'Harga Total',
+                    'ID Verifikasi',
+                    'Tanggal Verifikasi',
+                    'GP',
+                    'GP RP',
+                    'Ekor Verifikasi',
+                    'KG Susut',
+                    'Susut',
+                    'KG Verifikasi',
+                    'Normal',
+                    'Mati Susulan',
+                    'Tonase Akhir',
+                    'Total KG Tiba',
+                    'ID Pembayaran',
+                    'Harga Total Pembayaran',
+                    'Total Bayar',
+                    'Bukti Pembayaran'
                 ]);
-            }
 
-            fclose($file);
-        };
+                foreach ($deliveryOrderData as $do) {
+                    $status = $do->status == 0 ? 'Belum Lunas' : 'Lunas';
+                    $buktiBayar = asset('buktiPembayaranDo/'.$do->bukti_bayar); 
+                    fputcsv($file, [
+                        $do->id_do,
+                        $do->id_customer,
+                        $do->nama_customer,
+                        $do->id_suplier,
+                        $do->nama_suplier,
+                        $do->tanggal_pembelian,
+                        $do->kandang,
+                        $do->nama_supir,
+                        $do->nomor_kendaraan,
+                        $do->nomor_sim,
+                        $do->hargaPerKg,
+                        $do->total_ekor,
+                        $do->total_kg,
+                        $do->uang_jalan,
+                        $do->uang_tangkap,
+                        $do->solar,
+                        $do->etoll,
+                        $do->order_type,
+                        $status,
+                        $do->keterangan,
+                        $do->harga_total,
+                        $do->id_verifikasi,
+                        $do->tanggal_verifikasi,
+                        $do->gp,
+                        $do->gp_rp,
+                        $do->ekor,
+                        $do->kg_susut,
+                        $do->susut,
+                        $do->kg,
+                        $do->normal,
+                        $do->mati_susulan,
+                        $do->tonase_akhir,
+                        $do->total_kg_tiba,
+                        $do->id_payment_order,
+                        $do->harga_total,
+                        $do->total_bayar,
+                        $buktiBayar,
+                    ]);
+                }
 
-        return new StreamedResponse($callback, 200, $headers);
-    }
+                fclose($file);
+            };
+
+            return new StreamedResponse($callback, 200, $headers);
+        }
 
     /**
      * Show the form for creating a new resource.

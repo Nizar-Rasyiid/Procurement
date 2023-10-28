@@ -58,11 +58,16 @@ Route::middleware('accept.user')->group(function () {
     Route::get('/admin-table/customer-table',[CustomerController::class, 'index'])->name('tableCustomer');
     Route::get('/admin-table/storeCustomer',[CustomerController::class, 'halamanStoreCustomer'])->name('storeCustomer');
     Route::post('/admin-table/storeCustomer','App\Http\Controllers\CustomerController@storeCustomer');
+    Route::get('/admin-table/customers/{id}',  [CustomerController::class, 'detail'])->name('detailCust');
     
     //Suplier
     Route::get('/admin-table/suplier-table',[SuplierController::class, 'index'])->name('tableSuplier');
     Route::get('/admin-table/storeSuplier',[SuplierController::class, 'halamanStore'])->name('storeSuplier');
     Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@store');
+    Route::get('/admin-table/supliers/{id}',  [SuplierController::class, 'show'])->name('detailSup');
+    Route::put('/admin-table/updateSuplier/{id}','App\Http\Controllers\SuplierController@update');
+    Route::get('/admin-table/supliers/edit/{id}',  [SuplierController::class, 'edit'])->name('editSup');
+
     
     //Payment Order
     
@@ -110,16 +115,14 @@ Route::middleware('accept.user')->group(function () {
     
     //ap
     Route::get('/admin-table/ap-table-supplier',[APSuplierController::class, 'index'])->name('indexApSuplier');
-    Route::get('/admin-table/ap-table-customer',[APController::class, 'index'])->name('indexApCustomer');
+    Route::get('/admin-table/ap-detail/{id}',[APSuplierController::class, 'show'])->name('showAp');
+    Route::get('/admin-table/download-ap',[APSuplierController::class, 'downloadAp'])->name('downloadAP');
     
     //ar
-    Route::get('/admin-table/ar-table-supplier',[ARSuplierController::class, 'index'])->name('indexArSuplier');
     Route::get('/admin-table/ar-table-customer',[ARController::class, 'index'])->name('indexArCustomer');
-    
-    
-    //try itself
-    Route::get('/admin-table/ar-table-customer/1',[ARController::class, 'DetailAR'])->name('DetailAR');
-    Route::get('/admin-table/ap-table-supplier/1',[APSuplierController::class, 'DetailAP'])->name('DetailAP');
+    Route::get('/admin-table/ar-detail/{id}',[ARController::class, 'show'])->name('showAr');
+    Route::get('/admin-table/download-ar',[ARController::class, 'downloadAr'])->name('downloadAR');
+
     
     //Margin
     Route::get('/admin-table/margin-detail/{id}',[TransaksiController::class, 'margin'])->name('margin');

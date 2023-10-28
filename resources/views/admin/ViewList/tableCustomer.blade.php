@@ -77,7 +77,7 @@
                 <td>{{$item->tipe_customer}}</td>
                 <td>{{$item->nomor_npwp}}</td>
                 <td>
-                    <button class="btn btn-success text-white btn-sm">Detail</button>
+                    <a href="{{route('detailCust',$item->id)}}" class="btn btn-success text-white btn-sm">Detail</a>
                 </td>
             </tr>
             @endforeach

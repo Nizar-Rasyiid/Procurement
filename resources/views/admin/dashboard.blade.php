@@ -1,6 +1,7 @@
 @extends('admin.admin')
 
 @section('admin')
+
 <div class="page-content">
     <div class="row">
         <div class="col-12 col-xl-12 grid-margin stretch-card">
@@ -34,107 +35,159 @@
                             </div>
                         </div>
                     </div>
-                    <div id="">
-                      <canvas id="marginChart"></canvas>
+                    @auth
+                    <div class="  rounded shadow mt-5">
+                        {{$chartData->container()}}
+                    </div>
+                    @endauth
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title mb-3 text-primary">Margin Data for Current Week</h6>
+                        @auth
+                        @if ($totalMargin > 0)
+                        <p class="mb-1">Margin for This Week:</p>
+                        <p class="text-success">RP.{{ $totalMargin }}</p>
+                        @else
+                        <p class="mb-1">Margin for This Week:</p>
+                        <p class="text-danger">RP.{{ $totalMargin }}</p>
+                        @endif
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3 text-primary">AP Data for Current Week</h6>
+                        @php
+                        use Carbon\Carbon;
+                        $sevenDaysAgo = Carbon::now()->subDays(7);
+                        $totalHutang7Days = 0;
+                        $totalPiutang7Days = 0;
+                        @endphp
+                        @auth
+                        @foreach ($Ap as $item)
+                            @if ($item->created_at >= $sevenDaysAgo)
+                                {{-- <p>Ap: {{$item->hutang}}</p> --}}
+                                @php
+                                $totalHutang7Days += $item->hutang;
+                                @endphp
+                            @endif
+                        @endforeach
+                        @endauth
+                        <p class="mb-1">Total Ap 7 Hari Terakhir: {{$totalHutang7Days}}</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3 text-primary">AR Data for Current Week</h6>
+                        @auth
+                        @foreach ($Ar as $ar)
+                            @if ($ar->created_at >= $sevenDaysAgo)
+                                {{-- <p>Ap: {{$ar->hutang}}</p> --}}
+                                @php
+                                $totalPiutang7Days += $ar->hutang_customer;
+                                @endphp
+                            @endif
+                        @endforeach
+                        @endauth
+                        <p class="mb-1">Total Ar 7 Hari Terakhir: {{$totalPiutang7Days}}</p>
+                        @auth
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3 text-primary">DO Data for Today</h6>
+                        @auth
+                        @foreach ($totalDo as $do)
+                            @if ($do->total_harga > 0)
+                                <p class="mb-1">Total DO Hari Ini:</p>
+                                <p class="text-success">RP.{{ $do->total_harga }}</p>
+                            @else
+                                <p class="mb-1">Total DO Hari Ini:</p>
+                                <p class="text-danger">RP.{{ $do->total_harga }}</p>
+                            @endif
+                        @endforeach
+                        @endauth
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-xl-12 grid-margin stretch-card">
-            <div class="card">
-                <div class="card-body">
-                    <h6 class="card-title mb-3">Margin Data for Current Week</h6>
-                    {{-- @foreach ($tota as $mar) --}}
-                    <p class="mb-1">Margin for This Week: RP.{{ $totalMargin }}</p>
-                    {{-- @endforeach --}}
-                @php
-                use Carbon\Carbon;
-                $sevenDaysAgo = Carbon::now()->subDays(7);
-                $totalHutang7Days = 0;
-                $totalPiutang7Days = 0;
-            @endphp
-            
-            @foreach ($Ap as $item)
-                @if ($item->created_at >= $sevenDaysAgo)
-                    {{-- <p>Ap: {{$item->hutang}}</p> --}}
-                    @php
-                        $totalHutang7Days += $item->hutang;
-                    @endphp
-                @endif
-            @endforeach
-            @foreach ($Ar as $ar)
-            @if ($ar->created_at >= $sevenDaysAgo)
-                {{-- <p>Ap: {{$ar->hutang}}</p> --}}
-                @php
-                    $totalPiutang7Days += $ar->hutang_customer;
-                @endphp
-            @endif
-        @endforeach
-            
-            <p>Total Ap 7 Hari Terakhir: {{$totalHutang7Days}}</p>
-            <p>Total Ar 7 Hari Terakhir: {{$totalPiutang7Days}}</p>
-            @foreach ($totalDo as $do)
-            <p class="mb-1">Total Do Hari ini: RP.{{ $do->total_harga }}</p>
-        @endforeach
-            
-                </div>
-            </div>
-        </div>
+        
+
 
         
     </div> <!-- row -->
 </div>
+@auth
+<script src="{{ $chartData->cdn() }}"></script>
+
+{{ $chartData->script() }}
 <script>
-  // Data margin minggu ini (contoh)
-  var marginData = {!! json_encode($filteredMarginData) !!};
+    var marginData = @json($filteredMarginData);
 
-  // Ekstrak nilai margin harian dari data
-  var labels = [];
-  var marginValues = [];
-  for (var i = 0; i < marginData.length; i++) {
-      labels.push('Transaksi ' + (i + 1));
-      marginValues.push(marginData[i]['Margin Harian']);
-  }
+console.log("Margin 7 Hari Terakhir:");
 
-  // Fungsi untuk mengubah format angka menjadi ribuan, jutaan, miliaran, dst.
-  function formatNumber(value) {
-      var suffixes = ["", "rb", "jt", "M", "B"];
-      var suffixNum = 0;
-      while (value >= 1000 && suffixNum < suffixes.length - 1) {
-          value /= 1000;
-          suffixNum++;
-      }
-      return value.toFixed(2) + " " + suffixes[suffixNum];
-  }
+for (var key in marginData) {
+    if (marginData.hasOwnProperty(key)) {
+        var marginHarian = marginData[key]['Margin Harian'];
+        console.log("Margin Harian:", marginHarian);
+    }
+}
 
-  // Buat chart menggunakan Chart.js dengan tipe Line Chart
-  var ctx = document.getElementById('marginChart').getContext('2d');
-  var myChart = new Chart(ctx, {
-      type: 'line', // Ganti tipe chart menjadi Line Chart
-      data: {
-          labels: labels,
-          datasets: [{
-              label: 'Margin Mingguan',
-              data: marginValues,
-              borderColor: 'rgba(75, 192, 192, 1)',
-              borderWidth: 2,
-              fill: true // Mengisi area di bawah garis
-          }]
-      },
-      options: {
-          scales: {
-              y: {
-                  beginAtZero: false,
-                  ticks: {
-                      callback: function(value, index, values) {
-                          return formatNumber(value);
-                      }
-                  }
-              }
-          }
-      }
-  });
+var dates = [];
+var margins = [];
+
+for (var i = 0; i < 7; i++) {
+    dates.push(new Date(Date.now() - (i * 24 * 60 * 60 * 1000)));
+    margins.push(marginData[i]['Margin Harian']);
+}
+
+var ctx = document.getElementById('marginChart').getElementsByTagName('canvas')[0].getContext('2d');
+
+var chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: dates,
+        datasets: [{
+            label: 'Margin Harian',
+            data: margins,
+            borderColor: 'rgba(75, 192, 192, 1)',
+            borderWidth: 1,
+            fill: false,
+        }]
+    },
+    options: {
+        scales: {
+            x: {
+                type: 'time',
+                time: {
+                    unit: 'day',
+                },
+            },
+            y: {
+                beginAtZero: true,
+            },
+        },
+    },
+});
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.min.js"></script>
+@endauth
 
 
 @endsection

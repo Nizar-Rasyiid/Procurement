@@ -81,6 +81,7 @@
                 <th>Nomor Telepon Suplier/Vendor</th>
                 <th>Nomor NPWP</th>
                 <th>Detail</th>
+                <th>Edit</th>
             </tr>
         </thead>
         <tbody id="tableBody">
@@ -91,7 +92,8 @@
                 <td>{{$item->alamat}}</td>
                 <td>{{$item->nomor_telepon_suplier}}</td>
                 <td>{{$item->nomor_npwp}}</td>
-                <td><button class="btn btn-success">Detail</button></td>
+                <td><a href="{{route('detailSup',$item->id)}}" class="btn btn-success">Detail</a></td>
+                <td><a href="{{route('editSup',$item->id)}}" class="btn btn-success">Edit</a></td>
             </tr>
             @endforeach
         </tbody>
@@ -103,6 +105,7 @@
                 <th>Nomor Telepon PT</th>
                 <th>Nomor NPWP</th>
                 <th>Detail</th>
+                <th>Edit</th>
             </tr>
         </tfoot>
     </table>
