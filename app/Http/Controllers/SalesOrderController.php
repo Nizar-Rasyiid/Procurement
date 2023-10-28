@@ -38,7 +38,7 @@ class SalesOrderController extends Controller
     
         $so = $query->get();
     
-        return view('admin.ViewList.tableSalesOrder',['so'=>$so,]);   
+        return view('admin.ViewList.tableSalesOrder', compact('so'));
     }
     public function halamanInput(Request $request)  {
         $customers = Customer::select('customer.id_customer', 'customer.nama','customer.alamat','customer.nomor_telepon')
@@ -46,9 +46,10 @@ class SalesOrderController extends Controller
         ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
         ->groupBy('customer.id_customer', 'customer.nama','customer.alamat','customer.nomor_telepon')
         ->selectRaw('SUM(payment_so.hutang_customer) AS total_hutang')
+        ->selectRaw('SUM(payment_so.saldo_customer) AS total_saldo')
         ->get();
     
-    return view('admin.Input.InputSo', ['customers' => $customers]);
+    return view('admin.Input.inputSo', ['customers' => $customers]);
     
     }
     public function paymentSO()  {
@@ -242,13 +243,13 @@ class SalesOrderController extends Controller
      */
     public function show(string $id)
     {
-        $salesOrder = DB::table('salesorder')
+         $salesOrder = DB::table('salesorder')
         ->join('customer', 'salesorder.id_customer', '=', 'customer.id_customer')
         ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
         ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
         ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
         ->select(
-            'salesorder.*', 
+            'salesorder.*',
             'customer.nama as nama',
             'verifikasi.id_verifikasi as id_verifikasi',
             'verifikasi.tanggal_verifikasi',
@@ -261,19 +262,17 @@ class SalesOrderController extends Controller
             'verifikasi.normal',
             'verifikasi.mati_susulan',
             'verifikasi.tonase_akhir',
-            'verifikasi.total_kg_tiba',
             'payment_so.id_payment_so',
-            'payment_so.harga_total',
-            'payment_so.jumlah_bayar',
-            'payment_so.bukti_bayar_penjualan'
+            'payment_so.harga_total'
         )
+        ->selectRaw('(SELECT SUM(jumlah_bayar) FROM payment_so WHERE id_so = salesorder.id_so) AS jumlah_bayar')
+        ->selectRaw('(SELECT bukti_bayar_penjualan FROM payment_so WHERE id_so = salesorder.id_so ORDER BY created_at DESC LIMIT 1) AS bukti_bayar_penjualan')
         ->where('salesorder.id', $id)
         ->first();
     
-    return view('admin.Details.SoDetail', compact('salesOrder'));
-    
-            dd($salesOrder);
         return view('admin.Details.SoDetail', compact('salesOrder'));
+    
+
     }
     
     /**

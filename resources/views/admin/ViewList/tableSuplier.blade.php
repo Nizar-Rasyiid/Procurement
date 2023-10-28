@@ -91,7 +91,10 @@
                 <td>{{$item->alamat}}</td>
                 <td>{{$item->nomor_telepon_suplier}}</td>
                 <td>{{$item->nomor_npwp}}</td>
-                <td><button class="btn btn-success">Detail</button></td>
+                <td>
+                    <a href="" class="btn btn-success">Detail</a>
+                    <a href="{{ route('EditSup', $item->id)}}" class="btn btn-danger">Edit</a>
+                </td>
             </tr>
             @endforeach
         </tbody>

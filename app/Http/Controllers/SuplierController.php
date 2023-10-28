@@ -61,9 +61,23 @@ class SuplierController extends Controller
             $suplier->nama_suplier = $request->input('nama_suplier');
             $suplier->alamat = $request->input('alamat');
             $suplier->nomor_npwp = $request->input('nomor_npwp');
-            $suplier->npwp = $request->input('npwp');
-            $suplier->ktp = $request->input('ktp');
+            $suplier->npwp = $request->npwp;
+            $suplier->ktp = $request->ktp;
             $suplier->nomor_telepon_suplier = $request->input('nomor_telepon_suplier');
+            if ($request->hasFile('ktp')) {
+                $request->file('ktp')->move('ktpSuplier/',$request->file('ktp')->getClientOriginalName());
+                $suplier->ktp = $request->file('ktp')->getClientOriginalName();
+            } else {
+                // Tangani kasus ketika tidak ada berkas yang diunggah
+                dd("Error Kang");
+            }
+            if ($request->hasFile('npwp')) {
+                $request->file('npwp')->move('npwpSuplier/',$request->file('npwp')->getClientOriginalName());
+                $suplier->npwp = $request->file('npwp')->getClientOriginalName();
+            } else {
+                // Tangani kasus ketika tidak ada berkas yang diunggah
+                dd("Error Kang");
+            }
             $suplier->save();
             DB::commit();
             return redirect()->route('tableSuplier')->with('success', 'Berhasil Menambahkan Suplier');
@@ -76,18 +90,46 @@ class SuplierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(string $id)
     {
-        $suplier = Suplier::find($id);
+       $Suplier = DB::table('suplier')
+                        ->select('suplier.*')
+                        ->where('suplier.id',$id)
+                        ->first();
+        return view('admin.Details.suplierDetail',compact('Suplier'));
         
     }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function halamanEdit(string $id)
     {
-        //
+        $Suplier = DB::table('suplier')
+                        ->select('suplier.*')
+                        ->where('suplier.id',$id)
+                        ->first();
+        return view('admin.Details.edit.SupEdit', compact('Suplier'));
+    }
+
+    public function edit(Request $request)
+    {
+        $suplier = Suplier::where('id',$request->id)->first();
+        $suplier->nama_suplier = $request->nama_suplier;
+        $suplier->alamat = $request->alamat;
+        $suplier->nomor_npwp = $request->nomor_npwp;
+        $suplier->npwp = $request->npwp;
+        $suplier->ktp = $request->ktp;
+        $suplier->nomor_telepon_suplier = $request->nomor_telepon_suplier;
+        if($suplier->save()){
+            return redirect()->route('tableSuplier')->with('success', 'Berhasil Menambahkan Suplier');
+        }else{
+            return response()->json([
+                'message' => 'Failed',
+                'data'=> $e
+            ]);
+        }
     }
 
     /**

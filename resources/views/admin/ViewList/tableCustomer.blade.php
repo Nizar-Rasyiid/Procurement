@@ -68,7 +68,7 @@
             </tr>
         </thead>
         <tbody id="tableBody">
-            @foreach ($customers as $item)
+            @foreach ($customer as $item)
             <tr>
                 <td>{{$item->id_customer}}</td>
                 <td>{{$item->nama}}</td>
@@ -78,6 +78,7 @@
                 <td>{{$item->nomor_npwp}}</td>
                 <td>
                     <button class="btn btn-success text-white btn-sm">Detail</button>
+                    <a href="{{route('EditCus', $item->id)}}" class="btn btn-danger btn-sm">Edit</a>
                 </td>
             </tr>
             @endforeach

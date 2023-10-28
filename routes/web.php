@@ -57,11 +57,15 @@ Route::middleware('accept.user')->group(function () {
     // Customer
     Route::get('/admin-table/customer-table',[CustomerController::class, 'index'])->name('tableCustomer');
     Route::get('/admin-table/storeCustomer',[CustomerController::class, 'halamanStoreCustomer'])->name('storeCustomer');
+    Route::get('/admin-table/edit-cus/{id}', [CustomerController::class, 'halamanEdit'])->name('EditCus');
     Route::post('/admin-table/storeCustomer','App\Http\Controllers\CustomerController@storeCustomer');
+    Route::post('/admin-table/edit-cus', [CustomerController::class, 'edit'])->name('CusEdit');
     
     //Suplier
     Route::get('/admin-table/suplier-table',[SuplierController::class, 'index'])->name('tableSuplier');
     Route::get('/admin-table/storeSuplier',[SuplierController::class, 'halamanStore'])->name('storeSuplier');
+    Route::get('/admin-table/edit-sup/{id}', [SuplierController::class, 'halamanEdit'])->name('EditSup');
+    Route::post('/admin-table/edit-sup', [SuplierController::class, 'edit'])->name('SupEdit');
     Route::post('/admin-table/storeSuplier','App\Http\Controllers\SuplierController@store');
     
     //Payment Order

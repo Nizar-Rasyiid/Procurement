@@ -4,39 +4,32 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Customer;
-use Illuminate\Support\Facades\DB;
+use App\Models\Transaksi;
+use App\Models\Margin;
+use App\Models\SalesOrder;
+use App\Models\DeliveryOrder;
 use Haruncpi\LaravelIdGenerator\IdGenerator;
-use Illuminate\Support\Facades\Artisan;
-class CustomerController extends Controller
-{
-    public  function index(){
-      $customers = Customer::all();
-       Artisan::call('route:clear');
-       //Melihat Hutang
-//        SELECT
-//     c.id_customer,
-//     c.nama,
-//     SUM(ps.hutang_customer) AS total_hutang
-// FROM
-//     customer c
-// LEFT JOIN
-//     salesorder so ON c.id_customer = so.id_customer
-// LEFT JOIN
-//     payment_so ps ON so.id_so = ps.id_so
-// GROUP BY
-//     c.id_customer, c.nama;
+use Illuminate\Support\Facades\DB;
+use Symfony\Component\HttpFoundation\StreamedResponse;
+use Exception;
+use PDOException;
+use Carbon\Carbon;
 
-      return view('admin.ViewList.tableCustomer',compact('customers'));
+class CustomerController extends Controller
+{ 
+
+    public  function index(){
+      $customer = Customer::all();
+      return view('admin.ViewList.tableCustomer',compact('customer'));
     }
     public function ambil(){
         $customer = Customer::all();
         return view('admin.payment.paymentSalesOrder', ["customer"=>$customer]);
     }
     public function halamanStoreCustomer()  {
-        
       return view('admin.Input.customerStore');
     }
-    public function storeCustomer(Request $request) {
+   public function storeCustomer(Request $request) {
         $request->validate([
             'nama' => 'required',
             'nomor_telepon' => 'required',
@@ -74,6 +67,20 @@ class CustomerController extends Controller
         $customer->nomor_npwp = $request->input('nomor_npwp');
         $customer->npwp = $request->input('npwp');
         $customer->ktp = $request->input('ktp');
+        if ($request->hasFile('ktp')) {
+            $request->file('ktp')->move('ktpCustomers/',$request->file('ktp')->getClientOriginalName());
+            $customer->ktp = $request->file('ktp')->getClientOriginalName();
+        } else {
+            // Tangani kasus ketika tidak ada berkas yang diunggah
+            dd("Error Kang");
+        }
+        if ($request->hasFile('npwp')) {
+            $request->file('npwp')->move('npwpCustomers/',$request->file('npwp')->getClientOriginalName());
+            $customer->npwp = $request->file('npwp')->getClientOriginalName();
+        } else {
+            // Tangani kasus ketika tidak ada berkas yang diunggah
+            dd("Error Kang");
+        }
         
         // Simpan data customer
         $customer->save();
@@ -84,6 +91,14 @@ class CustomerController extends Controller
             return redirect()->back()->with('error', 'Terjadi kesalahan saat menyimpan Customer: ' . $e->getMessage());
         }
     }
+        
+        public function detail(string $id)  {
+            $customer = DB::table('customer')
+                        ->select('customer.*')
+                        ->where('customer.id',$id)
+                        ->first();
+            return view('admin.Details.customerDetail',compact('customer'));
+        }
 
 
 
@@ -182,6 +197,44 @@ class CustomerController extends Controller
                     'success' => false,
                     'message' => 'Customer not found'
                 ]);
+            }
+        }
+        public function halamanEdit(string $id)
+        {
+            $customer = DB::table('customer')
+                            ->select('customer.*')
+                            ->where('customer.id', $id)
+                            ->first();
+            return view('admin.Details.edit.CusEdit', compact('customer'));
+        }
+
+        public function edit( Request $request){
+            $customer = Customer::where('id', $request->id)->first();
+            $customer->nama = $request->nama;
+            $customer->nomor_telepon = $request->nomor_telepon;
+            $customer->alamat = $request->alamat;
+            $customer->tipe_customer = $request->tipe_customer;
+            $customer->nomor_npwp = $request->nomor_npwp;
+            $customer->npwp = $request->npwp;
+            $customer->ktp = $request->ktp;
+            if ($customer->ktp && $customer->npwp) {
+                if ($request->hasFile('ktp')) {
+                    $request->file('ktp')->move('ktpCustomers/',$request->file('ktp')->getClientOriginalName());
+                    $customer->ktp = $request->file('ktp')->getClientOriginalName();
+                } else {
+                    // Tangani kasus ketika tidak ada berkas yang diunggah
+                    dd("Error Kang");
+                }
+                if ($request->hasFile('npwp')) {
+                    $request->file('npwp')->move('npwpCustomers/',$request->file('npwp')->getClientOriginalName());
+                    $customer->npwp = $request->file('npwp')->getClientOriginalName();
+                } else {
+                    // Tangani kasus ketika tidak ada berkas yang diunggah
+                    dd("Error Kang");
+                }
+            }
+            if ($customer->save()) {
+                return redirect()->route('tableCustomer')->with('success', 'Berhasil Menambahkan Customer');
             }
         }
     }

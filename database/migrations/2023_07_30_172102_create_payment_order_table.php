@@ -18,6 +18,8 @@ return new class extends Migration
             $table->bigInteger("harga_total");     
             $table->bigInteger("total_bayar");
             $table->string("bukti_bayar");
+            $table->string("hutang");
+            $table->string("hutang_customer");
             $table->timestamps();
         });
     }

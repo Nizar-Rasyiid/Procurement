@@ -90,6 +90,7 @@
                 <td>{{$item->order_type}}</td>
                 <td>
                     <a href="{{ route('detailSo', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
+                    <a href="" class="btn btn-danger btn-sm">Edit</a>
                 </td>
             </tr>
             @endforeach
