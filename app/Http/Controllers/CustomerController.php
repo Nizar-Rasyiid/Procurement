@@ -36,8 +36,8 @@ class CustomerController extends Controller
             'alamat' => 'required',
             'tipe_customer' => 'required|array',
             'nomor_npwp' => 'required',
-            'npwp' => 'required',
-            'ktp' => 'required',
+            'npwp' => 'nullable',
+            'ktp' => 'nullable',
         ]);
         try {
             DB::beginTransaction();
@@ -68,18 +68,12 @@ class CustomerController extends Controller
         $customer->npwp = $request->input('npwp');
         $customer->ktp = $request->input('ktp');
         if ($request->hasFile('ktp')) {
-            $request->file('ktp')->move('ktpCustomers/',$request->file('ktp')->getClientOriginalName());
+            $request->file('ktp')->move('ktpCustomer/',$request->file('ktp')->getClientOriginalName());
             $customer->ktp = $request->file('ktp')->getClientOriginalName();
-        } else {
-            // Tangani kasus ketika tidak ada berkas yang diunggah
-            dd("Error Kang");
         }
         if ($request->hasFile('npwp')) {
-            $request->file('npwp')->move('npwpCustomers/',$request->file('npwp')->getClientOriginalName());
+            $request->file('npwp')->move('npwpCustomer/',$request->file('npwp')->getClientOriginalName());
             $customer->npwp = $request->file('npwp')->getClientOriginalName();
-        } else {
-            // Tangani kasus ketika tidak ada berkas yang diunggah
-            dd("Error Kang");
         }
         
         // Simpan data customer
@@ -100,7 +94,13 @@ class CustomerController extends Controller
             return view('admin.Details.customerDetail',compact('customer'));
         }
 
-
+        public function detail(string $id)  {
+            $customer = DB::table('customer')
+                        ->select('customer.*')
+                        ->where('customer.id',$id)
+                        ->first();
+            return view('admin.Details.customerDetail',compact('customer'));
+        }
 
         public function deleteCustomer(Request $request) {
           if (in_array($request->method(), ['POST', 'PUT', 'PATCH'])

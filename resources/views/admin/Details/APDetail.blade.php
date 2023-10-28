@@ -3,111 +3,64 @@
 <div class="page-content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-md-5">
-                <div class="card">
+            <div class="col-md-6">
+                <div class="card h-100">
                     <div class="card-header">
                         <h5>AP Supplier</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID AP : </p>
-                        <p>Nama Customer : </p>
-                        <p>Tanggal Validation Pembelian :  </p>
-                        <p>Total KG :  </p>
-                        <p>Harga / KG : </p>
-                        <p>Total Harga : </p>
-                        <p>Total Bayar : </p>
-                        <p>Sisa : </p>
-                        <p>Keterangan : </p>
+                        <p>ID Pembayaran : {{$ap->id_payment_order}} </p>
+                        <p>Nama Supplier : {{$ap->nama_suplier}} </p>
+                        <p>Tanggal Validation Pembelian :  {{$ap->tanggal_verifikasi}} </p>
+                        <p>Total KG :   {{$ap->totalKgBeli}}</p>
+                        <p>Harga / KG :  {{$ap->hargaPerKgBeli}} </p>
+                        <p>Total Harga :  {{$ap->harga_total}} </p>
+                        <p>Total Bayar :  {{$ap->total_bayar}} </p>
+                        <p>Hutang :  {{$ap->hutang}} </p>
                     </div>
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Validation Pembelian</h5>
+                        <h5>Data Verifikasi Pembelian</h5>
                     </div>
                     <div class="card-body">
-                        <p>Tanggal Validasi :</p>
-                        <p>Total KG Tiba : </p>
-                        <p>GP :</p>
-                        <p>Ekor :</p>
-                        <p>KG :</p>
-                        <p>Susut % :</p>
-                        <p>Mati Susulan :</p>
-                        <p>Total Final KG : </p>
-                        <p>Tonase Akhir : </p>
+                        <p>ID Verifikasi:{{ $ap->id_verifikasi }}</p>
+                        <p>ID Pembelian:{{ $ap->id_do }}</p>
+                        <p>Tanggal Verifikasi:{{ $ap->tanggal_verifikasi }}</p>
+                        <p>Gp:{{ $ap->gp }}</p>
+                        <p>Mati Susulan:{{ $ap->mati_susulan }}</p>
+                        <p>Tonase Akhir:{{ $ap->tonase_akhir }}</p>
+                        <p>Ekor:{{ $ap->ekor }}</p> 
+                        <p>Susut:{{ $ap->susut }}</p>
+                        <p>KG Susut:{{ $ap->kg_susut }}</p>
+                        <p>GP + Normal:{{ $ap->gp_normal }}</p>
+                        <p>Gp(Rp):{{ $ap->gp_rp }}</p>
+                        <p>Normal:{{ $ap->normal }}</p>
+                        <p>Keterangan:{{ $ap->keterangan_verifikasi }}</p>
                     </div>
                 </div>
             </div>
         </div>
         <div class="row mt-3">
-            <div class="col-md-5">
+            <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Data Payment Penjualan</h5>
+                        <h5>Data Payment Pembelian</h5>
                     </div>
                     <div class="card-body">
-                        <p>ID Penjualan : </p>
-                        <p>ID Customer : </p>
-                        <p>Nama Customer : </p>
-                        <p>Alamat :  </p>
-                        <p>No HP </p>
-                        <p>Tanggal Penjualan : </p>
-                        <p>Jumlah KG : </p>
-                        <p>Harga/lg : </p>
-                        <p>Keterangan : </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5>Data Penjualan</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2 border">
-                                <p>ID Penjualan</p>
-                            </div>
-                            <div class="col border">
-                                <p> Null</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 border">
-                                <p>Tanggal </p>
-                            </div>
-                            <div class="col border">
-                                <p> Null</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-2 border">
-                                <p>Status </p>
-                            </div>
-                            <div class="col border">
-                                <p> Null</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card mt-2">
-                    <div class="card-header">
-                        <h5>AP Actual</h5>
-                    </div>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-2 border">
-                                <p>AP Actual</p>
-                            </div>
-                            <div class="col border">
-                                <p>Rp. </p>
-                            </div>
-                        </div>
+                        <p>ID Pembelian :  {{$ap->id_do}} </p>
+                        <p>ID Supplier : {{$ap->id_suplier}}  </p>
+                        <p>Nama Supplier : {{$ap->nama_suplier}} </p>
+                        <p>Alamat : {{$ap->alamat}}   </p>
+                        <p>No HP : {{$ap->nomor_telepon_suplier}}  </p>
+                        <p>Tanggal Pembelian : {{$ap->tanggal_pembelian}}   </p>
+                        <p>Keterangan : {{$ap->keteranganBeli}}  </p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-@endsection
+@endsection 

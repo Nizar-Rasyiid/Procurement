@@ -41,8 +41,8 @@ class SuplierController extends Controller
             'nomor_telepon_suplier' => 'required',
             'alamat' => 'required',
             'nomor_npwp' => 'required',
-            'npwp' => 'required',
-            'ktp' => 'required',
+            'npwp' => 'nullable',
+            'ktp' => 'nullable',
         ]);
         try {
             DB::beginTransaction();
@@ -67,16 +67,22 @@ class SuplierController extends Controller
             if ($request->hasFile('ktp')) {
                 $request->file('ktp')->move('ktpSuplier/',$request->file('ktp')->getClientOriginalName());
                 $suplier->ktp = $request->file('ktp')->getClientOriginalName();
+<<<<<<< HEAD
             } else {
                 // Tangani kasus ketika tidak ada berkas yang diunggah
                 dd("Error Kang");
+=======
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
             }
             if ($request->hasFile('npwp')) {
                 $request->file('npwp')->move('npwpSuplier/',$request->file('npwp')->getClientOriginalName());
                 $suplier->npwp = $request->file('npwp')->getClientOriginalName();
+<<<<<<< HEAD
             } else {
                 // Tangani kasus ketika tidak ada berkas yang diunggah
                 dd("Error Kang");
+=======
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
             }
             $suplier->save();
             DB::commit();
@@ -106,6 +112,7 @@ class SuplierController extends Controller
      */
     public function halamanEdit(string $id)
     {
+<<<<<<< HEAD
         $Suplier = DB::table('suplier')
                         ->select('suplier.*')
                         ->where('suplier.id',$id)
@@ -130,14 +137,60 @@ class SuplierController extends Controller
                 'data'=> $e
             ]);
         }
+=======
+        $Suplier = Suplier::findOrFail($id);
+
+        return view("admin.Edit.suplierEdit",compact("Suplier"));
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request)
     {
-        //
+        $request->validate([
+            'nama_suplier' => 'required',
+            'nomor_telepon_suplier' => 'required',
+            'alamat' => 'required',
+            'nomor_npwp' => 'required',
+            'npwp' => 'required',
+            'ktp' => 'required',
+        ]);
+    
+        try {
+            DB::beginTransaction();
+    
+            // Temukan suplier berdasarkan ID
+            $suplier = Suplier::find($id);
+    
+            if (!$suplier) {
+                return redirect()->back()->with('error', 'Suplier tidak ditemukan.');
+            }
+    
+            $suplier->nama_suplier = $request->input('nama_suplier');
+            $suplier->alamat = $request->input('alamat');
+            $suplier->nomor_npwp = $request->input('nomor_npwp');
+            $suplier->nomor_telepon_suplier = $request->input('nomor_telepon_suplier');
+    
+            if ($request->hasFile('ktp')) {
+                $request->file('ktp')->move('ktpSuplier/', $request->file('ktp')->getClientOriginalName());
+                $suplier->ktp = $request->file('ktp')->getClientOriginalName();
+            }
+    
+            if ($request->hasFile('npwp')) {
+                $request->file('npwp')->move('npwpSuplier/', $request->file('npwp')->getClientOriginalName());
+                $suplier->npwp = $request->file('npwp')->getClientOriginalName();
+            }
+    
+            $suplier->save();
+            DB::commit();
+    
+            return redirect()->route('tableSuplier')->with('success', 'Berhasil Menambahkan Suplier');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui Suplier: ' . $e->getMessage());
+        }
     }
 
     /**

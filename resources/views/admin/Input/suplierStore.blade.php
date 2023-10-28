@@ -5,7 +5,11 @@
       <div class="card mt-5">
         <div class="card-body">
           <h5 class="card-title">Input Suplier/Vendor</h5>
+<<<<<<< HEAD
           <form action="{{ url('/admin-table/storeSuplier') }}" enctype="multipart/form-data" method="POST" class="d-flex flex-column px-5 ">
+=======
+          <form action="{{ url('/admin-table/storeSuplier') }}" method="POST" enctype="multipart/form-data" class="d-flex flex-column px-5 ">
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
             @csrf
             <div class="mb-3">
                 <div class="form-group">

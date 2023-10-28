@@ -8,7 +8,12 @@
     ],
     "license": "MIT",
     "require": {
+<<<<<<< HEAD
         "php": "^7.3|^8.2",
+=======
+        "php": "^8.1",
+        "arielmejiadev/larapex-charts": "^6.0",
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
         "guzzlehttp/guzzle": "^7.2",
         "haruncpi/laravel-id-generator": "^1.1",
         "laravel/framework": "^10.10",

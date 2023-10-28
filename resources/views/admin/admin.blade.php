@@ -38,7 +38,7 @@
   <link rel="shortcut icon" href="{{ asset('assets/images/logo3.png') }} " />
   <link href="{{ asset('css/custom-pagination.css') }}" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   @include('sweetalert::alert')
 </head>
 <body>
@@ -850,7 +850,7 @@ License: For each use you must have a valid license purchased only from above li
                                 </div>
     
                                 <div class="d-flex justify-content-between">
-                                    <a class="small"{{route('login')}}>Login</a>
+                                    <a class="small" href={{route('login')}}>Login</a>
                                     <a href="{{'/register'}}" class="small">Registrasi</a>
                                 </div>
                             </div>

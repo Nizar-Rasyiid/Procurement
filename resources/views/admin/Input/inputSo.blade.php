@@ -36,6 +36,7 @@
                                 data-alamat="{{ $cust->alamat }}"
                                 data-nomor-telepon="{{ $cust->nomor_telepon }}"
                                 data-saldo-piutang="{{ $cust->total_hutang }}"
+                                data-saldo="{{ $cust->total_saldo }}"
                             >
                                 ID: Customer {{ $cust->id_customer }} <br> Nama: {{ $cust->nama }}
                             </li>
@@ -82,6 +83,14 @@
                                 <div class="form-group">
                                     <label for="saldoPiutang">Saldo Piutang</label>
                                     <input type="text" class="form-control" id="saldoPiutang" name="saldoPiutang" placeholder="Saldo Piutang" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 my-2">
+                                <div class="form-group">
+                                    <label for="saldo">Saldo Customer</label>
+                                    <input type="text" class="form-control" id="saldo" name="saldo" placeholder="Saldo Piutang" readonly>
                                 </div>
                             </div>
                         </div>
@@ -158,6 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const alamatInput = document.getElementById("alamat");
         const nomorTeleponInput = document.getElementById("nomor_telepon");
         const saldoPiutangInput = document.getElementById("saldoPiutang");
+        const saldoInput = document.getElementById("saldo");
 
         customerList.addEventListener("click", function(event) {
             const listItem = event.target;
@@ -166,17 +176,18 @@ document.addEventListener("DOMContentLoaded", function() {
             const alamat = listItem.getAttribute("data-alamat");
             const nomorTelepon = listItem.getAttribute("data-nomor-telepon");
             const saldoPiutang = listItem.getAttribute("data-saldo-piutang");
+            const saldo = listItem.getAttribute("data-saldo");
 
             idCustomerInput.value = id;
             namaCustomerInput.value = nama;
             alamatInput.value = alamat;
             nomorTeleponInput.value = nomorTelepon;
             saldoPiutangInput.value = saldoPiutang;
+            saldoInput.value = saldo;
 
             $('#customerModal').modal('hide'); // Close the modal
         });
     });
-
 
     function searchCustomer() {
         var idCustomer = document.getElementById('id_customer').value;

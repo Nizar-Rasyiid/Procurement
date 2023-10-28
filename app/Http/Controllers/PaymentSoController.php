@@ -29,11 +29,18 @@ class PaymentSoController extends Controller
                         ->where('status', 0);
                 });
         })->get();
-        $salesOrder = SalesOrder::select('salesorder.*', 'deliveryorder.id_do')
-            ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
-            ->whereNotNull('deliveryorder.id_do') // Hanya ambil yang belum memiliki DO
-            ->where('salesorder.status', 0) // Hanya ambil yang memiliki status 0
-            ->get();
+        $salesOrder =  DB::table('salesorder')
+        ->select('salesorder.*', 'deliveryorder.id_do', 'payment_so.jumlah_bayar')
+        ->leftJoin('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
+        ->leftJoin('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
+        ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
+        ->whereNotNull('verifikasi.id_verifikasi')
+        ->where('salesorder.status', 0)
+        ->where(function ($query) {
+            $query->where('payment_so.jumlah_bayar', 0)
+                  ->orWhereNull('payment_so.jumlah_bayar');
+        })
+        ->get();
             $he = SalesOrder::select('salesorder.*', 'deliveryorder.id_do')
             ->join('deliveryorder', 'salesorder.id_so', '=', 'deliveryorder.id_so')
             ->join('verifikasi', 'deliveryorder.id_do', '=', 'verifikasi.id_do')
@@ -46,7 +53,6 @@ class PaymentSoController extends Controller
     {
         $soId = $request->input('id_so');
         $verifikasiId = $request->input('id_verifikasi');
-    
         $verifikasi = Verifikasi::select('verifikasi.*', 'customer.nama', 'deliveryorder.tanggal_pembelian')
             ->join('deliveryorder', 'verifikasi.id_do', '=', 'deliveryorder.id_do')
             ->join('salesorder', 'deliveryorder.id_so', '=', 'salesorder.id_so')
@@ -63,15 +69,6 @@ class PaymentSoController extends Controller
         }
     }
     
-    
-    
-    
-    
-    
-    
-    
-
-
     public function getSoInfoJsonPaymentSo(Request $request)
     {
         $SoId = $request->input('id_so');
@@ -162,50 +159,74 @@ class PaymentSoController extends Controller
         $salesOrder = SalesOrder::where('id_so', $request->input('id_so'))->first();
         $totalPembayaran = PaymentSo::where('id_so', $request->input('id_so'))->sum('jumlah_bayar'); // Menghitung total pembayaran saat ini
         $hargaTotal = $paymentSo->harga_total;
+    
+            $statusBaru = $totalPembayaran >= $hargaTotal;
+            $debt = max(0, $hargaTotal - $totalPembayaran);
+            $paymentSo->hutang_customer = $debt;
+            if ($totalPembayaran > $hargaTotal) {
+                $kelebihanPembayaran = $totalPembayaran - $hargaTotal;
+                // Simpan ke kolom saldo
+                $saldoCustomer = $kelebihanPembayaran;
+            } else {
+                $kelebihanPembayaran = 0;
+                $saldoCustomer = 0;
+            }
+            $paymentSo->saldo_customer = $saldoCustomer;
+            $paymentSo->save();
 
-        $statusBaru = $totalPembayaran >= $hargaTotal;
+            $salesOrder->status = $statusBaru;
+            // dd($statusBaru,"Hutang",$paymentSo->hutang,"DEbt",$debt,"Total Pembayaran",$totalPembayaran,"Total Bayar",$paymentSo->total_bayar,"saldo",$saldoCustomer);
+            $salesOrder->save();           
+            if ($saldoCustomer > 0) {
+                // Dapatkan id_customer dari SO terbaru
+                $idCustomer = SalesOrder::where('id_so', $request->input('id_so'))->value('id_customer');
             
-        $paymentSo->hutang_customer = max(0, $hargaTotal - $totalPembayaran);
-        $sisaPembayaran = $totalPembayaran - $hargaTotal;
-        if ($totalPembayaran > $hargaTotal) {
-            $kelebihanPembayaran = $totalPembayaran - $hargaTotal;
-            // Simpan ke kolom saldo
-            $saldoPelanggan = $kelebihanPembayaran;
-        } else {
-            $kelebihanPembayaran = 0;
-            $saldoPelanggan = 0;
-        }
-        $paymentSo->saldo_customer = $saldoPelanggan;
-        $paymentSo->save();
-        
-        $salesOrder->status = $statusBaru;
-        $salesOrder->save();
-        if ($sisaPembayaran > 0) {
-            // Dapatkan id_customer dari SO terbaru
-            $idCustomer = SalesOrder::where('id_so', $request->input('id_so'))->value('id_customer');
-        
-            // Cari SO sebelumnya yang belum lunas dan memiliki id_customer yang sama
-            $hutangSebelumnya = PaymentSo::join('salesorder', 'payment_so.id_so', '=', 'salesorder.id_so')
-                ->where('salesorder.id_customer', $idCustomer)
-                ->where('payment_so.id_so', '<>', $request->input('id_so'))
-                ->where('payment_so.hutang_customer', '>', 0)
-                ->orderBy('payment_so.created_at', 'asc')
-                ->get();
+                // Selama masih ada saldoCustomer dan ada hutang tertua
+                while ($saldoCustomer > 0) {
+                    // Cari SO tertua yang belum lunas dan memiliki id_customer yang sama
+                    $hutangTertua = DB::table('payment_so')
+                        ->select('payment_so.*')
+                        ->where('payment_so.id_so', '!=', $request->input('id_so'))
+                        ->where('payment_so.hutang_customer', '>', 0)
+                        ->whereIn('payment_so.id_so', function ($query) use ($idCustomer) {
+                            $query->select('salesorder.id_so')
+                                ->from('salesorder')
+                                ->where('salesorder.id_customer', '=', $idCustomer);
+                        })
+                        ->orderBy('payment_so.created_at', 'DESC')
+                        ->limit(1)
+                        ->first();
             
-            foreach ($hutangSebelumnya as $hutang) {
-                if ($sisaPembayaran >= $hutang->hutang_customer) {
-                    // Lunasi hutang pelanggan untuk SO sebelumnya
-                    $hutang->hutang_customer = 0;
-                    $hutang->save();
-                    $sisaPembayaran -= $hutang->hutang_customer;
-                } else {
-                    // Bagian sisa pembayaran digunakan untuk melunasi SO sebelumnya
-                    $hutang->hutang_customer -= $sisaPembayaran;
-                    $hutang->save();
-                    break;
+                    if (!$hutangTertua) {
+                        // Jika tidak ada hutang tertua, keluar dari perulangan
+                        break;
+                    }
+            
+                    // Jika ada sisa pembayaran, gunakan untuk melunasi hutang tertua
+                    if ($saldoCustomer >= $hutangTertua->hutang_customer) {
+                        // Lunasi hutang pelanggan untuk SO tertua
+                        $selisih = $saldoCustomer - $hutangTertua->hutang_customer;
+                        $hutangTertua->hutang_customer = max(0, $hutangTertua->hutang_customer - $saldoCustomer);
+                    
+                        // Simpan perubahan pada $hutangTertua menggunakan Query Builder
+                        DB::table('payment_so')
+                            ->where('id_payment_so', $hutangTertua->id_payment_so)
+                            ->update(['hutang_customer' => $hutangTertua->hutang_customer]);
+                    
+                        // Update saldo_customer pada payment_so saat ini dengan selisih
+                        DB::table('payment_so')
+                            ->where('id_payment_so', $paymentSo->id_payment_so)
+                            ->update(['saldo_customer' => $selisih]);
+                    }
+                    $idSoSebelumnya = $hutangTertua->id_so; // Ambil ID SO sebelumnya dari pembayaran hutang
+                    if ($idSoSebelumnya) {
+                        DB::update("UPDATE salesorder SET status = 1 WHERE id_so = ?", [$idSoSebelumnya]);
+                    }
                 }
             }
-        }
+            
+
+        
         
             DB::commit();
             return redirect()->route('tableSalesOrder')->with('success', 'Berhasil Menambahkan So');

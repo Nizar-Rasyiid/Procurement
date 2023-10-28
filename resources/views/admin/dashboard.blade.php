@@ -35,13 +35,105 @@
                             </div>
                         </div>
                     </div>
+<<<<<<< HEAD
                     <div id="revenueChart">
                         <canvas></canvas>
+=======
+                    @auth
+                    <div class="  rounded shadow mt-5">
+                        {{$chartData->container()}}
+                    </div>
+                    @endauth
+                    
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body d-flex flex-column">
+                        <h6 class="card-title mb-3 text-primary">Margin Data for Current Week</h6>
+                        @auth
+                        @if ($totalMargin > 0)
+                        <p class="mb-1">Margin for This Week:</p>
+                        <p class="text-success">RP.{{ $totalMargin }}</p>
+                        @else
+                        <p class="mb-1">Margin for This Week:</p>
+                        <p class="text-danger">RP.{{ $totalMargin }}</p>
+                        @endif
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3 text-primary">AP Data for Current Week</h6>
+                        @php
+                        use Carbon\Carbon;
+                        $sevenDaysAgo = Carbon::now()->subDays(7);
+                        $totalHutang7Days = 0;
+                        $totalPiutang7Days = 0;
+                        @endphp
+                        @auth
+                        @foreach ($Ap as $item)
+                            @if ($item->created_at >= $sevenDaysAgo)
+                                {{-- <p>Ap: {{$item->hutang}}</p> --}}
+                                @php
+                                $totalHutang7Days += $item->hutang;
+                                @endphp
+                            @endif
+                        @endforeach
+                        @endauth
+                        <p class="mb-1">Total Ap 7 Hari Terakhir: {{$totalHutang7Days}}</p>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3 text-primary">AR Data for Current Week</h6>
+                        @auth
+                        @foreach ($Ar as $ar)
+                            @if ($ar->created_at >= $sevenDaysAgo)
+                                {{-- <p>Ap: {{$ar->hutang}}</p> --}}
+                                @php
+                                $totalPiutang7Days += $ar->hutang_customer;
+                                @endphp
+                            @endif
+                        @endforeach
+                        @endauth
+                        <p class="mb-1">Total Ar 7 Hari Terakhir: {{$totalPiutang7Days}}</p>
+                        @auth
+                        @endauth
+                    </div>
+                </div>
+            </div>
+        
+            <div class="col-12 col-sm-6 col-xl-3 grid-margin stretch-card">
+                <div class="card btn">
+                    <div class="card-body">
+                        <h6 class="card-title mb-3 text-primary">DO Data for Today</h6>
+                        @auth
+                        @foreach ($totalDo as $do)
+                            @if ($do->total_harga > 0)
+                                <p class="mb-1">Total DO Hari Ini:</p>
+                                <p class="text-success">RP.{{ $do->total_harga }}</p>
+                            @else
+                                <p class="mb-1">Total DO Hari Ini:</p>
+                                <p class="text-danger">RP.{{ $do->total_harga }}</p>
+                            @endif
+                        @endforeach
+                        @endauth
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
                     </div>
                     
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <div class="col-3 col-xl-3 grid-margin stretch-card">
             <div class="card">
                 <div class="card-body">
@@ -128,11 +220,21 @@
             </div>
         </div>
         
+=======
+        
+
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
 
         
     </div> <!-- row -->
 </div>
 @auth
+<<<<<<< HEAD
+=======
+<script src="{{ $chartData->cdn() }}"></script>
+
+{{ $chartData->script() }}
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
 <script>
     var marginData = @json($filteredMarginData);
 

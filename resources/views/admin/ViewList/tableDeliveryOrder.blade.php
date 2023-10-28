@@ -87,7 +87,7 @@
                 <td>
                     <a href="{{ route('detailDo', $item->id) }}" class="btn btn-success text-white btn-sm">Detail</a>
                 </td>
-            </tr>
+            </tr>   
             @endforeach
         </tbody>
         <tfoot>
@@ -106,10 +106,8 @@
         const applyFilterStatusButton = document.getElementById("applyFilterStatus");
         const applyFilterTanggalButton = document.getElementById("applyFilterTanggal");
         const applyFilterRangeTanggalButton = document.getElementById("applyFilterRangeTanggal");
-
         const resetFilterButton = document.getElementById("resetFilter");
         const tableBody = document.getElementById("tableBody");
-
         const filterIdDoInput = document.getElementById("id_do");
         const filterStatusInput = document.getElementById("status");
         const filterTanggalInput = document.getElementById("tanggal");
@@ -208,6 +206,7 @@
                 }
             }
         }
+        
 
         function resetFilter() {
             const rows = tableBody.getElementsByTagName("tr");

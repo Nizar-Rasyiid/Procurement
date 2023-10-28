@@ -269,10 +269,15 @@ class SalesOrderController extends Controller
         ->selectRaw('(SELECT bukti_bayar_penjualan FROM payment_so WHERE id_so = salesorder.id_so ORDER BY created_at DESC LIMIT 1) AS bukti_bayar_penjualan')
         ->where('salesorder.id', $id)
         ->first();
+<<<<<<< HEAD
     
         return view('admin.Details.SoDetail', compact('salesOrder'));
     
 
+=======
+        return view('admin.Details.SoDetail', compact('salesOrder'));
+    
+>>>>>>> 2351c56d96f4209a96b53bbc77d831642aa65967
     }
     
     /**

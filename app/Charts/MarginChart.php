@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Charts;
 
+use ArielMejiaDev\LarapexCharts\LarapexChart;
 use Illuminate\Http\Request;
 use App\Models\Transaksi;
 use App\Models\Margin;
@@ -16,43 +17,17 @@ use Exception;
 use PDOException;
 use Carbon\Carbon;
 
-class HomeController extends Controller
+class MarginChart
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    protected $chart;
+
+    public function __construct(LarapexChart $chart)
     {
-        $this->middleware('auth');
+        $this->chart = $chart;
     }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-    public function index(MarginChart $chart)
+    public function build(): \ArielMejiaDev\LarapexCharts\LineChart
     {
-        $chartData = $chart->build();
-
-        $Ap =  DB::table('deliveryorder')
-        ->leftJoin('payment_order', 'deliveryorder.id_do', '=', 'payment_order.id_do')
-        ->select('payment_order.hutang','payment_order.created_at')
-        ->where('deliveryorder.status', 0)
-        // ->sum('payment_order.hutang')
-        ->get();
-        $Ar = DB::table('salesorder')
-        ->leftJoin('payment_so', 'salesorder.id_so', '=', 'payment_so.id_so')
-        ->select('payment_so.hutang_customer','payment_so.created_at')
-        ->where('salesorder.status', 0)
-        ->get();
-        $totalDo = DB::table('deliveryorder')
-        ->selectRaw('SUM(hargaPerKg * total_kg) as total_harga')
-        ->where('tanggal_pembelian', '>=', now()->subDay())
-        ->get();
-
         $deliveryOrderData = DB::table('deliveryorder')
         ->select(
             'deliveryorder.id_so',
@@ -138,8 +113,24 @@ class HomeController extends Controller
             $tanggalPembelian = Carbon::parse($mar['Tanggal Pembelian']);
             return $tanggalPembelian->between($currentWeek, $endDate);
         });
-    
-        return view('admin.dashboard',compact('marginData','filteredMarginData','Ap','Ar','totalMargin','totalDo','margin_harian','chartData'));
-    }
 
+        $chartData = collect($filteredMarginData)
+        ->take(7)
+        ->sortByDesc('Tanggal Pembelian') // Menyusun data berdasarkan tanggal pembelian
+        ->values() // Mengembalikan ulang indeks array
+        ->reverse();
+
+        $marginHarian = $chartData->pluck('Margin Harian')->toArray();
+        $tanggalPembelian = $chartData->pluck('Tanggal Pembelian')->toArray();
+
+        $chart = $this->chart->lineChart()
+            ->setColors(['#5e72e4'])
+            ->setTitle('Margin Harian 7 Hari Terakhir.', ['#5e72e4'])
+            ->addData('Margin Harian', $marginHarian)
+            ->setHeight(380)
+            ->setFontColor('#ced4da')
+            ->setXAxis($tanggalPembelian);
+
+        return $chart;
+    }
 }
